@@ -1,4 +1,4 @@
-from app.models import db, Projects, Appreciations
+from app.models import db, Appreciations
 
 def project_likes():
     project_1 = Appreciations (

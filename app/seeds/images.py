@@ -6,12 +6,12 @@ def seed_images():
     image_2 = ProjectImage(
       url="https://i.imgur.com/oK6ulak.jpg", is_preview=True, project_id=2),
     image_3 = ProjectImage(
-      url="blob:https://imgur.com/93c33584-df9f-4f14-acfb-cbcda5af56fb", is_preview=True, project_id=3),
+      url="https://i.imgur.com/1YeIqqk.jpg", is_preview=True, project_id=3),
     image_4 = ProjectImage(
-      url="blob:https://imgur.com/c2126d1f-0ac8-4b9a-951b-9c68ccca8c02", is_preview=True, project_id=4),
+      url="https://i.imgur.com/ooHJOy1.jpg", is_preview=True, project_id=4),
     image_5 = ProjectImage(
-      url="blob:https://imgur.com/d375040c-b7de-4cf4-a194-28b4dfdbc815", is_preview=True, project_id=5)
-    
+      url="https://i.imgur.com/7XwgGw2.jpg", is_preview=True, project_id=5)
+
     db.session.add(image_1)
     db.session.add(image_2)
     db.session.add(image_3)
