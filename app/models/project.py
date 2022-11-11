@@ -1,8 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-likes = db.Table(
-    "likes",
-    db.Column("user.id", db.Integer, db.ForeignKey("users.id")),
+appreciations = db.Table(
+    "appreciations",
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
     db.Column("project_id", db.Integer, db.ForeignKey("projects.id"))
 )
 
@@ -23,10 +23,10 @@ class Project(db.Model):
   comments = db.relationship("Comment", back_populates="project")
   likes = db.relationship(
         "Project",
-        secondar=likes,
-        primaryjoin=(likes.c.project_id == id),
-        secondaryjoin=(likes.c.user_id == "users.id"),
-        backref=db.backref("likes", lazy="dynamic"),
+        secondary=appreciations,
+        primaryjoin=(appreciations.c.project_id == id),
+        secondaryjoin=(appreciations.c.user_id == user_id),
+        backref=db.backref("appreciations", lazy="dynamic"),
         lazy="dynamic"
     )
 

@@ -44,7 +44,6 @@ class User(db.Model, UserMixin):
 
     #relationships
     projects = db.relationship("Project", back_populates="user")
-    likes = db.relationship("Like", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
     followers = db.relationship(
         "User",
