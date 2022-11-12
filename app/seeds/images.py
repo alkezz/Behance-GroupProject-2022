@@ -21,7 +21,8 @@ def seed_images():
 
 def undo_images():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.project_images RESTART IDENTITY CASCADE;")
+        pass
+        # db.session.execute(f"TRUNCATE table {SCHEMA}.project_images RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM project_images")
 

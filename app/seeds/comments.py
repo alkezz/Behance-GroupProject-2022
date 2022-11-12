@@ -46,8 +46,9 @@ def seed_rest():
 # it will reset the primary keys for you as well.
 def undo_rest():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
+        pass
+        # db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM comments")
-        
+
     db.session.commit()
