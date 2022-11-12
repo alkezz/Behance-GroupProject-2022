@@ -13,4 +13,5 @@ def comments():
     """
     all_coms = Comment.query.all()
     print('test')
+    print('test')
     return {'comments': [com.to_dict() for com in all_coms]}
