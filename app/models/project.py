@@ -33,13 +33,15 @@ class Project(db.Model):
         proj =  {
             'id': self.id,
             'name': self.name,
-            'description': self.description
+            'description': self.description,
+            'appreciations': len(self.project_appreciations)
         }
-
+        print(self.project_appreciations)
+        print(self.comments)
         if user:
             proj['User'] = self.user.to_dict()
 
         if comments:
-            proj['comments'] = self.comments.to_dict()
+            proj['comments'] = [comment.to_dict(user=True,project=False) for comment in self.comments]
 
         return proj

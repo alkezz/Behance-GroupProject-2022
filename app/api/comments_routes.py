@@ -42,4 +42,4 @@ def add_commemnt():
     if form.errors:
         return form.errors
 
-    return current_user.to_dict()
+    return "TEST"

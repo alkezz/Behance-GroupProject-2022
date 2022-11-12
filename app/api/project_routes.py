@@ -24,6 +24,6 @@ def project_by_id(id):
     """
     one_project = Project.query.get(id)
     if one_project:
-        return one_project.to_dict()
+        return one_project.to_dict(user=True, comments=True)
     else:
         return f"No such project with id of {id}"
