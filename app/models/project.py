@@ -3,8 +3,8 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 appreciations = db.Table(
     "appreciations",
     db.Model.metadata,
-    db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("project_id", db.Integer, db.ForeignKey("projects.id"))
+    db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"))),
+    db.Column("project_id", db.Integer, db.ForeignKey(add_prefix_for_prod("projects.id")))
 )
 
 class Project(db.Model):
@@ -16,7 +16,7 @@ class Project(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String, nullable=False)
   description = db.Column(db.String)
-  user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
 
   # Relationships
   user = db.relationship("User", back_populates="projects")
