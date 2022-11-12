@@ -9,7 +9,7 @@ class ProjectImage(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   url = db.Column(db.String, nullable=False)
   is_preview = db.Column(db.Boolean)
-  project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))
+  project_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("projects.id")))
 
   # Relationships
   project = db.relationship("Project", back_populates='images')
