@@ -19,5 +19,5 @@ class ProjectImage(db.Model):
       "id": self.id,
       "url": self.url,
       "is_preview": self.is_preview,
-      "Project": self.project.to_dict()
+      "Project": self.project
     }

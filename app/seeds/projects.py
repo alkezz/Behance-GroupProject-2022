@@ -15,7 +15,7 @@ def seed_projects():
         name="Long Project", description="This is long!", user_id=4
     )
     project_5 = Project(
-        name="Short Project", description="Are you even trying?", user_id=5
+        name="Short Project", description="Are you even trying?", user_id=5, project_likes=[]
     )
 
     db.session.add(project_1)

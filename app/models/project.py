@@ -2,6 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 appreciations = db.Table(
     "appreciations",
+    db.Model.metadata,
     db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
     db.Column("project_id", db.Integer, db.ForeignKey("projects.id"))
 )
@@ -21,13 +22,11 @@ class Project(db.Model):
   user = db.relationship("User", back_populates="projects")
   images = db.relationship("ProjectImage", back_populates="project")
   comments = db.relationship("Comment", back_populates="project")
-  likes = db.relationship(
-        "Project",
+  project_appreciations = db.relationship(
+        "User",
         secondary=appreciations,
-        primaryjoin=(appreciations.c.project_id == id),
-        secondaryjoin=(appreciations.c.user_id == user_id),
-        backref=db.backref("appreciations", lazy="dynamic"),
-        lazy="dynamic"
+        back_populates="project_likes",
+        cascade="all, delete"
     )
 
   def to_dict(self):
