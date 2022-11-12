@@ -29,10 +29,17 @@ class Project(db.Model):
         cascade="all, delete"
     )
 
-  def to_dict(self):
-        return {
+  def to_dict(self, user=False, comments=False):
+        proj =  {
             'id': self.id,
             'name': self.name,
-            'description': self.description,
-            'User': self.user.to_dict()
+            'description': self.description
         }
+
+        if user:
+            proj['User'] = self.user.to_dict()
+
+        if comments:
+            proj['comments'] = self.comments.to_dict()
+
+        return proj
