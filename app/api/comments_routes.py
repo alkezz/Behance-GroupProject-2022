@@ -1,6 +1,8 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, redirect, jsonify, request
 from flask_login import login_required
-from app.models import Comment
+from app.forms import CommentForm
+from app.models import Comment, db
+from flask_login import current_user
 
 comments_routes = Blueprint('comments', __name__)
 
@@ -15,3 +17,29 @@ def comments():
     print('test')
     print('test')
     return {'comments': [com.to_dict() for com in all_coms]}
+
+@comments_routes.route("/new", methods=["GET","POST"])
+@login_required
+def add_commemnt():
+    """
+    Creates a new comment for logged in User
+    """
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print(current_user.id)
+    print(current_user.to_dict())
+
+    if form.validate_on_submit():
+        new_comment = Comment(
+            comment = form.data["comment"],
+            user_id = current_user.id,
+            project_id = form.data["project_id"],
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        return redirect("/")
+
+    if form.errors:
+        return form.errors
+
+    return current_user.to_dict()
