@@ -18,6 +18,5 @@ class ProjectImage(db.Model):
     return {
       "id": self.id,
       "url": self.url,
-      "is_preview": self.is_preview,
-      "Project": self.project
+      "is_preview": self.is_preview
     }

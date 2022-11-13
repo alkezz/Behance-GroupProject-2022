@@ -36,13 +36,6 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email
-        }
-
     #relationships
     projects = db.relationship("Project", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
@@ -59,3 +52,16 @@ class User(db.Model, UserMixin):
         backref=db.backref('follows', lazy='dynamic'),
         lazy='dynamic'
     )
+
+    def to_dict(self, projects=False):
+        userInfo =  {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name
+        }
+        if projects:
+            userInfo['projects'] = [proj.to_dict() for proj in self.projects]
+
+        return userInfo

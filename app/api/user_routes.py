@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from sqlalchemy import func
 from flask_login import login_required
 from app.models import User, Project
 
@@ -27,6 +28,20 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@user_routes.route('/username/<string:un>')
+@login_required
+def username(un):
+    """
+    Query for a user by username and returns that user in a dictionary
+    Url:
+    "/api/users/username/:username"
+    """
+    user = User.query.filter(func.lower(User.username) == func.lower(un)).first()
+    if user:
+        return user.to_dict(projects=True)
+    else:
+        return "No User Found"
 
 @user_routes.route('/<int:id>/projects/')
 def user_project(id):
