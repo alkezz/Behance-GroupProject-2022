@@ -21,7 +21,7 @@ def comments():
 @comments_routes.route("/<int:id>/")
 def one_comment(id):
     one_comment = Comment.query.get(id)
-    return one_comment.to_dict()
+    return one_comment.to_dict(user=True)
 
 
 @comments_routes.route("/new", methods=["GET","POST"])
@@ -49,10 +49,10 @@ def add_commemnt():
 
     return "TEST"
 
-@comments_routes.route("/edit/<int:id>/", methods=["GET", "PUT"])
+@comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
 def edit_comment(id):
     comment = Comment.query.get(id)
     new_comment = request.json["comment"]
     comment.comment = new_comment
     db.session.commit()
-    return comment.to_dict()
+    return comment.to_dict(user=True)
