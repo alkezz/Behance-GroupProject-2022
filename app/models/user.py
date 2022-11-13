@@ -59,9 +59,10 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'first_name': self.first_name,
-            'last_name': self.last_name
+            'last_name': self.last_name,
+            'user_image': self.user_image,
+            'banner_image': self.banner_image
         }
         if projects:
             userInfo['projects'] = [proj.to_dict() for proj in self.projects]
-
         return userInfo

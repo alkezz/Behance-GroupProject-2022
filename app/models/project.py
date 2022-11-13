@@ -29,7 +29,7 @@ class Project(db.Model):
         cascade="all, delete"
     )
 
-  def to_dict(self, user=False, comments=False):
+  def to_dict(self, user=False, comments=False, images=False):
         proj =  {
             'id': self.id,
             'name': self.name,
@@ -43,5 +43,6 @@ class Project(db.Model):
 
         if comments:
             proj['comments'] = [comment.to_dict(user=True,project=False) for comment in self.comments]
-
+        if images:
+            proj["images"] = [image.to_dict() for image in self.images]
         return proj
