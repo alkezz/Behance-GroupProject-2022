@@ -61,6 +61,51 @@ def project_by_id(id):
         return f"No such project with id of {id}"
 
 
+@project_routes.route("/<int:id>/", methods=["DELETE"])
+def delete_project(id):
+    project = Project.query.get(id)
+    if project:
+        if project.user_id == current_user.id:
+            db.session.delete(project)
+            db.session.commit()
+            return {
+                "message": "Project Successfully Deleted"
+            }
+        else:
+            return {
+                "message": "Can not delete project not owned by you"
+            }
+    else:
+        return {
+            "message": f"No such project with id of {id}"
+        }
+
+@project_routes.route("/<int:id>/", methods=["PUT"])
+def edit_project(id):
+    project = Project.query.get(id)
+    new_name = request.json["name"]
+    new_description = request.json["description"]
+    if project:
+        if project.user_id == current_user.id:
+            if new_name:
+                project.name = new_name
+            else:
+                project.name = project.name
+            if new_description:
+                project.description = new_description
+            else:
+                project.description = project.description
+            db.session.commit()
+            return project.to_dict()
+        else:
+            return {
+                "message": "Can not edit project not owned by you"
+            }
+    else:
+        return {
+            "message": f"No such project with id of {id}"
+        }
+
 @project_routes.route("/", methods=["POST"])
 def add_project():
     """
@@ -80,7 +125,7 @@ def add_project():
     else:
         return form.errors
 
-@project_routes.route("/project-images", methods=["POST"])
+@project_routes.route("/project-images", methods=["GET","POST"])
 def add_project_images():
     """New Images for project form"""
     form = PortfolioImageForm()
@@ -96,3 +141,41 @@ def add_project_images():
             return new_images.to_dict()
     else:
         return form.errors
+
+@project_routes.route("/project-images/<int:id>/", methods=["GET","DELETE"])
+def delete_project_image(id):
+    project_image = ProjectImage.query.get(id)
+    project = Project.query.get(project_image.project_id)
+    if project_image:
+        if project.user_id == current_user.id:
+            db.session.delete(project_image)
+            db.session.commit()
+            return project.to_dict(images=True)
+        else:
+            return {
+                "message": "Can not delete images from project not owned by you"
+            }
+    else:
+        return {
+            "message": f"Project with id of {id} was not found"
+        }
+
+@project_routes.route("/project-images/<int:id>/", methods=["GET", "PUT"])
+def edit_project_image(id):
+    project_image = ProjectImage.query.get(id)
+    project = Project.query.get(project_image.project_id)
+    if project_image:
+        if project.user_id == current_user.id:
+            new_url = request.json["url"]
+            # new_is_preview = request.json["is_preview"]
+            project_image.url = new_url
+            db.session.commit()
+            return project.to_dict(images=True)
+        else:
+            return {
+                "message": "Can not edit images from project not owned by you"
+            }
+    else:
+        return {
+            "message": f"Project with id of {id} was not found"
+        }
