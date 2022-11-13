@@ -24,7 +24,7 @@ def one_comment(id):
     return one_comment.to_dict(user=True)
 
 
-@comments_routes.route("/new", methods=["GET","POST"])
+@comments_routes.route("/new", methods=["POST"])
 @login_required
 def add_commemnt():
     """
@@ -49,7 +49,7 @@ def add_commemnt():
 
     return "TEST"
 
-@comments_routes.route("/edit/<int:id>/", methods=["GET", "PUT"])
+@comments_routes.route("/edit/<int:id>/", methods=["PUT"])
 def edit_comment(id):
     comment = Comment.query.get(id)
     new_comment = request.json["comment"]
