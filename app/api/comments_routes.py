@@ -26,8 +26,6 @@ def add_commemnt():
     """
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(current_user.id)
-    print(current_user.to_dict())
 
     if form.validate_on_submit():
         new_comment = Comment(
@@ -35,9 +33,10 @@ def add_commemnt():
             user_id = current_user.id,
             project_id = form.data["project_id"],
         )
+        print(new_comment)
         db.session.add(new_comment)
         db.session.commit()
-        return redirect("/")
+        return new_comment.to_dict(user=True)
 
     if form.errors:
         return form.errors
