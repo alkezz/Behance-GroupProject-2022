@@ -1,11 +1,14 @@
 
 const ADD_COMMENT = 'comment/addComment'
 const GET_COMMENTS = 'comment/getComments'
+const DELETE_COMMENT = 'comment/deleteComment'
 // const ADD_SONG = 'songs/addSong'
 // const DELETE_SONG = 'songs/deleteSong'
 // const EDIT_SONG = 'songs/editSong'
 // const GET_USERTRACKS = 'songs/userSongs'
 // const FIND_SONG = 'songs/findSong'
+
+//actions
 
 const addComment = (comment) => {
     return {
@@ -21,6 +24,12 @@ const getComments = (comments) => {
     }
 }
 
+const deleteComment = (commentId) => {
+    return {
+        type: DELETE_COMMENT,
+        commentId
+    }
+}
 // const addSong = (song, user) => {
 //     return {
 //         type: ADD_SONG,
@@ -51,6 +60,8 @@ const getComments = (comments) => {
 //     }
 // }
 
+// thunks
+
 export const addCommentToProject = (comData) => async (dispatch) => {
     const {comment, user_id, project_id} = comData
     const response = await fetch(`/api/comments/new`, {
@@ -78,6 +89,18 @@ export const getProjectComments = (id) => async (dispatch) => {
     dispatch(getComments(data))
     return data;
 };
+
+export const deleteProjectComment = (id) => async (dispatch) => {
+    const response = await fetch(`/api/projects/${id}/comments` , {
+        method: "DELETE",
+    });
+    if(response.ok) {
+        const deletedComment = await response.json();
+        dispatch(deleteComment(deletedComment))
+        return dispatch
+    }
+    return response
+}
 
 // export const songSingleGrab = (id) => async (dispatch) => {
 //     const response = await csrfFetch(`/api/songs/${id}`)

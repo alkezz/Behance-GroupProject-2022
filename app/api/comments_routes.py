@@ -49,6 +49,8 @@ def add_commemnt():
 
     return "TEST"
 
+
+
 @comments_routes.route("/edit/<int:id>/", methods=["GET", "PUT"])
 def edit_comment(id):
     comment = Comment.query.get(id)
