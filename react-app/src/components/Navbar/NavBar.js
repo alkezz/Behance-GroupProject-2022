@@ -15,7 +15,7 @@ const NavBar = () => {
   if (sessionUser) {
     sessionLinks = (
       <div className="top-navbar-right">
-        <button id="new-project-button">Share Your Work</button>
+        <Link id="new-project-button">Share Your Work</Link>
         <ProfileButton user={sessionUser}/>
       </div>
     )

@@ -17,3 +17,8 @@ button:hover {
 Link:hover {
   cursor: pointer;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
