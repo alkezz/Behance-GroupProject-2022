@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from sqlalchemy import func
-from flask_login import login_required
-from app.models import User, Project
+from flask_login import login_required, current_user
+from app.models import User, Project, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -56,3 +56,20 @@ def user_project(id):
         return "User has no projects"
     else:
         return {'projects': [project.to_dict() for project in user_projects]}
+
+@user_routes.route("/<int:id>/add-image/", methods=["GET", "PUT"])
+@login_required
+def edit_user(id):
+    user = User.query.get(id)
+    if user:
+        if current_user.id == id:
+            new_profile_picture = request.json["user_image"]
+            new_banner_image = request.json["banner_image"]
+            user.user_image = new_profile_picture
+            user.banner_image = new_banner_image
+            db.session.commit()
+            return user.to_dict()
+        else:
+            return "You can not edit a different user's profile!"
+    else:
+        return "User not found"

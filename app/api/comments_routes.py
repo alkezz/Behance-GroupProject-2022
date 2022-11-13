@@ -18,6 +18,12 @@ def comments():
     print('test')
     return {'comments': [com.to_dict() for com in all_coms]}
 
+@comments_routes.route("/<int:id>/")
+def one_comment(id):
+    one_comment = Comment.query.get(id)
+    return one_comment.to_dict(user=True)
+
+
 @comments_routes.route("/new", methods=["GET","POST"])
 @login_required
 def add_commemnt():
@@ -52,3 +58,10 @@ def del_commemnt(id):
     found_comment = Comment.query.filter_by(id=id).delete()
     db.session.commit()
     return {"message": "Comment successfully deleted"}
+@comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
+def edit_comment(id):
+    comment = Comment.query.get(id)
+    new_comment = request.json["comment"]
+    comment.comment = new_comment
+    db.session.commit()
+    return comment.to_dict(user=True)
