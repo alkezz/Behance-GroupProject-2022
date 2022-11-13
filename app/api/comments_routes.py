@@ -42,3 +42,13 @@ def add_commemnt():
         return form.errors
 
     return "TEST"
+
+@comments_routes.route("/<int:id>/delete", methods=["DELETE"])
+@login_required
+def del_commemnt(id):
+    """
+    Deletes a comment for logged in User
+    """
+    found_comment = Comment.query.filter_by(id=id).delete()
+    db.session.commit()
+    return {"message": "Comment successfully deleted"}
