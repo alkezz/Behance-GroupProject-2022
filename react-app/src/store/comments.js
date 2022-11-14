@@ -130,7 +130,7 @@ export const delCommentFromProj = (id) => async (dispatch) => {
     const response = await fetch(`/api/comments/${id}/delete`)
     const data = await response.json()
     // console.log(data)
-    dispatch(delComment(data))
+    dispatch(deleteComment(data))
     return data;
 };
 
