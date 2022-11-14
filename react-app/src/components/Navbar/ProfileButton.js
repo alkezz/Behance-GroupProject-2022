@@ -31,7 +31,7 @@ function ProfileButton({ user }) {
       {showMenu && (
         <div className="profile-dropdown">
           <div className="dropdown-user-info">
-          <img src="./behance-profile-image.png"></img>
+          <img src="./behance-profile-image.png" height="50" width="50"></img>
           <div>{user.first_name} {user.last_name}</div>
           <div>{user.email}</div>
           </div>
