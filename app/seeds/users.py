@@ -52,7 +52,7 @@ def seed_users():
 def undo_users():
     if environment == "production":
         db.session.execute(f'DROP SCHEMA {SCHEMA} CASCADE;')
-        db.session.execute(f'CREATE SCHEMA {SCHEMA};'
+        db.session.execute(f'CREATE SCHEMA {SCHEMA};')
 #         db.session.execute(f'TRUNCATE table {SCHEMA}.projects RESTART IDENTITY CASCADE;')
 #         db.session.execute(f'TRUNCATE table {SCHEMA}."users" RESTART IDENTITY CASCADE;')
 #         db.session.execute(f"TRUNCATE table {SCHEMA}.projects RESTART IDENTITY CASCADE;")
