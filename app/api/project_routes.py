@@ -62,6 +62,7 @@ def project_by_id(id):
 
 
 @project_routes.route("/<int:id>/", methods=["DELETE"])
+@login_required
 def delete_project(id):
     project = Project.query.get(id)
     if project:
@@ -81,6 +82,7 @@ def delete_project(id):
         }
 
 @project_routes.route("/<int:id>/", methods=["PUT"])
+@login_required
 def edit_project(id):
     project = Project.query.get(id)
     new_name = request.json["name"]
@@ -107,6 +109,7 @@ def edit_project(id):
         }
 
 @project_routes.route("/", methods=["POST"])
+@login_required
 def add_project():
     """
     New user project creation
@@ -126,6 +129,7 @@ def add_project():
         return form.errors
 
 @project_routes.route("/project-images", methods=["GET","POST"])
+@login_required
 def add_project_images():
     """New Images for project form"""
     form = PortfolioImageForm()
@@ -143,6 +147,7 @@ def add_project_images():
         return form.errors
 
 @project_routes.route("/project-images/<int:id>/", methods=["GET","DELETE"])
+@login_required
 def delete_project_image(id):
     project_image = ProjectImage.query.get(id)
     project = Project.query.get(project_image.project_id)
@@ -161,6 +166,7 @@ def delete_project_image(id):
         }
 
 @project_routes.route("/project-images/<int:id>/", methods=["GET", "PUT"])
+@login_required
 def edit_project_image(id):
     project_image = ProjectImage.query.get(id)
     project = Project.query.get(project_image.project_id)
