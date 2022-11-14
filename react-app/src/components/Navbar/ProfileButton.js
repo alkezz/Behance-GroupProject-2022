@@ -27,12 +27,12 @@ function ProfileButton({ user }) {
   }, [showMenu]);
 
   return (
-    <div>
+    <div className="profile-button-container">
       <img id="profile-button" src = {avatar} onClick={openMenu} />
       {showMenu && (
         <div className="profile-dropdown">
           <div className="dropdown-user-info">
-          <img src={avatar} alt="profile-avatar" height="50" width="50"></img>
+          <img src={avatar} alt="profile-avatar" height="70" width="70"></img>
           <div className="dropdown-profile-name">{user.first_name} {user.last_name}</div>
           <div className='dropdown-profile-email'>{user.email}</div>
           </div>
