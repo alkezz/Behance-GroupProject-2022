@@ -187,30 +187,28 @@ s3 = boto3.client(
 )
 BUCKET_NAME=os.environ.get("AWS_BUCKET_NAME")
 
-@project_routes.route("/project-images/upload", methods=["POST"])
-def upload_image():
+@project_routes.route("/<int:id>/project-images/upload", methods=["POST"])
+def upload_image(id):
     form = PortfolioImageForm()
+    project = Project.query.get(id)
     form['csrf_token'].data = request.cookies['csrf_token']
     if request.method == 'POST':
-        print("REQUEST FILES",request.files)
-        img = request.files['file']
-        print("IMG",img)
-        if img:
-                filename = secure_filename(img.filename)
+        for i in request.files.getlist('file'):
+                filename = secure_filename(i.filename)
                 s3.upload_fileobj(
-                    img,
+                    i,
                     BUCKET_NAME,
                     filename,
-                    ExtraArgs = {'ACL':"public-read", 'ContentType': img.content_type}
+                    ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
                 )
                 new_images = ProjectImage(
                     url = f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}",
-                    is_preview = True,
-                    project_id = 1
+                    is_preview = form.data["is_preview"],
+                    project_id = form.data["project_id"]
                 )
                 db.session.add(new_images)
-                # db.session.commit()
-        return new_images.to_dict()
+                db.session.commit()
+        return project.to_dict(images=True)
 
 @project_routes.route("/project-images/<int:id>/", methods=["GET","DELETE"])
 @login_required
