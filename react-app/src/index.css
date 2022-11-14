@@ -6,5 +6,18 @@ body {
 body::before {
   display:block;
   content: '';
-  height: 3em;
+  height: 4em;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+Link:hover {
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }

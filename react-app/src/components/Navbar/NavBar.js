@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import LogoutButton from '../auth/LogoutButton';
+import ProfileButton from './ProfileButton';
 import LoginForm from '../auth/LoginForm'
 import SignUpForm from '../auth/SignUpForm'
 import './Navbar.css';
@@ -14,20 +14,20 @@ const NavBar = () => {
 
   if (sessionUser) {
     sessionLinks = (
-      <div className="navbar-right">
-        <button>Share Your Work</button>
-        <LogoutButton />
+      <div className="top-navbar-right">
+        <Link id="new-project-button">Share Your Work</Link>
+        <ProfileButton user={sessionUser} />
       </div>
     )
   } else {
     sessionLinks = (
-      <div>
-        <NavLink to='/login' exact={true} activeClassName='active'>
-          Login
-        </NavLink>
-        <NavLink to='/sign-up' exact={true} activeClassName='active'>
+      <div className='top-navbar-right'>
+        <Link to='/login' exact={true} id="login-button">
+          Log In
+        </Link>
+        <Link to='/sign-up' exact={true} id='signup-button'>
           Sign Up
-        </NavLink>
+        </Link>
       </div>
     )
   }
@@ -36,14 +36,12 @@ const NavBar = () => {
     <nav id="top-navbar">
       <div id="top-navbar-left">
         <div id="enhance-logo-container">
-          <Link to='/' exact={true} activeClassName='active' id="enhance-logo">
+          <Link to='/' exact={true} id="enhance-logo">
             Enhance
           </Link>
         </div>
       </div>
-      <div id="top-navbar-right">
-        {sessionLinks}
-      </div>
+      {sessionLinks}
     </nav>
   );
 }

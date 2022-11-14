@@ -58,6 +58,7 @@ def del_commemnt(id):
     found_comment = Comment.query.filter_by(id=id).delete()
     db.session.commit()
     return {"message": "Comment successfully deleted"}
+
 @comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
 def edit_comment(id):
     comment = Comment.query.get(id)
