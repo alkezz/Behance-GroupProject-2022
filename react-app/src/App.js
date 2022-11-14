@@ -3,20 +3,21 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import NavBar from './components/Navbar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import ProjectGallery from './components/ProjectGallery';
 import ProfilePage from './components/ProfilePage';
 import { authenticate } from './store/session';
+import './index.css'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -37,13 +38,13 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <h1>Home Page Coming Soon!</h1>
         </Route>
         <Route path='/gallery/:projectId'>
           <ProjectGallery />
@@ -52,8 +53,8 @@ function App() {
           <ProfilePage />
         </Route>
         <Route path="*">
-            <div style={{fontSize: 404}}>* 404: Page not found *</div>
-          </Route>
+          <div style={{ fontSize: 404 }}>* 404: Page not found *</div>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

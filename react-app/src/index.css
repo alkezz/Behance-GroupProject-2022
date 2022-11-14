@@ -1,1 +1,23 @@
 /* TODO Add site wide styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body::before {
+  display:block;
+  content: '';
+  height: 4em;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+Link:hover {
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}

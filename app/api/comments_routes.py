@@ -59,7 +59,7 @@ def del_commemnt(id):
     db.session.commit()
     return {"message": "Comment successfully deleted"}
 
-@comments_routes.route("/edit/<int:id>/", methods=["PUT"])
+@comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
 def edit_comment(id):
     comment = Comment.query.get(id)
     new_comment = request.json["comment"]

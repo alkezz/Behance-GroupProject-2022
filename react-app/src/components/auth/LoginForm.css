@@ -1,0 +1,49 @@
+.login-page {
+  position: fixed;
+  background-image: url("../../assets/login-plants.jpg");
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.login-form {
+  margin-left: 50%;
+  margin-right: 20%;
+  margin-top: 10%;
+  padding: 40px 55px;
+  background-color: white;
+  border-radius: 5px;
+  gap: 20px;
+}
+
+.submit-button {
+  color: white;
+  background-color: #0057ff;
+  width: 90px;
+  border: none;
+  border-radius: 5em;
+  height: 30px;
+}
+
+label {
+  color: #8a747d;
+  font-size: 12px;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  transition: border-bottom .5s;
+}
+
+input:focus,
+input:active {
+  border-bottom: 1px solid #378ef0;
+}
+
+.form-submit-container {
+  display: flex;
+  justify-content: flex-end;
+}

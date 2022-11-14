@@ -20,30 +20,57 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<int:id>')
-@login_required
-def user(id):
-    """
-    Query for a user by id and returns that user in a dictionary
-    Url:
-    "/api/users/:id"
-    """
-    user = User.query.get(id)
-    return user.to_dict()
+@user_routes.route("/test/<int:id>")
+def test(id):
+   users = User.query.filter(User.followers.any(id=id)).all()
+   return {"followers":[fol.to_dict() for fol in users]}
 
-@user_routes.route('/username/<string:un>')
+
+@user_routes.route('/<int:id>/follow_/<int:id2>', methods=["DELETE"])
 @login_required
-def username(un):
+def follow(id, id2):
     """
-    Query for a user by username and returns that user in a dictionary
-    Url:
-    "/api/users/username/:username"
+    Route to delete a follower from the second id provided
+    Syntax: user id 1 will unfollow user id 2
     """
-    user = User.query.filter(func.lower(User.username) == func.lower(un)).first()
-    if user:
-        return user.to_dict(projects=True)
-    else:
-        return "No User Found"
+    curr_user = User.query.get(id)
+    ref_user = User.query.get(id2)
+
+    curr_user.followers.remove(ref_user)
+    db.session.commit()
+    users = User.query.filter(User.followers.any(id=id2)).all()
+    return {"followers":[fol.to_dict() for fol in users]}
+
+
+@user_routes.route('/<int:id>/follow_/<int:id2>', methods=["POST"])
+@login_required
+def unfollow(id, id2):
+# curr_user will follow the ref_user using this route
+    """
+    Route to append followers to the user with the second id in url
+    Syntax: user id 1 will follow user id 2
+    """
+    curr_user = User.query.get(id)
+    ref_user = User.query.get(id2)
+
+    curr_user.followers.append(ref_user)
+    db.session.commit()
+    users = User.query.filter(User.followers.any(id=id2)).all()
+    return {"followers":[fol.to_dict() for fol in users]}
+
+
+@user_routes.route('/<int:id>/appreciations')
+def user_app(id):
+    """
+    Querying for all appreciations by logged in user,
+
+    """
+    user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    newObj = { "project_ids": []}
+    for x,z in user_appinfo:
+        if x == id:
+            newObj["project_ids"].append(z)
+    return newObj
 
 @user_routes.route('/<int:id>/projects/')
 def user_project(id):
@@ -76,23 +103,46 @@ def edit_user(id):
     else:
         return "User not found"
 
-@user_routes.route('/<int:id>/follows/')
+@user_routes.route('/<int:id>/follows')
 def user_follow(id):
     """
     Querying for all follows by logged in user,
 
     """
     # user_followinfo = db.session.query(follows).filter(follows.follower_id == 1).all()
-    user_followinfo = db.session.query(follows).all()
-    print(user_followinfo)
-    return user_followinfo
+    user_followinfo = db.session.query(follows).filter_by(follower_id = id).all()
+    user_followedinfo = db.session.query(follows).filter_by(followed_id = id).all()
+    newObj = { "current_followed_user_ids": [], "followed_by_user_ids": []}
+    for x,z in user_followinfo:
+        if x == id:
+            newObj["current_followed_user_ids"].append(z)
 
-@user_routes.route('/<int:id>/appreciations/')
-def user_app(id):
-    """
-    Querying for all follows by logged in user,
+    for x,z in user_followedinfo:
+        if z == id:
+            newObj["followed_by_user_ids"].append(x)
+    return newObj
 
+@user_routes.route('/<int:id>')
+@login_required
+def user(id):
     """
-    user_followinfo = db.session.query(appreciations).all()
-    print(user_followinfo)
-    return user_followinfo
+    Query for a user by id and returns that user in a dictionary
+    Url:
+    "/api/users/:id"
+    """
+    user = User.query.get(id)
+    return user.to_dict()
+
+@user_routes.route('/username/<string:un>')
+@login_required
+def username(un):
+    """
+    Query for a user by username and returns that user in a dictionary
+    Url:
+    "/api/users/username/:username"
+    """
+    user = User.query.filter(func.lower(User.username) == func.lower(un)).first()
+    if user:
+        return user.to_dict(projects=True)
+    else:
+        return "No User Found"
