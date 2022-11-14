@@ -1,11 +1,7 @@
 
 const ADD_COMMENT = 'comment/addComment'
 const GET_COMMENTS = 'comment/getComments'
-// const ADD_SONG = 'songs/addSong'
-// const DELETE_SONG = 'songs/deleteSong'
-// const EDIT_SONG = 'songs/editSong'
-// const GET_USERTRACKS = 'songs/userSongs'
-// const FIND_SONG = 'songs/findSong'
+const DELETE_COMMENT = 'comment/delComment'
 
 const addComment = (comment) => {
     return {
@@ -21,13 +17,12 @@ const getComments = (comments) => {
     }
 }
 
-// const addSong = (song, user) => {
-//     return {
-//         type: ADD_SONG,
-//         song,
-//         user
-//     }
-// }
+const delComment = (comment) => {
+    return {
+        type: DELETE_COMMENT,
+        comment
+    }
+}
 // const editSong = (song, user) => {
 //     return {
 //         type: EDIT_SONG,
@@ -76,6 +71,14 @@ export const getProjectComments = (id) => async (dispatch) => {
     const data = await response.json()
     // console.log(data)
     dispatch(getComments(data))
+    return data;
+};
+
+export const delCommentFromProj = (id) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${id}/delete`)
+    const data = await response.json()
+    // console.log(data)
+    dispatch(delComment(data))
     return data;
 };
 
@@ -172,6 +175,11 @@ const commentReducer = (state = initialState, action) => {
         case GET_COMMENTS:
             return [
                 ...state, ...action.comments.comments
+            ]
+        case DELETE_COMMENT:
+            const rem_list = state.filter(e => e.id != action.comment.id)
+            return [
+                ...rem_list
             ]
         // case GET_USERTRACKS:
         //     let res = {}
