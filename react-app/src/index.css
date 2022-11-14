@@ -22,3 +22,7 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.form-error {
+  color: rgb(247, 0, 0);
+}
