@@ -10,13 +10,14 @@ import User from './components/User';
 import ProjectGallery from './components/ProjectGallery';
 import ProfilePage from './components/ProfilePage';
 import { authenticate } from './store/session';
+import './index.css'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -37,7 +38,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
@@ -52,8 +53,8 @@ function App() {
           <ProfilePage />
         </Route>
         <Route path="*">
-            <div style={{fontSize: 404}}>* 404: Page not found *</div>
-          </Route>
+          <div style={{ fontSize: 404 }}>* 404: Page not found *</div>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

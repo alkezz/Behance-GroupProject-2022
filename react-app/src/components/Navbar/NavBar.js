@@ -16,7 +16,7 @@ const NavBar = () => {
     sessionLinks = (
       <div className="top-navbar-right">
         <Link id="new-project-button">Share Your Work</Link>
-        <ProfileButton user={sessionUser}/>
+        <ProfileButton user={sessionUser} />
       </div>
     )
   } else {
@@ -41,7 +41,7 @@ const NavBar = () => {
           </Link>
         </div>
       </div>
-        {sessionLinks}
+      {sessionLinks}
     </nav>
   );
 }
