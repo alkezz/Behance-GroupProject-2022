@@ -15,10 +15,23 @@ function ProfilePage() {
     );
   });
 
+  const followcount = () => {
+    let count = 0
+    prof.projects.forEach((e) => {
+      count += e.appreciations
+    })
+    return count
+  }
+
   useEffect(() => {
     if (!username) {
       return;
     }
+    (async () => {
+      const response = await fetch(`/api/users/username/${username}`);
+      const data = await response.json();
+      setProf(data);
+    })();
     (async () => {
       const response = await fetch(`/api/users/username/${username}`);
       const data = await response.json();
@@ -42,6 +55,12 @@ function ProfilePage() {
       <li>
         <strong>Name</strong> {prof.first_name} {prof.last_name }
       </li>
+      <li>
+        {JSON.stringify(prof)}
+      </li>
+      <li>
+      <strong>follows</strong> {followcount()}
+        </li>
       {!!prof && projList}
     </ul>
   );

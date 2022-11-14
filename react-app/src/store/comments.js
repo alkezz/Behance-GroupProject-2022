@@ -19,7 +19,7 @@ const getComments = (comments) => {
 
 const delComment = (comment) => {
     return {
-        type: ADD_SONG,
+        type: DELETE_COMMENT,
         comment
     }
 }
@@ -177,7 +177,7 @@ const commentReducer = (state = initialState, action) => {
                 ...state, ...action.comments.comments
             ]
         case DELETE_COMMENT:
-            rem_list = state.filter(e => e.id != action.comment.id)
+            const rem_list = state.filter(e => e.id != action.comment.id)
             return [
                 ...rem_list
             ]
