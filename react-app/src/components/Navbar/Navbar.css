@@ -1,0 +1,29 @@
+#top-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+  height: 55px;
+}
+
+#enhance-logo {
+  text-decoration: none;
+  font-size: 24px;
+}
+
+#top-navbar-left {
+  display: flex;
+  flex-direction: row;
+}
+
+#top-navbar-right {
+  display: flex;
+  flex-direction: row;
+}
