@@ -126,6 +126,14 @@ export const deleteProjectComment = (id) => async (dispatch) => {
     return response
 }
 
+export const delCommentFromProj = (id) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${id}/delete`)
+    const data = await response.json()
+    // console.log(data)
+    dispatch(delComment(data))
+    return data;
+};
+
 // export const songSingleGrab = (id) => async (dispatch) => {
 //     const response = await csrfFetch(`/api/songs/${id}`)
 //     const data = await response.json()
