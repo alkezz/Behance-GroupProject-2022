@@ -6,28 +6,28 @@ def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password', first_name='Demo', last_name='User')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="Mills", followers=[demo])
+        username='marnie', email='marnie@aa.io', password='password', first_name='Marnie', last_name='Mills', followers=[demo])
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name="Bobby", last_name="Bills")
+        username='bobbie', email='bobbie@aa.io', password='password', first_name='Bobby', last_name='Bills')
     jimmy = User(
-        username='jimjohn', email='jim@aa.io', password='password2', first_name="Jim", last_name="Johns")
+        username='jimjohn', email='jim@aa.io', password='password2', first_name='Jim', last_name='Johns')
     francis = User(
-        username='franbacon', email='bacon@aa.io', password='password3', first_name='Francis', last_name="Bacon", followers=[demo, marnie, bobbie, jimmy])
+        username='franbacon', email='bacon@aa.io', password='password3', first_name='Francis', last_name='Bacon', followers=[demo, marnie, bobbie, jimmy])
 
     project_1 = Project(
-        name="COOL Project", description="Such a cool project wow!", user_id=1, project_appreciations=[marnie, bobbie]
+        name='COOL Project', description='Such a cool project wow!', user_id=1, project_appreciations=[marnie, bobbie]
     )
     project_2 = Project(
-        name="Ez Project", description="Not bad", user_id=2, project_appreciations=[demo]
+        name='Ez Project', description='Not bad', user_id=2, project_appreciations=[demo]
     )
     project_3 = Project(
-        name="Bad Project", description="wow this sucked", user_id=3, project_appreciations=[jimmy, francis, demo]
+        name='Bad Project', description='wow this sucked', user_id=3, project_appreciations=[jimmy, francis, demo]
     )
     project_4 = Project(
-        name="Long Project", description="This is long!", user_id=4, project_appreciations=[demo, bobbie]
+        name='Long Project', description='This is long!', user_id=4, project_appreciations=[demo, bobbie]
     )
     project_5 = Project(
-        name="Short Project", description="Are you even trying?", user_id=5, project_appreciations=[]
+        name='Short Project', description='Are you even trying?', user_id=5, project_appreciations=[]
     )
 
     db.session.add(demo)
@@ -51,8 +51,8 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-        pass
-#         db.session.execute(f'TRUNCATE table {SCHEMA}."users" RESTART IDENTITY CASCADE;')
+        db.session.execute(f'TRUNCATE table {SCHEMA}.projects RESTART IDENTITY CASCADE;')
+        db.session.execute(f'TRUNCATE table {SCHEMA}."users" RESTART IDENTITY CASCADE;')
 #         db.session.execute(f"TRUNCATE table {SCHEMA}.projects RESTART IDENTITY CASCADE;")
 #         db.session.execute(f"TRUNCATE table {SCHEMA}.appreciations RESTART IDENTITY CASCADE;")
 #         db.session.execute(f"TRUNCATE table {SCHEMA}.follows RESTART IDENTITY CASCADE;")
