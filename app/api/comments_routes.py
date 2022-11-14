@@ -24,7 +24,7 @@ def one_comment(id):
     return one_comment.to_dict(user=True)
 
 
-@comments_routes.route("/new", methods=["GET","POST"])
+@comments_routes.route("/new", methods=["POST"])
 @login_required
 def add_commemnt():
     """
@@ -49,6 +49,7 @@ def add_commemnt():
 
     return "TEST"
 
+<<<<<<< HEAD
 @comments_routes.route("/<int:id>/delete", methods=["DELETE"])
 @login_required
 def del_commemnt(id):
@@ -59,6 +60,9 @@ def del_commemnt(id):
     db.session.commit()
     return {"message": "Comment successfully deleted"}
 @comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
+=======
+@comments_routes.route("/edit/<int:id>/", methods=["PUT"])
+>>>>>>> 9aa5426bae2e5294bb2d6b94d8789b3734cf512b
 def edit_comment(id):
     comment = Comment.query.get(id)
     new_comment = request.json["comment"]
