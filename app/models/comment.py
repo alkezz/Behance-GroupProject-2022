@@ -15,10 +15,15 @@ class Comment(db.Model):
   user = db.relationship("User", back_populates="comments")
   project = db.relationship("Project", back_populates="comments")
 
-  def to_dict(self):
-    return {
+  def to_dict(self, user=False, project=False):
+    comment =  {
       "id": self.id,
-      "comment": self.comment,
-      "User": self.user.to_dict(),
-      "Project": self.project.to_dict()
+      "comment": self.comment
     }
+
+    if user:
+      comment["User"] = self.user.to_dict()
+    if project:
+      comment["Project"] = self.project.to_dict()
+    
+    return comment
