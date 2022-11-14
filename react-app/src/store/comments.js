@@ -1,18 +1,15 @@
 
-const ADD_COMMENT = 'comment/addComment'
-const GET_COMMENTS = 'comment/getComments'
+const ADD_COMMENT = 'comment/addComment';
+const GET_COMMENTS = 'comment/getComments';
+const EDIT_COMMENT = 'comment/editComment';
+const DELETE_COMMENT = 'comment/deleteComment';
 // const ADD_SONG = 'songs/addSong'
 // const DELETE_SONG = 'songs/deleteSong'
 // const EDIT_SONG = 'songs/editSong'
 // const GET_USERTRACKS = 'songs/userSongs'
 // const FIND_SONG = 'songs/findSong'
 
-const addComment = (comment) => {
-    return {
-        type: ADD_COMMENT,
-        comment
-    }
-}
+//actions
 
 const getComments = (comments) => {
     return {
@@ -21,6 +18,27 @@ const getComments = (comments) => {
     }
 }
 
+const addComment = (comment) => {
+    return {
+        type: ADD_COMMENT,
+        comment
+    }
+}
+
+const editComment = (editedComment) => {
+    return {
+        type: EDIT_COMMENT,
+        editedComment
+    }
+}
+
+
+const deleteComment = (commentId) => {
+    return {
+        type: DELETE_COMMENT,
+        commentId
+    }
+}
 // const addSong = (song, user) => {
 //     return {
 //         type: ADD_SONG,
@@ -51,13 +69,23 @@ const getComments = (comments) => {
 //     }
 // }
 
+// thunks
+
+export const getProjectComments = (id) => async (dispatch) => {
+    const response = await fetch(`/api/projects/${id}/comments`)
+    const data = await response.json()
+    // console.log(data)
+    dispatch(getComments(data))
+    return data;
+};
+
 export const addCommentToProject = (comData) => async (dispatch) => {
-    const {comment, user_id, project_id} = comData
+    const { comment, user_id, project_id } = comData
     const response = await fetch(`/api/comments/new`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
-          },
+        },
         body: JSON.stringify({
             comment,
             user_id,
@@ -71,13 +99,32 @@ export const addCommentToProject = (comData) => async (dispatch) => {
     }
 }
 
-export const getProjectComments = (id) => async (dispatch) => {
-    const response = await fetch(`/api/projects/${id}/comments`)
-    const data = await response.json()
-    // console.log(data)
-    dispatch(getComments(data))
-    return data;
-};
+
+export const commentEdit = (comment) => async (dispatch) => {
+    const response = await fetch(`/api/${comment.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(comment)
+    });
+    if (response.ok) {
+        const editedComment = await response.json();
+        dispatch(editComment(editedComment));
+        return editedComment
+    }
+    return response;
+}
+
+export const deleteProjectComment = (id) => async (dispatch) => {
+    const response = await fetch(`/api/projects/${id}/comments`, {
+        method: "DELETE",
+    });
+    if (response.ok) {
+        const deletedComment = await response.json();
+        dispatch(deleteComment(deletedComment))
+        return dispatch
+    }
+    return response
+}
 
 // export const songSingleGrab = (id) => async (dispatch) => {
 //     const response = await csrfFetch(`/api/songs/${id}`)
@@ -162,17 +209,29 @@ export const getProjectComments = (id) => async (dispatch) => {
 //     return data;
 // };
 
-const initialState = []
+const initialState = {}
 
 const commentReducer = (state = initialState, action) => {
-    let newState;
     switch (action.type) {
-        case ADD_COMMENT:
-            return [...state, {...action.comment}]
-        case GET_COMMENTS:
+        case GET_COMMENTS: {
             return [
                 ...state, ...action.comments.comments
             ]
+        }
+        case ADD_COMMENT: {
+            let newState = { ...state };
+            newState[action.comment.id] = action.comment
+            return newState
+        }
+        case EDIT_COMMENT: {
+            return [...state, { ...action.editedComment }]
+        }
+        case DELETE_COMMENT: {
+            let newState = { ...state };
+            delete newState[action.id];
+            return newState;
+        }
+
         // case GET_USERTRACKS:
         //     let res = {}
         //     action.songs.Songs.forEach(e => {
