@@ -2,6 +2,8 @@ from flask import Blueprint, jsonify, request
 from sqlalchemy import func
 from flask_login import login_required, current_user
 from app.models import User, Project, db
+from app.models.user import follows
+from app.models.project import appreciations
 
 user_routes = Blueprint('users', __name__)
 
@@ -73,3 +75,24 @@ def edit_user(id):
             return "You can not edit a different user's profile!"
     else:
         return "User not found"
+
+@user_routes.route('/<int:id>/follows/')
+def user_follow(id):
+    """
+    Querying for all follows by logged in user,
+
+    """
+    # user_followinfo = db.session.query(follows).filter(follows.follower_id == 1).all()
+    user_followinfo = db.session.query(follows).all()
+    print(user_followinfo)
+    return user_followinfo
+
+@user_routes.route('/<int:id>/appreciations/')
+def user_app(id):
+    """
+    Querying for all follows by logged in user,
+
+    """
+    user_followinfo = db.session.query(appreciations).all()
+    print(user_followinfo)
+    return user_followinfo
