@@ -49,6 +49,7 @@
   font-weight: 600;
   font-size: 14px;
   height: 10px;
+  transition: background-color .5s;
 }
 
 #new-project-button:hover {
