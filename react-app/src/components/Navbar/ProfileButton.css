@@ -45,4 +45,18 @@
 .dropdown-profile-link {
   display: flex;
   justify-content: flex-start;
+  width: 100%;
+  padding: 10px 0;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+}
+
+.dropdown-profile-link:hover {
+  background-color: #efefef;
+}
+
+.manage-account-link {
+  text-decoration: none;
+  color: black;
+  width: 100%;
 }

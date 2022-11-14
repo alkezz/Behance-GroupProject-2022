@@ -5,8 +5,6 @@ import LogoutButton from '../auth/LogoutButton'
 import './ProfileButton.css'
 
 function ProfileButton({ user }) {
-  
-  const { first_name, last_name } = user
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -29,7 +27,7 @@ function ProfileButton({ user }) {
 
   return (
     <div>
-      <img src='url(../../assets/behance-profile-image.png)' id="profile-button" onClick={openMenu} />
+      <img id="profile-button" onClick={openMenu} />
       {showMenu && (
         <div className="profile-dropdown">
           <div className="dropdown-user-info">
