@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Project, ProjectImage, Comment, db
+from app.models import Project, ProjectImage, Comment, db, User
 from app.forms import CommentForm, ProjectForm, PortfolioImageForm
+from app.models.project import appreciations
 # Created our blueprint for our projects route, connecting it to our __init__.py
 project_routes = Blueprint("projects", __name__)
 
@@ -13,7 +14,7 @@ def projects():
     "/api/projects"
     """
     all_projects = Project.query.all()
-    return {'Projects': [project.to_dict() for project in all_projects]}
+    return {'Projects': [project.to_dict(images=True) for project in all_projects]}
 
 @project_routes.route("/<int:id>/comments")
 def project_comments_by_id(id):
@@ -46,6 +47,35 @@ def project_imgs_by_id(id):
         return res
     else:
         return f"No such project with id of {id}"
+
+@project_routes.route('/<int:id>/appreciates/<int:id2>', methods=["POST"])
+def appreciate_project(id, id2):
+    curr_user = User.query.get(id)
+    ref_project = Project.query.get(id2)
+
+    ref_project.project_appreciations.append(curr_user)
+    db.session.commit()
+    user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    newObj = { "project_ids": []}
+    for x,z in user_appinfo:
+        if x == id:
+            newObj["project_ids"].append(z)
+    return newObj
+
+@project_routes.route('/<int:id>/appreciates/<int:id2>', methods=["DELETE"])
+def delete_appreciations(id, id2):
+    curr_user = User.query.get(id)
+    ref_project = Project.query.get(id2)
+
+    ref_project.project_appreciations.remove(curr_user)
+    db.session.commit()
+    user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    newObj = { "project_ids": []}
+    for x,z in user_appinfo:
+        if x == id:
+            newObj["project_ids"].append(z)
+    return newObj
+
 
 @project_routes.route("/<int:id>/")
 def project_by_id(id):
