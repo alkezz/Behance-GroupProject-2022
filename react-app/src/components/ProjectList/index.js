@@ -16,6 +16,7 @@ const ProjectList = () => {
   }, [])
 
   const allProjects = projects.Projects
+  console.log(allProjects)
   if (!allProjects) return null;
 
   return (
