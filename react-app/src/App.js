@@ -5,6 +5,7 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import * as sessionActions from "./store/session"
 import NavBar from './components/Navbar/NavBar';
+import DemoUser from './components/DemoUser';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -23,6 +24,7 @@ function App() {
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
+          <DemoUser />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />

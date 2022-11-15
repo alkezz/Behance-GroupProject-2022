@@ -67,7 +67,7 @@ const deleteProject = (projectId) => {
 //thunks --
 
 //get all projects
-export const getAllProjects = async (dispatch) => {
+export const getAllProjects = () => async (dispatch) => {
     const response = await fetch("/api/projects");
     if (response.ok) {
         const projects = await response.json();
