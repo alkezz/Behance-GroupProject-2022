@@ -1,0 +1,72 @@
+.projPreview {
+    height: 300px;
+    width: 375px;
+    background-color:white;
+    object-fit:fill;
+    overflow: visible;
+    align-content: center;
+    margin: 5px 5px;
+    border-style: none;
+}
+
+.projPreviewImg { 
+    background-color: #333;
+    border: 1px rgba(111, 111, 111, 0.459) solid;
+    mix-blend-mode: normal;
+    height:300px;
+    width: 375px;
+    transition: mix-blend-mode 0.2s linear;
+    object-fit: cover;
+}
+
+.projPreview:hover .projPreviewImg {
+    mix-blend-mode: multiply;
+    transition: mix-blend-mode 0.2s linear
+}
+
+.projPreview:hover {
+    cursor: pointer;
+}
+
+
+.projPreviewImgCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(93, 93, 93, 0.8) 00%, rgba(255,255,255,0) 30%);
+    height: 300px;
+    width: 375px;
+}
+
+.projPreview:hover .texttest {
+    z-index: 99;
+}
+
+.projPreview:hover .texttest2 {
+    z-index: 99;
+}
+
+.texttest {
+    color: white;
+    position: absolute;
+    z-index: -1;
+    height:20px;
+    width: 100%;
+    left:5%;
+    bottom: 10%;
+}
+
+.texttest:hover {
+    text-decoration: underline;
+}
+
+.texttest2 {
+    color: rgb(139, 44, 44);
+    position: absolute;
+    z-index: -1;
+    height:20px;
+    width: 100%;
+    left:10%;
+    bottom: 0%;
+}
