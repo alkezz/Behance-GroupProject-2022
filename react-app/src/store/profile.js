@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf'
 
 
 const GET_PROFILE = 'profile/getProfile'
+const GET_USER_PROJECTS = 'profile/projects'
 // const GET_SONG = 'songs/getSong'
 // const ADD_SONG = 'songs/addSong'
 // const DELETE_SONG = 'songs/deleteSong'
@@ -16,6 +17,12 @@ const getProfile = (user) => {
     }
 }
 
+const userProjects = (user) => {
+    return {
+        type: GET_USER_PROJECTS,
+        user
+    }
+}
 // const getSong = (single_song) => {
 //     return {
 //         type: GET_SONG,
@@ -60,6 +67,12 @@ export const userProfile = () => async (dispatch) => {
     return data;
 };
 
+export const getUserProjects = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/users/${id}/projects/`)
+    const data = await response.json()
+    dispatch(userProjects(data))
+    return data
+}
 // export const userSongsGrab = () => async (dispatch) => {
 //     const response = await csrfFetch('/api/songs/current')
 //     const data = await response.json()
@@ -158,6 +171,11 @@ const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_PROFILE:
             return {...state, ...newState}
+        case GET_USER_PROJECTS: {
+            const newState = {};
+            action.userforEach((project) => (getUserProjects[user.id] = project))
+            return newState;
+        }
         // case GET_SONG:
         //     return {
         //         ...state,
