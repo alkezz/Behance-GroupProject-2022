@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import ProjectList from './components/ProjectList/index'
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import * as sessionActions from "./store/session"
@@ -14,11 +15,11 @@ import Project from './components/Project';
 import './index.css'
 
 function App() {
-  const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // const [isLoaded, setIsLoaded] = useState(false);
+  // useEffect(() => {
+  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
 
 
   return (
@@ -38,7 +39,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>Home Page Coming Soon!</h1>
+          <ProjectList />
         </Route>
         {/* <Route path='/gallery/:projectId'>
           <ProjectGallery />

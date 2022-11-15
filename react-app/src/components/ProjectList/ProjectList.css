@@ -1,0 +1,21 @@
+.landing-page-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-page-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr)
+}
+
+.project-card-list {
+}
+
+.project-list-img {
+  height: 215px;
+  width: 275px;
+  border-radius: 5px;
+}
