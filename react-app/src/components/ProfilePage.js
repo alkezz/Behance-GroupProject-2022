@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 function ProfilePage() {
   const dispatch = useDispatch()
-  const [prof, setProf] = useState({username:null,projects:[]});
+  const [prof, setProf] = useState({ username: null, projects: [] });
   const [followerInfo, setFollowerInfo] = useState({})
   const [apprecInfo, setApprecInfo] = useState({})
-  const { username }  = useParams();
+  const { username } = useParams();
 
   const projList = prof.projects.map((project) => {
     return (
@@ -56,7 +56,7 @@ function ProfilePage() {
   if (!prof.username) {
     return <>
       <div>
-      Oops! We can’t find that page.
+        Oops! We can’t find that page.
       </div>
     </>;
   }
@@ -67,7 +67,7 @@ function ProfilePage() {
         <strong>User Id</strong> {prof.username}
       </div>
       <div>
-        <strong>Name</strong> {prof.first_name} {prof.last_name }
+        <strong>Name</strong> {prof.first_name} {prof.last_name}
       </div>
       <div>
         {JSON.stringify(prof)}
@@ -76,20 +76,20 @@ function ProfilePage() {
         {JSON.stringify(apprecInfo)}
       </div>
       <div>
-      <strong>Appreciations</strong> {!!Object.keys(apprecInfo).length && apprecInfo.project_ids.length}
-        </div>
+        <strong>Appreciations</strong> {!!Object.keys(apprecInfo).length && apprecInfo.project_ids.length}
+      </div>
       <div>
         {JSON.stringify(followerInfo)}
       </div>
       <div>
-      <strong>Following</strong> {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
-        </div>
+        <strong>Following</strong> {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
+      </div>
       <div>
-      <strong>Followers</strong> {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
-        </div>
+        <strong>Followers</strong> {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
+      </div>
       <div>
-      <strong>followsOLD</strong> {followcount()}
-        </div>
+        <strong>followsOLD</strong> {followcount()}
+      </div>
       {!!prof && projList}
     </div>
   );

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
+import CreateProject from './components/CreateProjectForm'
 import * as sessionActions from "./store/session"
 import NavBar from './components/Navbar/NavBar';
 import DemoUser from './components/DemoUser';
@@ -16,12 +17,20 @@ import './index.css'
 
 function App() {
 
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    dispatch(authenticate()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
 
   return (
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/project/create' exact={true}>
+          <CreateProject />
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
           <DemoUser />
