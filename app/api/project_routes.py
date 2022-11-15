@@ -237,7 +237,6 @@ def edit_project_image(id):
     if project_image:
         if project.user_id == current_user.id:
             new_url = request.json["url"]
-            # new_is_preview = request.json["is_preview"]
             project_image.url = new_url
             db.session.commit()
             return project.to_dict(images=True)
