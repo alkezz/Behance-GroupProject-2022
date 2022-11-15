@@ -36,11 +36,12 @@ function ProfilePage() {
   }
 
   useEffect(() => {
+    document.title = `Enhance :: ${username}`
     if (!username) {
       return;
     }
+    if(username !== "gallery"){
     (async () => {
-      console.log(username)
       const response = await fetch(`/api/users/username/${username}`);
       const data = await response.json();
       setProf(data);
@@ -51,6 +52,7 @@ function ProfilePage() {
       setApprecInfo(data2);
       setFollowerInfo(data3)
     })();
+    }
     // (async () => {
     //   const response = await fetch(`/api/users/${prof.id}/appreciations`);
     //   const data = await response.json();
@@ -72,7 +74,7 @@ function ProfilePage() {
   }
 
   return (
-    <div>
+    <div className='profilePage'>
       <div>
         <strong>User Id</strong> {prof.username}
       </div>

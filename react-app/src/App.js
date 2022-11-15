@@ -17,14 +17,20 @@ import Profile from './components/Profile'
 import './index.css'
 
 function App() {
-
-
+  const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    dispatch(authenticate()).then(() => setIsLoaded(true));
+    (async() => {
+      await dispatch(authenticate());
+      setLoaded(true);
+    })();
   }, [dispatch]);
 
+  if (!loaded) {
+    return null;
+  }
+  
   return (
     <BrowserRouter>
       <NavBar />
