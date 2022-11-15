@@ -1,4 +1,3 @@
-import { csrfFetch } from "./csrf"
 
 const GET_ALL_PROJECTS = 'projects/GET_ALL_PROJECTS';
 const GET_PROJECT_ID = 'projects/GET_PROJECT_ID';
@@ -70,7 +69,7 @@ const deleteProject = (projectId) => {
 
 //get all projects
 export const getAllProjects = async (dispatch) => {
-    const response = await csrfFetch("/api/projects");
+    const response = await fetch("/api/projects");
     if (response.ok) {
         const projects = await response.json();
         dispatch(allProjects(projects));
@@ -82,7 +81,7 @@ export const getAllProjects = async (dispatch) => {
 };
 //get current project
 export const getProjectId = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/projects/${id}`)
+    const response = await fetch(`/api/projects/${id}`)
     if (response.ok) {
         const allProjects = await response.json();
         dispatch(projectId(allProjects));
@@ -92,7 +91,7 @@ export const getProjectId = (id) => async (dispatch) => {
 }
 //get all project images
 // export const getAllProjectImages = () => async (dispatch) => {
-//     const response = await csrfFetch(`/api/projects/:id`)
+//     const response = await fetch(`/api/projects/:id`)
 //     if (response.ok) {
 //         const projectimage = await response.json();
 //         dispatch(getProjectImages(projectimage));
@@ -102,8 +101,8 @@ export const getProjectId = (id) => async (dispatch) => {
 // }
 //get all project comments
 export const getAllProjectComments = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/projects/${id}/comments`)
-    if(response.ok) {
+    const response = await fetch(`/api/projects/${id}/comments`)
+    if (response.ok) {
         const comments = await response.json();
         dispatch(getProjectComments(comments))
         return comments
@@ -112,7 +111,7 @@ export const getAllProjectComments = (id) => async (dispatch) => {
 }
 //create a project
 export const createProject = (project) => async (dispatch) => {
-    const response = await csrfFetch("/api/projects", {
+    const response = await fetch("/api/projects", {
         method: "POST",
         body: JSON.stringify(project),
     });
@@ -125,7 +124,7 @@ export const createProject = (project) => async (dispatch) => {
 }
 //add project images
 export const addProjectImages = (project) => async (dispatch) => {
-    const response = await csrfFetch(`/api/projects/project-images/${project.id}`, {
+    const response = await fetch(`/api/projects/project-images/${project.id}`, {
         method: "POST",
         body: JSON.stringify(project),
     });
@@ -140,22 +139,22 @@ export const addProjectImages = (project) => async (dispatch) => {
 
 //edit project
 export const editProject = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/projects/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(spot),
+    const response = await fetch(`/api/projects/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(spot),
     });
     if (response.ok) {
-      const editedProject = await response.json();
-      dispatch(projectEdit(editedProject));
-      return editedProject;
+        const editedProject = await response.json();
+        dispatch(projectEdit(editedProject));
+        return editedProject;
     }
     return response;
-  };
+};
 
 //delete a spot
 export const deleteProjectId = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/projects/${id}`, {
+    const response = await fetch(`/api/projects/${id}`, {
         method: "DELETE",
         // body: JSON.stringify(spotId)
     });
@@ -183,7 +182,7 @@ const projectsReducer = (state = initialState, action) => {
             return project;
         }
         case GET_PROJECT_COMMENTS: {
-            const newState = {...state};
+            const newState = { ...state };
             newState[action.comments.id] = action.comments
             return newState
         }
