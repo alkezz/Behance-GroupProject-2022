@@ -74,7 +74,7 @@ function ProfilePage() {
   }
 
   return (
-    <div>
+    <div className='profilePage'>
       <div>
         <strong>User Id</strong> {prof.username}
       </div>
