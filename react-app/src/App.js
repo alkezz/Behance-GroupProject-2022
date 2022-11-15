@@ -8,9 +8,9 @@ import NavBar from './components/Navbar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import ProjectGallery from './components/ProjectGallery';
 import ProfilePage from './components/ProfilePage';
 import { authenticate } from './store/session';
+import Project from './components/Project';
 import './index.css'
 
 function App() {
@@ -40,9 +40,9 @@ function App() {
         <Route path='/' exact={true} >
           <h1>Home Page Coming Soon!</h1>
         </Route>
-        <Route path='/gallery/:projectId'>
+        {/* <Route path='/gallery/:projectId'>
           <ProjectGallery />
-        </Route>
+        </Route> */}
         <Route path='/:username'>
           <ProfilePage />
         </Route>
@@ -50,6 +50,7 @@ function App() {
           <div style={{ fontSize: 404 }}>* 404: Page not found *</div>
         </Route>
       </Switch>
+      {<Route path="/gallery/:projectId"><Project /></Route>}
     </BrowserRouter>
   );
 }
