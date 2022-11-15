@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import LoginForm from '../auth/LoginForm'
 import SignUpForm from '../auth/SignUpForm'
 import './Navbar.css';
+import avatar from '../../assets/behance-profile-image.png'
 
 const NavBar = () => {
 

@@ -8,7 +8,7 @@ class Comment(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   comment = db.Column(db.String, nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
   project_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("projects.id")))
 
   # Relationships
@@ -25,5 +25,5 @@ class Comment(db.Model):
       comment["User"] = self.user.to_dict()
     if project:
       comment["Project"] = self.project.to_dict()
-    
+
     return comment
