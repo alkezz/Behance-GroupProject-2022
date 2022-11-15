@@ -1,8 +1,11 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, url_for, render_template, redirect, flash
 from flask_login import login_required, current_user
 from app.models import Project, ProjectImage, Comment, db, User
 from app.forms import CommentForm, ProjectForm, PortfolioImageForm
 from app.models.project import appreciations
+import boto3, botocore
+from werkzeug.utils import secure_filename
+import os
 # Created our blueprint for our projects route, connecting it to our __init__.py
 project_routes = Blueprint("projects", __name__)
 
@@ -158,23 +161,54 @@ def add_project():
     else:
         return form.errors
 
-@project_routes.route("/project-images", methods=["GET","POST"])
+@project_routes.route("/project-images")
 @login_required
-def add_project_images():
+def add_project_image_index():
     """New Images for project form"""
+    return render_template("upload_image.html")
+    # form = PortfolioImageForm()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    # if form.validate_on_submit():
+    #         new_images = ProjectImage(
+    #             url = form.data["url"],
+    #             is_preview = form.data["is_preview"],
+    #             project_id = form.data["project_id"]
+    #         )
+    #         db.session.add(new_images)
+    #         db.session.commit()
+    #         return new_images.to_dict()
+    # else:
+    #     return form.errors
+
+s3 = boto3.client(
+   "s3",
+   aws_access_key_id=os.environ.get("AWS_ACCESS_KEY"),
+   aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY")
+)
+BUCKET_NAME=os.environ.get("AWS_BUCKET_NAME")
+
+@project_routes.route("/<int:id>/project-images/upload", methods=["POST"])
+def upload_image(id):
     form = PortfolioImageForm()
+    project = Project.query.get(id)
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-            new_images = ProjectImage(
-                url = form.data["url"],
-                is_preview = form.data["is_preview"],
-                project_id = form.data["project_id"]
-            )
-            db.session.add(new_images)
-            db.session.commit()
-            return new_images.to_dict()
-    else:
-        return form.errors
+    if request.method == 'POST':
+        for i in request.files.getlist('file'):
+                filename = secure_filename(i.filename)
+                s3.upload_fileobj(
+                    i,
+                    BUCKET_NAME,
+                    filename,
+                    ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
+                )
+                new_images = ProjectImage(
+                    url = f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}",
+                    is_preview = form.data["is_preview"],
+                    project_id = form.data["project_id"]
+                )
+                db.session.add(new_images)
+                db.session.commit()
+        return project.to_dict(images=True)
 
 @project_routes.route("/project-images/<int:id>/", methods=["GET","DELETE"])
 @login_required
