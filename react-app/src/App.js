@@ -14,12 +14,19 @@ import Profile from './components/Profile'
 import './index.css'
 
 function App() {
-  // const dispatch = useDispatch();
-  // const [isLoaded, setIsLoaded] = useState(false);
-  // useEffect(() => {
-  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  // }, [dispatch]);
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    (async() => {
+      await dispatch(authenticate());
+      setLoaded(true);
+    })();
+  }, [dispatch]);
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <BrowserRouter>
