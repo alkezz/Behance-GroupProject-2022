@@ -11,8 +11,8 @@ const ProjectCard = ({ project }) => {
   return (
     <div className="project-card">
       <img className="project-list-img" src={previewImage} alt={project.name}></img>
+      <div className='project-list-name'>{project.name}</div>
       <div className='project-list-info'>
-        <div className='project-list-name'>{project.name}</div>
         <div className="project-list-likes"><i className="fa-solid fa-thumbs-up"></i> {project.appreciations}</div>
       </div>
     </div>
