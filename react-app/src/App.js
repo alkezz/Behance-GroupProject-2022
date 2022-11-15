@@ -9,9 +9,9 @@ import NavBar from './components/Navbar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import ProfilePage from './components/ProfilePage';
 import { authenticate } from './store/session';
 import Project from './components/Project';
+import Profile from './components/Profile'
 import './index.css'
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
           <ProjectGallery />
         </Route> */}
         <Route path='/:username'>
-          <ProfilePage />
+          <Profile />
         </Route>
         <Route path="*">
           <div style={{ fontSize: 404 }}>* 404: Page not found *</div>

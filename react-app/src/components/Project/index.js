@@ -7,7 +7,7 @@ import "./Project.css"
 function ProjectGallery() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user.id);
+  const sessionUser = useSelector((state) => state.session.user);
   const projectComments = useSelector((state) => state.comments);
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState({});
@@ -46,7 +46,7 @@ function ProjectGallery() {
 
         const payload = {
             comment,
-            user_id: sessionUser,
+            user_id: sessionUser.id,
             project_id: projectId
         };
 
@@ -65,14 +65,18 @@ function ProjectGallery() {
 
     }
 
+  const test = async (e) => {
+    e.preventDefault()
+    e.stopPropagation();
+  }
+
   return (
     <div className="one" onClick={back}>
       <button type="button" onClick={back}>
             Close
           </button>
           <div className='userInfo'></div>
-        <div className="modal">
-          <div>
+        <div className="modal" onClick={test}>
             <div>
               <strong>projid</strong> {projectId}
             </div>
@@ -84,11 +88,11 @@ function ProjectGallery() {
               <div>
                   {
                       !!projImg.images && projImg.images.map((eachImg) => (
-                          <div>
-                              <img style={{height:"200px"}}src={eachImg.url}>
+
+                              <img className='projImg' src={eachImg.url}>
 
                               </img>
-                          </div>
+
                       ))
                   }
               </div>
@@ -117,7 +121,6 @@ function ProjectGallery() {
                   onChange={(e) => setComment(e.target.value)} />
               <button type='submit'>add comm</button>
             </form>
-          </div>
       </div>
     </div>
   );
