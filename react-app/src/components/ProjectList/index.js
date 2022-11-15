@@ -13,7 +13,7 @@ const ProjectList = () => {
         setProjects(data)
       })
     })
-  }, [fetch])
+  }, [])
 
   const allProjects = projects.Projects
   if (!allProjects) return null;
