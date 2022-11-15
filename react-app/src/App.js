@@ -6,6 +6,7 @@ import SignUpForm from './components/auth/SignUpForm';
 import CreateProject from './components/CreateProjectForm'
 import * as sessionActions from "./store/session"
 import NavBar from './components/Navbar/NavBar';
+import DemoUser from './components/DemoUser';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -15,6 +16,7 @@ import Project from './components/Project';
 import './index.css'
 
 function App() {
+
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
@@ -31,6 +33,7 @@ function App() {
         </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
+          <DemoUser />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
@@ -45,7 +48,7 @@ function App() {
           <h1>Home Page Coming Soon!</h1>
         </Route>
         {/* <Route path='/gallery/:projectId'>
-          <ProjectGallery />
+          <Project />
         </Route> */}
         <Route path='/:username'>
           <ProfilePage />

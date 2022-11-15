@@ -1,4 +1,3 @@
-
 const GET_ALL_PROJECTS = 'projects/GET_ALL_PROJECTS';
 const GET_PROJECT_ID = 'projects/GET_PROJECT_ID';
 // const GET_PROJECT_IMAGES = 'projects/GET_PROJECT_IMAGES';
@@ -69,6 +68,7 @@ const deleteProject = (projectId) => {
 
 //get all projects
 export const getAllProjects = () => async (dispatch) => {
+
     const response = await fetch("/api/projects/");
     if (response.ok) {
         const projects = await response.json();
