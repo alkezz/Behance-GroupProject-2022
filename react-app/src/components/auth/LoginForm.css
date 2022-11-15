@@ -53,3 +53,15 @@ input:active {
   display: flex;
   justify-content: flex-end;
 }
+
+.demo-login-form-button {
+  background: blue;
+  color: white;
+  font-weight: 500;
+  height: 45px;
+  width: 103%;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+}

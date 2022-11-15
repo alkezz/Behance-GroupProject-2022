@@ -1,4 +1,3 @@
-
 const GET_ALL_PROJECTS = 'projects/GET_ALL_PROJECTS';
 const GET_PROJECT_ID = 'projects/GET_PROJECT_ID';
 // const GET_PROJECT_IMAGES = 'projects/GET_PROJECT_IMAGES';
@@ -68,13 +67,14 @@ const deleteProject = (projectId) => {
 //thunks --
 
 //get all projects
-export const getAllProjects = async (dispatch) => {
-    const response = await fetch("/api/projects");
+export const getAllProjects = () => async (dispatch) => {
+
+    const response = await fetch("/api/projects/");
     if (response.ok) {
         const projects = await response.json();
-        dispatch(allProjects(projects));
+        dispatch(allProjects(projects.Projects));
         const all = {};
-        projects.forEach((project) => (all[project.id] = project));
+        projects.Projects.forEach((project) => (all[project.id] = project));
         return { ...all };
     }
     return {};
@@ -123,10 +123,10 @@ export const createProject = (project) => async (dispatch) => {
     return response;
 }
 //add project images
-export const addProjectImages = (project) => async (dispatch) => {
-    const response = await fetch(`/api/projects/project-images/${project.id}`, {
+export const addProjectImages = (project, images) => async (dispatch) => {
+    const response = await fetch(`/api/projects/project-images/${project.id}/upload`, {
         method: "POST",
-        body: JSON.stringify(project),
+        body: JSON.stringify(images),
     });
     if (response.ok) {
         const newProjectImages = await response.json();
@@ -138,11 +138,11 @@ export const addProjectImages = (project) => async (dispatch) => {
 
 
 //edit project
-export const editProject = (id) => async (dispatch) => {
+export const editProject = (project, id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(spot),
+        body: JSON.stringify(project),
     });
     if (response.ok) {
         const editedProject = await response.json();
