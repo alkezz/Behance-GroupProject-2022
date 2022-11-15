@@ -49,6 +49,7 @@
   font-weight: 600;
   font-size: 14px;
   height: 10px;
+  transition: background-color .5s;
 }
 
 #new-project-button:hover {
@@ -67,10 +68,12 @@
   height: 30px;
   font-weight: bold;
   font-size: 14px;
+  transition: background-color .5s;
+  border: 1px solid #8ebdfaa3;
 }
 
-login-button:hover {
-  background-color: #06173dcc;
+#login-button:hover {
+  background-color: #8ebdfaa3;
 }
 
 #signup-button {
@@ -85,4 +88,9 @@ login-button:hover {
   height: 30px;
   font-weight: bold;
   font-size: 14px;
+  transition: background-color .5s;
+}
+
+#signup-button:hover {
+  background-color: #0011ffd2;
 }

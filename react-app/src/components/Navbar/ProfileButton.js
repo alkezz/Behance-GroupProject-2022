@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton'
 import './ProfileButton.css'
+import avatar from '../../assets/behance-profile-image.png'
 
 function ProfileButton({ user }) {
 
@@ -26,14 +27,14 @@ function ProfileButton({ user }) {
   }, [showMenu]);
 
   return (
-    <div>
-      <img id="profile-button" onClick={openMenu} />
+    <div className="profile-button-container">
+      <img id="profile-button" src = {avatar} onClick={openMenu} />
       {showMenu && (
         <div className="profile-dropdown">
           <div className="dropdown-user-info">
-          <img src="./behance-profile-image.png"></img>
-          <div>{user.first_name} {user.last_name}</div>
-          <div>{user.email}</div>
+          <img src={avatar} alt="profile-avatar" height="70" width="70"></img>
+          <div className="dropdown-profile-name">{user.first_name} {user.last_name}</div>
+          <div className='dropdown-profile-email'>{user.email}</div>
           </div>
           <div className='dropdown-profile-link'>
           <Link to='/user/profile' className="manage-account-link">Enhance Profile</Link>

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
+import * as sessionActions from "./store/session"
 import NavBar from './components/Navbar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
@@ -13,19 +14,12 @@ import { authenticate } from './store/session';
 import './index.css'
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-
+  const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    (async () => {
-      await dispatch(authenticate());
-      setLoaded(true);
-    })();
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <BrowserRouter>
@@ -37,10 +31,10 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        <ProtectedRoute path='/users' exact={true}>
           <UsersList />
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute path='/users/:userId' exact={true}>
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >

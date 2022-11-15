@@ -1,16 +1,17 @@
 .login-page {
   position: fixed;
-  background-image: url("../../assets/login-plants.jpg");
+  background-image: url("https://source.unsplash.com/2000x1000?music%20festival");
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  overflow-y: scroll;
 }
 
 .login-form {
   margin-left: 50%;
   margin-right: 20%;
-  margin-top: 10%;
+  margin-top: 7%;
   padding: 40px 55px;
   background-color: white;
   border-radius: 5px;
@@ -24,6 +25,11 @@
   border: none;
   border-radius: 5em;
   height: 30px;
+  transition: background-color .5s;
+}
+
+.submit-button:hover {
+  background-color: #0011ffd2;
 }
 
 label {
