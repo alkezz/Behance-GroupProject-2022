@@ -49,4 +49,6 @@
 .project-list-likes {
   color: #696969;
   text-decoration: none;
+  font-size: 12px;
+  margin-top: 5px;
 }
