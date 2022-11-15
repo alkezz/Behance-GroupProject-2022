@@ -11,11 +11,42 @@
   grid-template-columns: repeat(5, 1fr)
 }
 
-.project-card-list {
+.project-list-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  height: 300px;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.project-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 290px;
 }
 
 .project-list-img {
-  height: 215px;
-  width: 275px;
-  border-radius: 5px;
+  max-height: 90%;
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.project-list-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: black;
+  text-decoration: none;
+}
+
+.project-list-name {
+  text-decoration: hidden;
+}
+
+.project-list-likes {
+  color: #696969;
+  text-decoration: none;
 }
