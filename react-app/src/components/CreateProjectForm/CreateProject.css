@@ -22,3 +22,33 @@
 .submit-button:hover {
   background-color: #0011ffd2;
 }
+
+.create-project-image-container {
+  width: 330px;
+  height: 160px;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 0 1px 5px #c7c7c7;
+}
+
+.create-project-image-prompt {
+  padding-top: 10px;
+  display: flex;
+  box-sizing: border-box;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #787878;
+  background-color: #f9f9f9;
+}
+
+.create-project-image-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-project-image-upload {
+  display: flex;
+  justify-content: center;
+}

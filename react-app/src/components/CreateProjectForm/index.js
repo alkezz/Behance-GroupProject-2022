@@ -70,8 +70,12 @@ function CreateProject() {
                             error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
                         )}
                     </div>
-                <div>
-                    <input type="file" name="file" multiple value='' encType="multipart/form-data" onChange={async (e) => await fetch('/api/projects/upload', {
+                <div className="create-project-image-container">
+                    <div className="create-project-image-prompt">
+                        Attach image files
+                    </div>
+                    <div className="create-project-image-input">
+                    <input className="create-project-image-upload" type="file" name="file" multiple value='' encType="multipart/form-data" onChange={async (e) => await fetch('/api/projects/upload', {
                         method: "POST",
                         headers: {
                             'Content-Type': "multipart/form-data"
@@ -79,6 +83,7 @@ function CreateProject() {
                         body: e.target.files[0].webkitRelativePath
                     }).then((data) => console.log(data.json()))} />
                     {/* <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button> */}
+                    </div>
                 </div>
                 <button type="submit" name="upload" value="Upload" className="submit-button">Submit</button>
             </form>
