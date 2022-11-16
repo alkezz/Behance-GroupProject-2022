@@ -43,11 +43,9 @@ def project_imgs_by_id(id):
     "/api/projects/:id/"
     """
 
-    one_project = ProjectImage.query.filter_by(project_id=id).all()
+    one_project = Project.query.get(id)
     if one_project:
-        res = { "images": [img.to_dict() for img in one_project]}
-        print(res, "test")
-        return res
+        return one_project.images_to_dict()
     else:
         return f"No such project with id of {id}"
 
@@ -120,6 +118,7 @@ def edit_project(id):
     project = Project.query.get(id)
     new_name = request.json["name"]
     new_description = request.json["description"]
+    new_images = request.json["images"]
     if project:
         if project.user_id == current_user.id:
             if new_name:
@@ -130,8 +129,12 @@ def edit_project(id):
                 project.description = new_description
             else:
                 project.description = project.description
+            if new_images:
+                project.images = new_images
+            else:
+                project.images = project.images
             db.session.commit()
-            return project.to_dict()
+            return project.to_dict(images=True)
         else:
             return {
                 "message": "Can not edit project not owned by you"
@@ -161,6 +164,7 @@ def add_project():
             name = form.data["name"],
             description = form.data["description"],
             user_id = form.data["user_id"],
+            images = form.data["images"]
         )
         db.session.add(new_project)
         db.session.commit()
@@ -174,7 +178,7 @@ def add_project():
         #             ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
         #         )
         #         image_list.append(f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}")
-        return new_project.to_dict()
+        return new_project.to_dict(images=True)
     else:
         return form.errors
 
@@ -211,10 +215,6 @@ def add_project_image_index():
 @project_routes.route("/upload", methods=["POST"])
 def upload():
     image_list = []
-    for filename, file in request.files.items():
-        print(filename, file)
-    print(request.files)
-    print("RESQE", request.files.getlist('file'))
     if request.method == 'POST':
         for i in request.files.getlist('file'):
                 filename = secure_filename(i.filename)
@@ -226,64 +226,64 @@ def upload():
                 )
                 image_list.append(f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}")
     return {"images": image_list}
-@project_routes.route("/project-images/upload", methods=["POST"])
-def upload_image():
-    form = PortfolioImageForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if request.method == 'POST':
-        for i in request.files.getlist('file'):
-                filename = secure_filename(i.filename)
-                s3.upload_fileobj(
-                    i,
-                    BUCKET_NAME,
-                    filename,
-                    ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
-                )
-                new_images = ProjectImage(
-                    url = f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}",
-                    is_preview = form.data["is_preview"],
-                    project_id = form.data["project_id"]
-                )
-                db.session.add(new_images)
-                db.session.commit()
-        return "Nice"
+# @project_routes.route("/project-images/upload", methods=["POST"])
+# def upload_image():
+#     form = PortfolioImageForm()
+#     form['csrf_token'].data = request.cookies['csrf_token']
+#     if request.method == 'POST':
+#         for i in request.files.getlist('file'):
+#                 filename = secure_filename(i.filename)
+#                 s3.upload_fileobj(
+#                     i,
+#                     BUCKET_NAME,
+#                     filename,
+#                     ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
+#                 )
+#                 new_images = ProjectImage(
+#                     url = f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}",
+#                     is_preview = form.data["is_preview"],
+#                     project_id = form.data["project_id"]
+#                 )
+#                 db.session.add(new_images)
+#                 db.session.commit()
+#         return "Nice"
 
-@project_routes.route("/project-images/<int:id>/", methods=["GET","DELETE"])
-@login_required
-def delete_project_image(id):
-    project_image = ProjectImage.query.get(id)
-    project = Project.query.get(project_image.project_id)
-    if project_image:
-        if project.user_id == current_user.id:
-            db.session.delete(project_image)
-            db.session.commit()
-            return project.to_dict(images=True)
-        else:
-            return {
-                "message": "Can not delete images from project not owned by you"
-            }
-    else:
-        return {
-            "message": f"Project with id of {id} was not found"
-        }
+# @project_routes.route("/project-images/<int:id>/", methods=["GET","DELETE"])
+# @login_required
+# def delete_project_image(id):
+#     project_image = ProjectImage.query.get(id)
+#     project = Project.query.get(project_image.project_id)
+#     if project_image:
+#         if project.user_id == current_user.id:
+#             db.session.delete(project_image)
+#             db.session.commit()
+#             return project.to_dict(images=True)
+#         else:
+#             return {
+#                 "message": "Can not delete images from project not owned by you"
+#             }
+#     else:
+#         return {
+#             "message": f"Project with id of {id} was not found"
+#         }
 
-@project_routes.route("/project-images/<int:id>/", methods=["GET", "PUT"])
-@login_required
-def edit_project_image(id):
-    project_image = ProjectImage.query.get(id)
-    project = Project.query.get(project_image.project_id)
-    if project_image:
-        if project.user_id == current_user.id:
-            new_url = request.json["url"]
-            # new_is_preview = request.json["is_preview"]
-            project_image.url = new_url
-            db.session.commit()
-            return project.to_dict(images=True)
-        else:
-            return {
-                "message": "Can not edit images from project not owned by you"
-            }
-    else:
-        return {
-            "message": f"Project with id of {id} was not found"
-        }
+# @project_routes.route("/project-images/<int:id>/", methods=["GET", "PUT"])
+# @login_required
+# def edit_project_image(id):
+#     project_image = ProjectImage.query.get(id)
+#     project = Project.query.get(project_image.project_id)
+#     if project_image:
+#         if project.user_id == current_user.id:
+#             new_url = request.json["url"]
+#             # new_is_preview = request.json["is_preview"]
+#             project_image.url = new_url
+#             db.session.commit()
+#             return project.to_dict(images=True)
+#         else:
+#             return {
+#                 "message": "Can not edit images from project not owned by you"
+#             }
+#     else:
+#         return {
+#             "message": f"Project with id of {id} was not found"
+#         }
