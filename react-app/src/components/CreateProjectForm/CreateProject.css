@@ -1,0 +1,24 @@
+.create-project-container {
+  top: 55px;
+  margin-left: 5%;
+  margin-right: 500px;
+}
+
+.create-project-form {
+  display: flex;
+  gap: 20px;
+}
+
+.submit-button {
+  color: white;
+  background-color: #0057ff;
+  width: 90px;
+  border: none;
+  border-radius: 5em;
+  height: 30px;
+  transition: background-color .5s;
+}
+
+.submit-button:hover {
+  background-color: #0011ffd2;
+}
