@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton'
 import './ProfileButton.css'
 import avatar from '../../assets/behance-profile-image.png'
@@ -28,7 +27,7 @@ function ProfileButton({ user }) {
 
   return (
     <div className="profile-button-container">
-      <img id="profile-button" src = {avatar} onClick={openMenu} />
+      <img id="profile-button" src={avatar} onClick={openMenu} />
       {showMenu && (
         <div className="profile-dropdown">
           <div className="dropdown-user-info">
