@@ -13,16 +13,17 @@ const ProjectList = () => {
         setProjects(data)
       })
     })
-  }, [fetch])
+  }, [])
 
   const allProjects = projects.Projects
+  console.log(allProjects)
   if (!allProjects) return null;
 
   return (
     <div className="landing-page-container">
       <div className="landing-page-grid">
         {allProjects.map(proj => (
-          <Link to={`/projects/${proj.id}`} key={proj.id} className='project-list-card'>
+          <Link to={`/gallery/${proj.id}`} key={proj.id} className='project-list-card'>
             <ProjectCard project={proj} />
           </Link>
         ))}

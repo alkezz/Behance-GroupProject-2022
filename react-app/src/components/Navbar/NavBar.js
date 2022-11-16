@@ -1,11 +1,8 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import LoginForm from '../auth/LoginForm'
-import SignUpForm from '../auth/SignUpForm'
 import './Navbar.css';
-import avatar from '../../assets/behance-profile-image.png'
 
 const NavBar = () => {
 
