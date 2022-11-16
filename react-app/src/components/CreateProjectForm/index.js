@@ -14,7 +14,8 @@ function CreateProject() {
     const [is_preview, setIsPreview] = useState(true)
     const [errors, setErrors] = useState([])
     const [proj, setProj] = useState({});
-    
+    const [submitted, setSubmitted] = useState(false)
+    const formData = new FormData();
     if (!sessionUser) {
         return null
     }
@@ -32,17 +33,18 @@ function CreateProject() {
         if (name.length > 50 || name.length < 10) errorList.push("Name but be between 10 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
         setErrors(errorList)
-        console.log(errors)
         if (errors.length) return
         const new_project = {
             name,
             description
         }
+        console.log("NEW_PROJECT", new_project)
         const project_images = {
             url,
             is_preview
         }
-        dispatch(projectActions.createProject(new_project, project_images))
+        console.log("PROJECT_IMAGES", project_images)
+        // dispatch(projectActions.createProject(new_project, project_images))
     }
     return (
         <>
@@ -82,16 +84,18 @@ function CreateProject() {
                         </div>
                     </label>
                     <div>
-                        <input type="file" name="file" multiple value='' encType="multipart/form-data" onChange={async (e) => await fetch('/api/projects/upload', {
+                        <input type="file" name="file" multiple encType="multipart/form-data" onChange={async (e) => {
+                            for (let i = 0; i < e.target.files.length; i++) {
+                                let img = e.target.files[i]
+                                formData.append('file', img)
+                            }
+                        }} />
+                        <button type='button' name="upload" value="Upload" onClick={async (e) => await fetch('/api/projects/upload', {
                             method: "POST",
-                            headers: {
-                                'Content-Type': "multipart/form-data"
-                            },
-                            body: e.target.files[0].webkitRelativePath
-                        }).then((data) => console.log(data.json()))} />
-                        {/* <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button> */}
+                            body: formData
+                        }).then((data) => data.json()).then((res) => setUrl(res.images))}>Upload</button>
                     </div>
-                    <button type="submit" name="upload" value="Upload" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </form>
             </div>
         </>
