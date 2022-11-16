@@ -14,6 +14,7 @@ function CreateProject() {
     const [is_preview, setIsPreview] = useState(true)
     const [errors, setErrors] = useState([])
     const [proj, setProj] = useState({});
+    const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
     if (!sessionUser) {
         return null
@@ -32,18 +33,18 @@ function CreateProject() {
         if (name.length > 50 || name.length < 10) errorList.push("Name but be between 10 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
         setErrors(errorList)
-        console.log(errors)
         if (errors.length) return
         const new_project = {
             name,
             description
         }
+        console.log("NEW_PROJECT", new_project)
         const project_images = {
             url,
-            is_preview,
-            project_id: 1
+            is_preview
         }
-        dispatch(projectActions.createProject(new_project, project_images))
+        console.log("PROJECT_IMAGES", project_images)
+        // dispatch(projectActions.createProject(new_project, project_images))
     }
     return (
         <>
@@ -89,12 +90,12 @@ function CreateProject() {
                                 formData.append('file', img)
                             }
                         }} />
-                        <button onClick={async (e) => await fetch('/api/projects/upload', {
+                        <button type='button' name="upload" value="Upload" onClick={async (e) => await fetch('/api/projects/upload', {
                             method: "POST",
                             body: formData
-                        }).then((data) => console.log(data.json()))}>Upload</button>
+                        }).then((data) => data.json()).then((res) => setUrl(res.images))}>Upload</button>
                     </div>
-                    <button type="submit" name="upload" value="Upload" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </form>
             </div>
         </>
