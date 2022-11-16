@@ -112,6 +112,7 @@ export const getAllProjectComments = (id) => async (dispatch) => {
 //create a project
 export const createProject = (project, image) => async (dispatch) => {
     console.log("THUNK PROJ", project)
+    console.log("IMAGE THUNK", image)
     const response = await fetch("/api/projects/", {
         method: "POST",
         headers: {
@@ -121,13 +122,18 @@ export const createProject = (project, image) => async (dispatch) => {
     });
     if (response.ok) {
         const newProject = await response.json();
-        console.log(image)
+        const { id } = newProject
+        const { url, is_preivew } = image
         const projectImages = await fetch(`/api/projects/project-images/upload`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(image)
+            body: JSON.stringify({
+                url,
+                is_preivew,
+                id
+            })
         })
         if (projectImages.ok) {
             const jsonProjectImages = await projectImages.json()
