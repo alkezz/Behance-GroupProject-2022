@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector, useSelector } from 'react-redux';
 import { getAllProjects } from '../../store/projects';
 import { addCommentToProject, getProjectComments } from '../../store/comments';
-import './Comments.css'
+import './comments.css'
 
 const CommentForm = ({ project }) => {
     const [comment, setComment] = useState('');
