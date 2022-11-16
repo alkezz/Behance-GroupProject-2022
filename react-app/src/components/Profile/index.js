@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Redirect, Link, NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import avatar from '../../assets/behance-profile-image.png'
 import "./Profile.css"
 // import * as profileActions from '../../store/songs'
 
@@ -14,14 +15,16 @@ function ProfilePage() {
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
-        <div className='projPreviewImgCont'>
-        <Link to={`/gallery/${project.id}`}><img className='projPreviewImg' src={project.prev_image.url} /></Link>
-        <div className='texttest'>
+        <Link className='projPreviewImgCont' to={`/gallery/${project.id}`}><img className='projPreviewImg' src={project.prev_image.url} /></Link>
+        <div className='userText'>
+          {prof.first_name} {prof.last_name}
+        </div>
+        <div className='projectText'>
           {project.name}
         </div>
-        <div className='texttest2'>
-          {project.name}
-        </div>
+        <div className='projectAppr'>
+          <i className="apprIcon fa-solid fa-thumbs-up"/>
+          <div className='projectAppr_text'>{project.appreciations}</div>
         </div>
       </div>
     );
@@ -75,34 +78,52 @@ function ProfilePage() {
 
   return (
     <div className='profilePage'>
-      <div>
-        <strong>User Id</strong> {prof.username}
-      </div>
-      <div>
-        <strong>Name</strong> {prof.first_name} {prof.last_name }
-      </div>
-      <div>
-        {JSON.stringify(prof)}
-      </div>
-      <div>
-        {JSON.stringify(apprecInfo)}
-      </div>
-      <div>
-      <strong>Appreciations</strong> {!!Object.keys(apprecInfo).length && apprecInfo.project_ids.length}
+      <div className='profileContent'>
+        <div className='userCard'>
+          <img className='userIcon' src={avatar} alt="profile-avatar" height="110" width="110" />
+          <div className='userCard_name'>
+            {prof.first_name} {prof.last_name }
+          </div>
+          <div className='userCard_username'>
+            {prof.username}
+          </div>
+          <button className='userCard_followBut'>
+            Follow
+          </button>
+          <div className='userStats'>
+            <div className='statsRow'>
+              <div className='userStat'>
+                Appreciations
+              </div>
+              <div className='userStat'>
+                {prof.projects.reduce((prev, curr) => prev + curr.appreciations, 0)}
+              </div>
+            </div>
+            <div className='statsRow'>
+              <div className='userStat'>
+                Followers
+              </div>
+              <div className='userStat'>
+              {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
+              </div>
+            </div>
+            <div className='statsRow'>
+              <div className='userStat'>
+                Following
+              </div>
+              <div className='userStat'>
+              {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
+              </div>
+            </div>
+          </div>
         </div>
-      <div>
-        {JSON.stringify(followerInfo)}
+        <div className='userProjects'>
+
+          {!!prof && projList}
+          {/* {!!prof && JSON.stringify(prof)}
+          {JSON.stringify(apprecInfo)} */}
+        </div>
       </div>
-      <div>
-      <strong>Following</strong> {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
-        </div>
-      <div>
-      <strong>Followers</strong> {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
-        </div>
-      <div>
-      <strong>followsOLD</strong> {followcount()}
-        </div>
-      {!!prof && projList}
     </div>
   );
 }
