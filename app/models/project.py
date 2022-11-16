@@ -17,10 +17,10 @@ class Project(db.Model):
   name = db.Column(db.String, nullable=False)
   description = db.Column(db.String)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
-
+  images = db.Column(db.String(255))
   # Relationships
   user = db.relationship("User", back_populates="projects")
-  images = db.relationship("ProjectImage", back_populates="project")
+#   images = db.relationship("ProjectImage", back_populates="project")
   comments = db.relationship("Comment", back_populates="project")
   project_appreciations = db.relationship(
         "User",
@@ -29,6 +29,11 @@ class Project(db.Model):
         cascade="all, delete"
     )
 
+
+  def images_to_dict(self):
+    return {
+        "images": self.images
+    }
   def to_dict(self, user=False, comments=False, images=False):
         proj =  {
             'id': self.id,
@@ -45,5 +50,5 @@ class Project(db.Model):
         if comments:
             proj['comments'] = [comment.to_dict(user=True,project=False) for comment in self.comments]
         if images:
-            proj["images"] = [image.to_dict() for image in self.images]
+            proj["images"] = self.images
         return proj

@@ -35,49 +35,49 @@ def seed_users():
         username='katie', email='katie@aa.io', password='password15', first_name="Katie", last_name="Keshi", followers=[demo, rel, jay, tracy, felicia, sean, talia, edward])
 
     project_1 = Project(
-        name="COOL Project", description="Such a cool project wow!", user_id=1, project_appreciations=[marnie, bobbie]
+        name="COOL Project", description="Such a cool project wow!", user_id=1, project_appreciations=[marnie, bobbie], images="['https://i.imgur.com/f8Mo04S.jpg']"
     )
     project_2 = Project(
-        name="Ez Project", description="Not bad", user_id=2, project_appreciations=[demo]
+        name="Ez Project", description="Not bad", user_id=2, project_appreciations=[demo], images="[]"
     )
     project_3 = Project(
-        name="Bad Project", description="wow this sucked", user_id=3, project_appreciations=[jimmy, francis, demo]
+        name="Bad Project", description="wow this sucked", user_id=3, project_appreciations=[jimmy, francis, demo], images="[]"
     )
     project_4 = Project(
-        name="Long Project", description="This is long!", user_id=4, project_appreciations=[demo, bobbie]
+        name="Long Project", description="This is long!", user_id=4, project_appreciations=[demo, bobbie], images="[]"
     )
     project_5 = Project(
-        name="Short Project", description="Are you even trying?", user_id=5, project_appreciations=[]
+        name="Short Project", description="Are you even trying?", user_id=5, project_appreciations=[], images="[]"
     )
     project_6 = Project(
-        name="ArtsyAF", description="I'm so artistic lewl", user_id=6, project_appreciations=[]
+        name="ArtsyAF", description="I'm so artistic lewl", user_id=6, project_appreciations=[], images="[]"
     )
     project_7 = Project(
-        name="Books Aesthetics", description="Great read", user_id=7, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Books Aesthetics", description="Great read", user_id=7, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_8 = Project(
-        name="Porsche", description="992 911 gt3rs ", user_id=8, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Porsche", description="992 911 gt3rs ", user_id=8, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_9 = Project(
-        name="Falls Fall", description="Fall weather is up. Just vibe.", user_id=9, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Falls Fall", description="Fall weather is up. Just vibe.", user_id=9, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_10 = Project(
-        name="Utopia", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Utopia", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_11 = Project(
-        name="Tokyo", description="Teriyaki Boyz", user_id=11, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Tokyo", description="Teriyaki Boyz", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_12 = Project(
-        name="Corgis", description="doggos!!!", user_id=12, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Corgis", description="doggos!!!", user_id=12, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_13 = Project(
-        name="Food Heaven", description="I love fried chicken", user_id=13, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Food Heaven", description="I love fried chicken", user_id=13, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_14 = Project(
-        name="Demon Slayer", description="BEST ANIME EVER", user_id=14, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Demon Slayer", description="BEST ANIME EVER", user_id=14, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
     project_15 = Project(
-        name="Scifi", description="beep beep", user_id=15, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Scifi", description="beep beep", user_id=15, project_appreciations=[marnie, bobbie, demo, francis], images="[]"
     )
 
 

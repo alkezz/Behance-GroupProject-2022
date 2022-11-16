@@ -64,5 +64,5 @@ class User(db.Model, UserMixin):
             'banner_image': self.banner_image
         }
         if projects:
-            userInfo['projects'] = [proj.to_dict() for proj in self.projects]
+            userInfo['projects'] = [proj.to_dict(images=True) for proj in self.projects]
         return userInfo

@@ -1,4 +1,3 @@
-
 const ADD_COMMENT = 'comment/addComment';
 const GET_COMMENTS = 'comment/getComments';
 const EDIT_COMMENT = 'comment/editComment';
@@ -21,7 +20,7 @@ const getComments = (comments) => {
 const addComment = (comment) => {
     return {
         type: ADD_COMMENT,
-        comment
+        comment,
     }
 }
 
@@ -82,7 +81,7 @@ export const getProjectComments = (id) => async (dispatch) => {
 export const addCommentToProject = (comData) => async (dispatch) => {
     const { comment, user_id, project_id } = comData
     const response = await fetch(`/api/comments/new`, {
-        method: 'post',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },

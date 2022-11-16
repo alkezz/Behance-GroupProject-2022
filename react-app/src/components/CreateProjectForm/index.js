@@ -14,7 +14,8 @@ function CreateProject() {
     const [is_preview, setIsPreview] = useState(true)
     const [errors, setErrors] = useState([])
     const [proj, setProj] = useState({});
-
+    const [submitted, setSubmitted] = useState(false)
+    const formData = new FormData();
     if (!sessionUser) {
         return null
     }
@@ -32,16 +33,17 @@ function CreateProject() {
         if (name.length > 50 || name.length < 10) errorList.push("Name but be between 10 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
         setErrors(errorList)
-        console.log(errors)
         if (errors.length) return
         const new_project = {
             name,
             description
         }
+        console.log("NEW_PROJECT", new_project)
         const project_images = {
             url,
             is_preview
         }
+        console.log("PROJECT_IMAGES", project_images)
         dispatch(projectActions.createProject(new_project, project_images))
     }
     return (
