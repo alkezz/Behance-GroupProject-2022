@@ -42,6 +42,27 @@ function ProjectGallery() {
   };
 
   const handleSubmit = async (e) => {
+    console.log('hit')
+    console.log(comment,sessionUser.id, projectId )
+
+    const response = await fetch(`/api/comments/new`, {
+      method: 'post',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        comment,
+        user_id: sessionUser.id,
+        project_id: projectId
+        })
+    })
+    if (response.ok) {
+        const data = await response.json()
+        console.log(data)
+    }
+  }
+
+  const handleSumit = async (e) => {
         e.preventDefault();
 
         const payload = {
@@ -83,9 +104,9 @@ function ProjectGallery() {
             <div>
               <strong>data</strong> {JSON.stringify(proj)}
             </div>
-            <div>
+
               <strong>imgs</strong> {JSON.stringify(projImg)}
-              <div>
+
                   {
                       !!projImg.images && projImg.images.map((eachImg) => (
 
@@ -95,8 +116,8 @@ function ProjectGallery() {
 
                       ))
                   }
-              </div>
-            </div>
+
+
             <div>
               <strong>comments</strong> {JSON.stringify(projectComments)}
                   {/* {
@@ -119,7 +140,7 @@ function ProjectGallery() {
                   required
                   value={comment}
                   onChange={(e) => setComment(e.target.value)} />
-              <button type='submit'>add comm</button>
+              <button type="submit">add comm</button>
             </form>
       </div>
     </div>
