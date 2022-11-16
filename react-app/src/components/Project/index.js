@@ -10,10 +10,10 @@ function ProjectGallery() {
   const sessionUser = useSelector((state) => state.session.user);
   const projectComments = useSelector((state) => state.comments);
   const [proj, setProj] = useState({});
-  const [projImg, setProjImg] = useState({});
+  const [projImg, setProjImg] = useState([]);
   const [comment, setComment] = useState('')
 
-  const { projectId }  = useParams();
+  const { projectId } = useParams();
 
   useEffect(() => {
     if (!projectId) {
@@ -35,7 +35,9 @@ function ProjectGallery() {
   if (!projectId) {
     return null;
   }
-
+  if (!projImg) {
+    return null
+  }
   let back = e => {
     e.stopPropagation();
     history.goBack();
@@ -43,48 +45,48 @@ function ProjectGallery() {
 
   const handleSubmit = async (e) => {
     console.log('hit')
-    console.log(comment,sessionUser.id, projectId )
+    console.log(comment, sessionUser.id, projectId)
 
     const response = await fetch(`/api/comments/new`, {
       method: 'post',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         comment,
         user_id: sessionUser.id,
         project_id: projectId
-        })
+      })
     })
     if (response.ok) {
-        const data = await response.json()
-        console.log(data)
+      const data = await response.json()
+      console.log(data)
     }
   }
 
   const handleSumit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        const payload = {
-            comment,
-            user_id: sessionUser.id,
-            project_id: projectId
-        };
+    const payload = {
+      comment,
+      user_id: sessionUser.id,
+      project_id: projectId
+    };
 
-        let createdComment
-        try {
-            createdComment = await dispatch(commentActions.addCommentToProject(payload))
-          } catch (error) {
-            if (error) console.log(error);
-            // If error is not a ValidationError, add slice at the end to remove extra
-            // "Error: "
-            else console.log('none')
-          }
-          if (createdComment) {
-            console.log('success')
-          }
-
+    let createdComment
+    try {
+      createdComment = await dispatch(commentActions.addCommentToProject(payload))
+    } catch (error) {
+      if (error) console.log(error);
+      // If error is not a ValidationError, add slice at the end to remove extra
+      // "Error: "
+      else console.log('none')
     }
+    if (createdComment) {
+      console.log('success')
+    }
+
+  }
 
   const test = async (e) => {
     e.preventDefault()
@@ -94,33 +96,33 @@ function ProjectGallery() {
   return (
     <div className="one" onClick={back}>
       <button type="button" onClick={back}>
-            Close
-          </button>
-          <div className='userInfo'></div>
-        <div className="modal" onClick={test}>
-            <div>
-              <strong>projid</strong> {projectId}
-            </div>
-            <div>
-              <strong>data</strong> {JSON.stringify(proj)}
-            </div>
+        Close
+      </button>
+      <div className='userInfo'></div>
+      <div className="modal" onClick={test}>
+        <div>
+          <strong>projid</strong> {projectId}
+        </div>
+        <div>
+          <strong>data</strong> {JSON.stringify(proj)}
+        </div>
 
-              <strong>imgs</strong> {JSON.stringify(projImg)}
+        <strong>imgs</strong> {JSON.stringify(projImg)}
 
-                  {
-                      !!projImg && projImg.map((eachImg) => (
+        {
+          projImg.map((eachImg) => (
 
-                              <img className='projImg' src={eachImg}>
+            <img className='projImg' src={eachImg}>
 
-                              </img>
+            </img>
 
-                      ))
-                  }
+          ))
+        }
 
 
-            <div>
-              <strong>comments</strong> {JSON.stringify(projectComments)}
-                  {/* {
+        <div>
+          <strong>comments</strong> {JSON.stringify(projectComments)}
+          {/* {
                       !!projectComments && projectComments.map((com) => (
                           <div>
                               <div>
@@ -132,16 +134,16 @@ function ProjectGallery() {
                           </div>
                       ))
                   } */}
-            </div>
-            <form onSubmit={handleSubmit}>
-              <textarea
-                  type="text"
-                  placeholder="What do you think about this project?"
-                  required
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)} />
-              <button type="submit">add comm</button>
-            </form>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            type="text"
+            placeholder="What do you think about this project?"
+            required
+            value={comment}
+            onChange={(e) => setComment(e.target.value)} />
+          <button type="submit">add comm</button>
+        </form>
       </div>
     </div>
   );
