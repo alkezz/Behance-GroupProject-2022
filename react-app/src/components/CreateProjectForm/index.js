@@ -20,6 +20,10 @@ function CreateProject() {
     if (!proj) {
         return null
     }
+    const handleImageUpload = (e) => {
+        e.preventDefault()
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         setErrors([])
@@ -42,7 +46,7 @@ function CreateProject() {
     return (
         <>
             <div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} action="/api/projects/upload" method="post" encType="multipart/form-data">
                     <h1>Create a project!</h1>
                     <label>
                         <div>
@@ -77,11 +81,8 @@ function CreateProject() {
                         </div>
                     </label>
                     <div>
-                        <form action="/api/projects/upload" method="post" enctype="multipart/form-data">
-                            <p class="card-text">Choose a file to upload it to AWS S3</p>
-                            <input type="file" name="file" multiple />
-                            <input type="submit" name="upload" value="Upload" class="btn btn-success" />
-                        </form>
+                        <input type="file" name="file" multiple />
+                        <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button>
                     </div>
                     <button type="submit" name="upload" value="Upload" class="btn btn-success">Submit</button>
                 </form>
