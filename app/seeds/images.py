@@ -31,6 +31,8 @@ def seed_images():
       url="https://i.pinimg.com/originals/93/dd/6c/93dd6c51a3cf9e60106ede7fed50c035.jpg", is_preview=True, project_id=14)
     image_15 = ProjectImage(
       url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx5ifKifvNWbg2fwCBV3QtfyHLztF8mPQMfg&usqp=CAU", is_preview=True, project_id=15)
+    image_16 = ProjectImage(
+      url="https://i.imgur.com/QjWyuWM.jpeg", is_preview=False, project_id=3)
 
 
     db.session.add(image_1)
@@ -48,6 +50,7 @@ def seed_images():
     db.session.add(image_13)
     db.session.add(image_14)
     db.session.add(image_15)
+    db.session.add(image_16)
     db.session.commit()
 
 def undo_images():

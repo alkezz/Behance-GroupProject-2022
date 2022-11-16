@@ -121,8 +121,9 @@ function ProfilePage() {
         <div className='userProjects'>
 
           {!!prof && projList}
-          {/* {!!prof && JSON.stringify(prof)}
-          {JSON.stringify(apprecInfo)} */}
+          {!!prof && projList.length}
+          {!!prof && JSON.stringify(prof)}
+          {JSON.stringify(apprecInfo)}
         </div>
       </div>
     </div>
