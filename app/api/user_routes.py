@@ -143,6 +143,9 @@ def username(un):
     """
     user = User.query.filter(func.lower(User.username) == func.lower(un)).first()
     if user:
-        return user.to_dict(projects=True)
+        user_info = user.to_dict(projects=True)
+        for each in user_info["projects"]:
+            each["images" ] = each["images"].strip("'] ['").split(', ')
+        return user_info
     else:
         return "No User Found"

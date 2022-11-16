@@ -16,7 +16,7 @@ function ProfilePage() {
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
-        <Link className='projPreviewImgCont' to={`/gallery/${project.id}`}><img className='projPreviewImg' src={project.images[0].url} /></Link>
+        <Link className='projPreviewImgCont' to={`/gallery/${project.id}`}><img className='projPreviewImg' src={project.images[0]} /></Link>
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
@@ -48,6 +48,7 @@ function ProfilePage() {
     (async () => {
       const response = await fetch(`/api/users/username/${username}`);
       const data = await response.json();
+      console.log("test", data)
       setProf(data);
       const response2 = await fetch(`/api/users/${data.id}/appreciations`);
       const response3 = await fetch(`/api/users/${data.id}/follows`);
