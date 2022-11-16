@@ -20,7 +20,7 @@ function ProjectGallery() {
       return;
     }
     (async () => {
-      const response = await fetch(`/api/projects/${projectId}`);
+      const response = await fetch(`/api/projects/${projectId}/`);
       const data = await response.json();
       setProj(data);
     })();
@@ -108,9 +108,9 @@ function ProjectGallery() {
               <strong>imgs</strong> {JSON.stringify(projImg)}
 
                   {
-                      !!projImg.images && projImg.images.map((eachImg) => (
+                      !!projImg && projImg.map((eachImg) => (
 
-                              <img className='projImg' src={eachImg.url}>
+                              <img className='projImg' src={eachImg}>
 
                               </img>
 
