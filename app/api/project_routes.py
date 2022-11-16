@@ -46,7 +46,7 @@ def project_imgs_by_id(id):
     "/api/projects/:id/"
     """
 
-    one_project = Project.query.get(id).to_dict()
+    one_project = Project.query.get(id).to_dict(images=True)
     if one_project:
         just_images = one_project["images"].strip('][').split(', ')
         return jsonify(just_images)

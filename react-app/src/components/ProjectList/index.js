@@ -8,7 +8,7 @@ const ProjectList = () => {
   const [projects, setProjects] = useState([])
 
   useEffect(() => {
-    fetch('/api/projects').then(response => {
+    fetch('/api/projects/').then(response => {
       response.json().then(data => {
         setProjects(data)
       })
