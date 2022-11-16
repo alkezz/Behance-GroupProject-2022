@@ -46,19 +46,16 @@ class User(db.Model, UserMixin):
         cascade= "all, delete"
     )
     followers = db.relationship(
-        'User', secondary=follows,
-        primaryjoin=(follows.c.follower_id == id),
-        secondaryjoin=(follows.c.followed_id == id),
-        backref=db.backref('follows', lazy='dynamic'),
-        lazy='dynamic'
+        'User', 
+        secondary="follows",
+        back_populates="follower_id",
+        cascade="all, delete"
     )
-    
     followed = db.relationship(
-        'User', secondary=follows,
-        primaryjoin=(follows.c.followed_id == id),
-        secondaryjoin=(follows.c.follower_id == id),
-        backref=db.backref('follows', lazy='dynamic'),
-        lazy='dynamic'
+        'User', 
+        secondary="follows",
+        back_populates="followed_id",
+        cascade="all, delete"
     )
     
     def to_dict(self, projects=False):
