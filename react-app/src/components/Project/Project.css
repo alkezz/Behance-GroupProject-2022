@@ -1,31 +1,42 @@
 .one {
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+    overflow-y: auto;
     background: rgb(0 0 0 / 85%);
-    z-index: 9001
+    z-index: 9001;
 }
 
 .userHeader {
     position: absolute;
-    background: #fff;
+    background: rgb(184, 19, 19);
     top: 25;
     left: 10%;
     right: 10%;
     padding: 15;
-    border: 2px solid #444;
+    border: 2px solid rgb(219, 28, 28);
     z-index: 9002 !important;
 }
 
 .modal {
-    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: #fff;
     top: 25;
+    width:90%;
     left: 10%;
     right: 10%;
-    padding: 15;
+    padding: 5px;
     border: 2px solid #444;
     z-index: 9002 !important;
+}
+
+.projImg {
+    max-width: 100%;
 }

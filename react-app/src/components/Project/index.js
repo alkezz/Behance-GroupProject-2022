@@ -7,7 +7,7 @@ import "./Project.css"
 function ProjectGallery() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user.id);
+  const sessionUser = useSelector((state) => state.session.user);
   const projectComments = useSelector((state) => state.comments);
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState({});
@@ -42,11 +42,32 @@ function ProjectGallery() {
   };
 
   const handleSubmit = async (e) => {
+    console.log('hit')
+    console.log(comment,sessionUser.id, projectId )
+
+    const response = await fetch(`/api/comments/new`, {
+      method: 'post',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        comment,
+        user_id: sessionUser.id,
+        project_id: projectId
+        })
+    })
+    if (response.ok) {
+        const data = await response.json()
+        console.log(data)
+    }
+  }
+
+  const handleSumit = async (e) => {
         e.preventDefault();
 
         const payload = {
             comment,
-            user_id: sessionUser,
+            user_id: sessionUser.id,
             project_id: projectId
         };
 
@@ -65,34 +86,38 @@ function ProjectGallery() {
 
     }
 
+  const test = async (e) => {
+    e.preventDefault()
+    e.stopPropagation();
+  }
+
   return (
     <div className="one" onClick={back}>
       <button type="button" onClick={back}>
             Close
           </button>
           <div className='userInfo'></div>
-        <div className="modal">
-          <div>
+        <div className="modal" onClick={test}>
             <div>
               <strong>projid</strong> {projectId}
             </div>
             <div>
               <strong>data</strong> {JSON.stringify(proj)}
             </div>
-            <div>
+
               <strong>imgs</strong> {JSON.stringify(projImg)}
-              <div>
+
                   {
                       !!projImg.images && projImg.images.map((eachImg) => (
-                          <div>
-                              <img style={{height:"200px"}}src={eachImg.url}>
+
+                              <img className='projImg' src={eachImg.url}>
 
                               </img>
-                          </div>
+
                       ))
                   }
-              </div>
-            </div>
+
+
             <div>
               <strong>comments</strong> {JSON.stringify(projectComments)}
                   {/* {
@@ -115,9 +140,8 @@ function ProjectGallery() {
                   required
                   value={comment}
                   onChange={(e) => setComment(e.target.value)} />
-              <button type='submit'>add comm</button>
+              <button type="submit">add comm</button>
             </form>
-          </div>
       </div>
     </div>
   );

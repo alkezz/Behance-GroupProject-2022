@@ -1,32 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import ProjectList from './components/ProjectList/index'
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
+import CreateProject from './components/CreateProjectForm'
+import CreateImages from './components/CreateProjectImage';
 import * as sessionActions from "./store/session"
 import NavBar from './components/Navbar/NavBar';
+import DemoUser from './components/DemoUser';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import ProfilePage from './components/ProfilePage';
 import { authenticate } from './store/session';
 import Project from './components/Project';
+import Profile from './components/Profile'
 import './index.css'
 
 function App() {
+  const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    (async () => {
+      await dispatch(authenticate());
+      setLoaded(true);
+    })();
   }, [dispatch]);
 
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/project/create' exact={true}>
+          <CreateProject />
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
+          <DemoUser />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
@@ -38,13 +53,13 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>Home Page Coming Soon!</h1>
+          <ProjectList />
         </Route>
         {/* <Route path='/gallery/:projectId'>
-          <ProjectGallery />
+          <Project />
         </Route> */}
         <Route path='/:username'>
-          <ProfilePage />
+          <Profile />
         </Route>
         <Route path="*">
           <div style={{ fontSize: 404 }}>* 404: Page not found *</div>

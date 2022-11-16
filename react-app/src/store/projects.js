@@ -1,4 +1,3 @@
-
 const GET_ALL_PROJECTS = 'projects/GET_ALL_PROJECTS';
 const GET_PROJECT_ID = 'projects/GET_PROJECT_ID';
 // const GET_PROJECT_IMAGES = 'projects/GET_PROJECT_IMAGES';
@@ -68,13 +67,14 @@ const deleteProject = (projectId) => {
 //thunks --
 
 //get all projects
-export const getAllProjects = async (dispatch) => {
-    const response = await fetch("/api/projects");
+export const getAllProjects = () => async (dispatch) => {
+
+    const response = await fetch("/api/projects/");
     if (response.ok) {
         const projects = await response.json();
-        dispatch(allProjects(projects));
+        dispatch(allProjects(projects.Projects));
         const all = {};
-        projects.forEach((project) => (all[project.id] = project));
+        projects.Projects.forEach((project) => (all[project.id] = project));
         return { ...all };
     }
     return {};
@@ -110,23 +110,54 @@ export const getAllProjectComments = (id) => async (dispatch) => {
     return response
 }
 //create a project
-export const createProject = (project) => async (dispatch) => {
-    const response = await fetch("/api/projects", {
+export const createProject = (project, image) => async (dispatch) => {
+    console.log("THUNK PROJ", project)
+    console.log("IMAGE THUNK", image)
+    const response = await fetch("/api/projects/", {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(project),
     });
     if (response.ok) {
         const newProject = await response.json();
-        dispatch(addProject(newProject))
-        return newProject
+        const { id } = newProject
+        const { url, is_preivew } = image
+        const projectImages = await fetch(`/api/projects/project-images/upload`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                url,
+                is_preivew,
+                id
+            })
+        })
+        if (projectImages.ok) {
+            const jsonProjectImages = await projectImages.json()
+            newProject["images"] = jsonProjectImages
+            dispatch(addProject(newProject))
+            return newProject
+        } else {
+            return response
+        }
     }
-    return response;
 }
+//     // dispatch(addProject(newProject))
+//     // return newProject
+// } else {
+//     return response;
+// }
 //add project images
-export const addProjectImages = (project) => async (dispatch) => {
-    const response = await fetch(`/api/projects/project-images/${project.id}`, {
+export const addProjectImages = (project, images) => async (dispatch) => {
+    const response = await fetch(`/api/projects/project-images/upload`, {
         method: "POST",
-        body: JSON.stringify(project),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(images),
     });
     if (response.ok) {
         const newProjectImages = await response.json();
@@ -138,11 +169,11 @@ export const addProjectImages = (project) => async (dispatch) => {
 
 
 //edit project
-export const editProject = (id) => async (dispatch) => {
+export const editProject = (project, id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(spot),
+        body: JSON.stringify(project),
     });
     if (response.ok) {
         const editedProject = await response.json();
