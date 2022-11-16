@@ -14,6 +14,7 @@ function CreateProject() {
     const [is_preview, setIsPreview] = useState(true)
     const [errors, setErrors] = useState([])
     const [proj, setProj] = useState({});
+    
     if (!sessionUser) {
         return null
     }
@@ -95,6 +96,7 @@ function CreateProject() {
             </div>
         </>
     )
+
 }
 
 export default CreateProject

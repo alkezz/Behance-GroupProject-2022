@@ -231,6 +231,7 @@ def upload_image():
     if request.method == 'POST':
         for i in request.files.getlist('file'):
                 filename = secure_filename(i.filename)
+                print(i, 'test')
                 s3.upload_fileobj(
                     i,
                     BUCKET_NAME,
