@@ -17,6 +17,7 @@
     mix-blend-mode: normal;
     height:300px;
     width: 375px;
+    border-radius: 4px;
     transition: mix-blend-mode 0.2s linear;
     object-fit: cover;
 }
@@ -126,7 +127,8 @@
     flex-direction: column;
     align-items: center;
     border-radius: 5px;
-    width: 15%;
+    width: 360px;
+    min-width: 360px;
     box-shadow: 0px 0px 2px #c9c9c9;
 }
 
@@ -177,3 +179,16 @@
 .userStat {
     font-weight: bold;
 }
+
+@media (max-width: 1024px) {
+    .landing-page-grid {
+      grid-template-columns: repeat(3, 1fr)
+    }
+  }
+  
+  @media (min-width: 1025px) and (max-width: 1350px) {
+    .landing-page-grid {
+      grid-template-columns: repeat(4, 1fr)
+    }
+  }
+  
