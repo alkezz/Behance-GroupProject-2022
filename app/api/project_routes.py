@@ -211,7 +211,9 @@ def add_project_image_index():
 @project_routes.route("/upload", methods=["POST"])
 def upload():
     image_list = []
-    print(request.headers)
+    for filename, file in request.files.items():
+        print(filename, file)
+    print(request.files)
     print("RESQE", request.files.getlist('file'))
     if request.method == 'POST':
         for i in request.files.getlist('file'):
@@ -243,10 +245,9 @@ def upload_image():
                     is_preview = form.data["is_preview"],
                     project_id = form.data["project_id"]
                 )
-                project = Project.query.get(form.data['project_id'])
                 db.session.add(new_images)
                 db.session.commit()
-        return project.to_dict(images=True)
+        return "Nice"
 
 @project_routes.route("/project-images/<int:id>/", methods=["GET","DELETE"])
 @login_required

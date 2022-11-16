@@ -14,7 +14,7 @@ function CreateProject() {
     const [is_preview, setIsPreview] = useState(true)
     const [errors, setErrors] = useState([])
     const [proj, setProj] = useState({});
-    
+    const formData = new FormData();
     if (!sessionUser) {
         return null
     }
@@ -40,7 +40,8 @@ function CreateProject() {
         }
         const project_images = {
             url,
-            is_preview
+            is_preview,
+            project_id: 1
         }
         dispatch(projectActions.createProject(new_project, project_images))
     }
@@ -82,14 +83,16 @@ function CreateProject() {
                         </div>
                     </label>
                     <div>
-                        <input type="file" name="file" multiple value='' encType="multipart/form-data" onChange={async (e) => await fetch('/api/projects/upload', {
+                        <input type="file" name="file" multiple encType="multipart/form-data" onChange={async (e) => {
+                            for (let i = 0; i < e.target.files.length; i++) {
+                                let img = e.target.files[i]
+                                formData.append('file', img)
+                            }
+                        }} />
+                        <button onClick={async (e) => await fetch('/api/projects/upload', {
                             method: "POST",
-                            headers: {
-                                'Content-Type': "multipart/form-data"
-                            },
-                            body: e.target.files[0].webkitRelativePath
-                        }).then((data) => console.log(data.json()))} />
-                        {/* <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button> */}
+                            body: formData
+                        }).then((data) => console.log(data.json()))}>Upload</button>
                     </div>
                     <button type="submit" name="upload" value="Upload" class="btn btn-success">Submit</button>
                 </form>
