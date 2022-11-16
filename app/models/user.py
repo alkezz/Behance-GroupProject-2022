@@ -52,7 +52,15 @@ class User(db.Model, UserMixin):
         backref=db.backref('follows', lazy='dynamic'),
         lazy='dynamic'
     )
-
+    
+    followed = db.relationship(
+        'User', secondary=follows,
+        primaryjoin=(follows.c.followed_id == id),
+        secondaryjoin=(follows.c.follower_id == id),
+        backref=db.backref('follows', lazy='dynamic'),
+        lazy='dynamic'
+    )
+    
     def to_dict(self, projects=False):
         userInfo =  {
             'id': self.id,
