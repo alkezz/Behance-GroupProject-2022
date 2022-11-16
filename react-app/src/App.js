@@ -5,6 +5,7 @@ import ProjectList from './components/ProjectList/index'
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import CreateProject from './components/CreateProjectForm'
+import CreateImages from './components/CreateProjectImage';
 import * as sessionActions from "./store/session"
 import NavBar from './components/Navbar/NavBar';
 import DemoUser from './components/DemoUser';
@@ -21,7 +22,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -30,7 +31,7 @@ function App() {
   if (!loaded) {
     return null;
   }
-  
+
   return (
     <BrowserRouter>
       <NavBar />

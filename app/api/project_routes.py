@@ -141,6 +141,13 @@ def edit_project(id):
             "message": f"No such project with id of {id}"
         }
 
+s3 = boto3.client(
+   "s3",
+   aws_access_key_id=os.environ.get("AWS_ACCESS_KEY"),
+   aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY")
+)
+BUCKET_NAME=os.environ.get("AWS_BUCKET_NAME")
+
 @project_routes.route("/", methods=["POST"])
 @login_required
 def add_project():
@@ -157,6 +164,16 @@ def add_project():
         )
         db.session.add(new_project)
         db.session.commit()
+        # image_list = []
+        # for i in request.files.getlist('file'):
+        #         filename = secure_filename(i.filename)
+        #         s3.upload_fileobj(
+        #             i,
+        #             BUCKET_NAME,
+        #             filename,
+        #             ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
+        #         )
+        #         image_list.append(f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}")
         return new_project.to_dict()
     else:
         return form.errors
@@ -180,17 +197,25 @@ def add_project_image_index():
     # else:
     #     return form.errors
 
-s3 = boto3.client(
-   "s3",
-   aws_access_key_id=os.environ.get("AWS_ACCESS_KEY"),
-   aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY")
-)
-BUCKET_NAME=os.environ.get("AWS_BUCKET_NAME")
 
-@project_routes.route("/<int:id>/project-images/upload", methods=["POST"])
-def upload_image(id):
+@project_routes.route("/upload", methods=["POST"])
+def upload():
+    image_list = []
+    print("RESQE", request.files.getlist('file'))
+    if request.method == 'POST':
+        for i in request.files.getlist('file'):
+                filename = secure_filename(i.filename)
+                s3.upload_fileobj(
+                    i,
+                    BUCKET_NAME,
+                    filename,
+                    ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
+                )
+                image_list.append(f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}")
+    return {"images": image_list}
+@project_routes.route("/project-images/upload", methods=["POST"])
+def upload_image():
     form = PortfolioImageForm()
-    project = Project.query.get(id)
     form['csrf_token'].data = request.cookies['csrf_token']
     if request.method == 'POST':
         for i in request.files.getlist('file'):
@@ -206,6 +231,7 @@ def upload_image(id):
                     is_preview = form.data["is_preview"],
                     project_id = form.data["project_id"]
                 )
+                project = Project.query.get(form.data['project_id'])
                 db.session.add(new_images)
                 db.session.commit()
         return project.to_dict(images=True)
