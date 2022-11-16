@@ -7,7 +7,7 @@ const ProjectCard = ({ project }) => {
   let previewImage;
   if (!project.images) return null;
 
-  previewImage = project.prev_image.url
+  previewImage = project.images[0].url
 
   return (
     <div className="project-card">
@@ -16,7 +16,7 @@ const ProjectCard = ({ project }) => {
       <div className='project-list-info'>
         <div className='project-list-user'>
           <img className='project-list-user-avatar' src={avatar} alt="user avatar" width="14" height="14"/>
-          <span>{project.owner.first_name} {project.owner.last_name}</span>
+          <span>{project.User.first_name} {project.User.last_name}</span>
         </div>
         <div className="project-list-likes"><i className="fa-solid fa-thumbs-up"></i> {project.appreciations}</div>
       </div>
