@@ -17,12 +17,19 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+    
+    console.log("This ran")
+
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password, firstName, lastName));
       if (data) {
         setErrors(data)
       }
+    } else {
+      console.log("I am an error")
+      return setErrors(["Password fields must match"])
     }
+
   };
   
   const updateFirstName = (e) => {
@@ -50,7 +57,7 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/' />
   }
 
   return (

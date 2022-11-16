@@ -28,6 +28,10 @@
   height: 290px;
 }
 
+.project-card:hover .project-list-name {
+  z-index: 99;
+}
+
 .project-list-img {
   /* max-height: 90%;
   max-width: 100%; */
@@ -49,10 +53,41 @@
 }
 
 .project-list-name {
-  text-decoration: hidden;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  position: relative;
+  z-index: -1;
+  height:20px;
+  width: 100%;
+  left:5%;
+  bottom: 10%;
+}
+
+.project-list-name:hover {
+  text-decoration: underline;
+}
+
+.project-list-user {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-top: -12px;
+  font-weight: bold;
+}
+
+.project-list-user-avatar {
+  padding-right: 3px;
 }
 
 .project-list-likes {
   color: #696969;
   text-decoration: none;
+  font-size: 12px;
+  margin-top: -12px;
 }
+
+
+
+

@@ -35,7 +35,8 @@ class Project(db.Model):
             'name': self.name,
             'description': self.description,
             'appreciations': len(self.project_appreciations),
-            'prev_image': self.images[0].to_dict()
+            'prev_image': self.images[0].to_dict(),
+            'owner': self.user.to_dict()
         }
         print(self.project_appreciations)
         print(self.comments)
