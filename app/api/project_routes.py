@@ -198,9 +198,20 @@ def add_project_image_index():
     #     return form.errors
 
 
+# {async (e) => await fetch('/api/projects/upload', {
+#                             method: "POST",
+#                             headers: {
+#                                 'Content-Type': e.target.files[0].type
+#                             },
+#                             body: e.target.files[0]
+#                         }).then((data) => console.log(data.json()))}
+
+
+
 @project_routes.route("/upload", methods=["POST"])
 def upload():
     image_list = []
+    print(request.headers)
     print("RESQE", request.files.getlist('file'))
     if request.method == 'POST':
         for i in request.files.getlist('file'):

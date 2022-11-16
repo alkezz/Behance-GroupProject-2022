@@ -10,7 +10,7 @@ function CreateProject() {
     const sessionUser = useSelector((state) => state.session);
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
-    const [url, setUrl] = useState("")
+    const [url, setUrl] = useState([])
     const [is_preview, setIsPreview] = useState(true)
     const [errors, setErrors] = useState([])
     const [proj, setProj] = useState({});
@@ -46,7 +46,7 @@ function CreateProject() {
     return (
         <>
             <div>
-                <form onSubmit={handleSubmit} action="/api/projects/upload" method="post" encType="multipart/form-data">
+                <form onSubmit={handleSubmit} action="/api/projects/project-images/upload" method="post" encType="multipart/form-data">
                     <h1>Create a project!</h1>
                     <label>
                         <div>
@@ -81,8 +81,14 @@ function CreateProject() {
                         </div>
                     </label>
                     <div>
-                        <input type="file" name="file" multiple />
-                        <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button>
+                        <input type="file" name="file" multiple value='' encType="multipart/form-data" onChange={async (e) => await fetch('/api/projects/upload', {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': "multipart/form-data"
+                            },
+                            body: e.target.files[0].webkitRelativePath
+                        }).then((data) => console.log(data.json()))} />
+                        {/* <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button> */}
                     </div>
                     <button type="submit" name="upload" value="Upload" class="btn btn-success">Submit</button>
                 </form>
