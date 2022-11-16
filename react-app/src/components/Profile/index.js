@@ -8,6 +8,7 @@ import "./Profile.css"
 function ProfilePage() {
   const dispatch = useDispatch()
   const [prof, setProf] = useState({username:null,projects:[]});
+  console.log(prof)
   const [followerInfo, setFollowerInfo] = useState({})
   const [apprecInfo, setApprecInfo] = useState({})
   const { username }  = useParams();
@@ -15,7 +16,7 @@ function ProfilePage() {
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
-        <Link className='projPreviewImgCont' to={`/gallery/${project.id}`}><img className='projPreviewImg' src={project.prev_image.url} /></Link>
+        <Link className='projPreviewImgCont' to={`/gallery/${project.id}`}><img className='projPreviewImg' src={project.images[0].url} /></Link>
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
