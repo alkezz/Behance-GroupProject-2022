@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request, url_for, render_template, redirect, flash
 from flask_login import login_required, current_user
-from app.models import Project, ProjectImage, Comment, db, User
+from app.models import Project, Comment, db, User
 from app.forms import CommentForm, ProjectForm, PortfolioImageForm
 from app.models.project import appreciations
 import boto3, botocore
@@ -17,7 +17,10 @@ def projects():
     "/api/projects"
     """
     all_projects = Project.query.all()
-    return {'Projects': [project.to_dict(images=True, user=True) for project in all_projects]}
+    project_dicts = [project.to_dict(images=True, user=True) for project in all_projects]
+    for x in project_dicts:
+       x["images"] = x["images"].strip("'] ['").split(', ')
+    return jsonify(project_dicts)
 
 @project_routes.route("/<int:id>/comments")
 def project_comments_by_id(id):
@@ -43,9 +46,10 @@ def project_imgs_by_id(id):
     "/api/projects/:id/"
     """
 
-    one_project = Project.query.get(id)
+    one_project = Project.query.get(id).to_dict()
     if one_project:
-        return one_project.images_to_dict()
+        just_images = one_project["images"].strip('][').split(', ')
+        return jsonify(just_images)
     else:
         return f"No such project with id of {id}"
 
@@ -87,7 +91,10 @@ def project_by_id(id):
     """
     one_project = Project.query.get(id)
     if one_project:
-        return one_project.to_dict(user=True, comments=True, images=True)
+        one_project_dict = one_project.to_dict(user=True, comments=True, images=True)
+        print("PROJ DICT",one_project_dict)
+        one_project_dict["images"] = one_project_dict["images"].strip("'] [").split(', ')
+        return jsonify(one_project_dict)
     else:
         return f"No such project with id of {id}"
 
