@@ -7,7 +7,7 @@ const ProjectCard = ({ project }) => {
   let previewImage;
   if (!project.images) return null;
 
-  previewImage = project.images[0].url
+  previewImage = project.images[0]
 
   return (
     <div className="project-card">
