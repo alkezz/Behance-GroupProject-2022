@@ -17,7 +17,7 @@ def projects():
     "/api/projects"
     """
     all_projects = Project.query.all()
-    return {'Projects': [project.to_dict(images=True) for project in all_projects]}
+    return {'Projects': [project.to_dict(images=True, user=True) for project in all_projects]}
 
 @project_routes.route("/<int:id>/comments")
 def project_comments_by_id(id):
