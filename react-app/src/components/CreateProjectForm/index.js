@@ -44,7 +44,7 @@ function CreateProject() {
             is_preview
         }
         console.log("PROJECT_IMAGES", project_images)
-        // dispatch(projectActions.createProject(new_project, project_images))
+        dispatch(projectActions.createProject(new_project, project_images))
     }
     return (
         <>
@@ -93,7 +93,7 @@ function CreateProject() {
                         <button type='button' name="upload" value="Upload" onClick={async (e) => await fetch('/api/projects/upload', {
                             method: "POST",
                             body: formData
-                        }).then((data) => data.json()).then((res) => setUrl(res.images))}>Upload</button>
+                        }).then((data) => data.json()).then((res) => setUrl(res.images)).then(() => window.alert("Upload complete!"))}>Upload</button>
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </form>
