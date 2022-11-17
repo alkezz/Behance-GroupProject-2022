@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Redirect, Link, NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import * as followActions from '../../store/follows'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Profile.css"
 // import * as profileActions from '../../store/songs'
 
 function ProfilePage() {
   const dispatch = useDispatch()
+  const sessionUser = useSelector((state) => state.session);
+  const followedList = useSelector((state) => state.follows.followed_by_user_ids)
   const [prof, setProf] = useState({username:null,projects:[]});
-  console.log(prof)
+  // console.log(prof)
   const [followerInfo, setFollowerInfo] = useState({})
   const [apprecInfo, setApprecInfo] = useState({})
   const { username }  = useParams();
@@ -31,15 +34,42 @@ function ProfilePage() {
     );
   });
 
-  const followcount = () => {
-    let count = 0
-    prof.projects.forEach((e) => {
-      count += e.appreciations
-    })
-    return count
+  let followButton
+  if (followedList.includes(prof.id)) {
+    followButton = (
+      <button onClick={(e) => handleUnFollow(e)} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+        Following
+      </button>
+    )
+  }
+  else {
+    followButton = (
+      <button onClick={(e) => handleFollow(e)} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+        Follow
+      </button>
+    )
+  }
+
+  // const followcount = () => {
+  //   let count = 0
+  //   prof.projects.forEach((e) => {
+  //     count += e.appreciations
+  //   })
+  //   return count
+  // }
+
+  const handleFollow = (e) => {
+    e.preventDefault();
+    dispatch(followActions.followUser(sessionUser.user.id, prof.id))
+  }
+
+  const handleUnFollow = (e) => {
+    e.preventDefault();
+    dispatch(followActions.followUser(sessionUser.user.id, prof.id))
   }
 
   useEffect(() => {
+    
     document.title = `Enhance :: ${username}`
     if (!username) {
       return;
@@ -48,7 +78,7 @@ function ProfilePage() {
     (async () => {
       const response = await fetch(`/api/users/username/${username}`);
       const data = await response.json();
-      console.log("test", data)
+      // console.log("test", data)
       setProf(data);
       const response2 = await fetch(`/api/users/${data.id}/appreciations`);
       const response3 = await fetch(`/api/users/${data.id}/follows`);
@@ -89,9 +119,9 @@ function ProfilePage() {
           <div className='userCard_username'>
             {prof.username}
           </div>
-          <button className='userCard_followBut'>
-            Follow
-          </button>
+          {
+            followButton
+          }
           <div className='userStats'>
             <div className='statsRow'>
               <div className='userStat'>
@@ -120,11 +150,13 @@ function ProfilePage() {
           </div>
         </div>
         <div className='userProjects'>
-
-          {!!prof && projList}
+          <div className='userProjectsGrid' >
+            {!!prof && projList}
+          </div>
           {!!prof && projList.length}
           {!!prof && JSON.stringify(prof)}
           {JSON.stringify(apprecInfo)}
+          {JSON.stringify(followerInfo)}
         </div>
       </div>
     </div>

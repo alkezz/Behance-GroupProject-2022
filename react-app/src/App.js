@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProjectList from './components/ProjectList/index'
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
@@ -16,14 +16,19 @@ import { authenticate } from './store/session';
 import Project from './components/Project';
 import Profile from './components/Profile'
 import './index.css'
+import * as followsActions from './store/follows';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+  const session = useSelector((store) => store.session)
 
   useEffect(() => {
     (async () => {
-      await dispatch(authenticate());
+      await dispatch(authenticate())
+        .then((res) => {
+          dispatch(followsActions.userFollows(res.id))
+        });
       setLoaded(true);
     })();
   }, [dispatch]);

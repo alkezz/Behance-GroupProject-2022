@@ -18,9 +18,6 @@ function CreateProject() {
     const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
 
-    useEffect(() => {
-
-    })
 
     if (!sessionUser) {
         return null
@@ -54,7 +51,7 @@ function CreateProject() {
             name,
             description,
             user_id: sessionUser.id,
-            images: images
+            images: pictures.images
         }
         dispatch(projectActions.createProject(new_project)); window.alert("Upload complete!")
     }
