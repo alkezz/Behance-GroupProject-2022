@@ -157,14 +157,14 @@ function ProjectGallery() {
           <div className='project-name-appreciate'>
             {proj.name}
             <div className='below-like-button'>
-              <i class="fa-solid fa-heart"></i>
+              <i id="thumbs-icon" class="fa-solid fa-thumbs-up fa-1x"></i>
               &nbsp;
               {proj.appreciations}
               {/* <i className="fa-solid fa-thumbs-up fa-1x">{proj.appreciations}</i> */}
               &nbsp;
               &nbsp;
               {/* {console.log(proj.comments[0].comment)} */}
-              <i class="fa-solid fa-message"></i>
+              <i class="fa-solid fa-message fa-1x"></i>
               &nbsp;
               {/* {proj.comments.length} */}
             </div>
