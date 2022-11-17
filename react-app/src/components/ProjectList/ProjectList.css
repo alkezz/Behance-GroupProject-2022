@@ -88,6 +88,12 @@
   font-size: 12px;
   margin-top: -12px;
   font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.project-list-user:hover {
+  text-decoration: underline
 }
 
 .project-list-user-avatar {
