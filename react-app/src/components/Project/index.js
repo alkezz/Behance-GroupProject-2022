@@ -22,14 +22,12 @@ function ProjectGallery() {
     (async () => {
       const response = await fetch(`/api/projects/${projectId}/`);
       const data = await response.json();
-      response.json(data)
-      // setProj(data);
+      setProj(data);
     })();
     (async () => {
       const response = await fetch(`/api/projects/${projectId}/images`);
       const data = await response.json();
-      response.json(data)
-      // setProjImg(data);
+      setProjImg(data);
     })();
     // dispatch(commentActions.getProjectComments(projectId))
   }, [projectId, dispatch]);
