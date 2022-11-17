@@ -9,6 +9,7 @@ import "./Profile.css"
 function ProfilePage() {
   const dispatch = useDispatch()
   const location = useLocation()
+  const history = useHistory()
   const sessionUser = useSelector((state) => state.session);
   const followedList = useSelector((state) => state.follows.current_followed_user_ids)
   const [prof, setProf] = useState({username:null,projects:[]});
@@ -36,17 +37,25 @@ function ProfilePage() {
     );
   });
   let followButton
-  if (followedList.includes(prof.id)) {
+  if(sessionUser.user !== null && !!username){
+    if (followedList.includes(prof.id)) {
+      followButton = (
+        <button onClick={(e) => {handleUnFollow(e);setUpdate(!update)}} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+        </button>
+      )
+    } else {
+      followButton = (
+        <button onClick={(e) => {handleFollow(e);setUpdate(!update)}} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+          Follow
+        </button>
+      )
+    }
+  } else {
     followButton = (
-      <button onClick={(e) => {handleUnFollow(e);setUpdate(!update)}} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
-      </button>
-    )
-  }
-  else {
-    followButton = (
-      <button onClick={(e) => {handleFollow(e);setUpdate(!update)}} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+      <button onClick={() => history.push('/login')} className='userCard_followBut'>
         Follow
       </button>
+
     )
   }
 
@@ -78,16 +87,19 @@ function ProfilePage() {
     if(username !== "gallery"){
     (async () => {
       const response = await fetch(`/api/users/username/${username}`);
-      const data = await response.json();
-      // console.log("test", data)
-      setProf(data);
-      const response2 = await fetch(`/api/users/${data.id}/appreciations`);
-      const response3 = await fetch(`/api/users/${data.id}/follows`);
-      const data2 = await response2.json();
-      const data3 = await response3.json();
-      console.log("eff")
-      setApprecInfo(data2);
-      setFollowerInfo(data3)
+      let data
+      if(response) {
+        data = await response.json();
+        setProf(data);
+        // console.log("test", data)
+        const response2 = await fetch(`/api/users/${data.id}/appreciations`);
+        const response3 = await fetch(`/api/users/${data.id}/follows`);
+        const data2 = await response2.json();
+        const data3 = await response3.json();
+        console.log("eff")
+        setApprecInfo(data2);
+        setFollowerInfo(data3)
+      }
     })();
     }
     // (async () => {
@@ -105,7 +117,6 @@ function ProfilePage() {
   if (!prof.username) {
     return <>
       <div>
-      Oops! We can’t find that page.
       </div>
     </>;
   }
