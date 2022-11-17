@@ -118,10 +118,34 @@ function ProjectGallery() {
 
           ))
         }
+        <div className='appreciate-container'>
+          <div className='like-div'>
+            <button className='appreciate-button' onClick={(e) => fetch(`/api/projects/${sessionUser.id}/appreciates/${projectId}`, {
+              method: "POST",
 
-
+            }).then((res) => console.log(res.json()))}><i className="fa-solid fa-thumbs-up fa-2x"></i></button>
+          </div>
+          <br />
+          <div className='project-name-appreciate'>
+            {proj.name}
+          </div>
+          <div className='below-like-button'>
+            <i class="fa-solid fa-heart"></i>
+            &nbsp;
+            {proj.appreciations}
+            {/* <i className="fa-solid fa-thumbs-up fa-1x">{proj.appreciations}</i> */}
+            &nbsp;
+            &nbsp;
+            {/* {console.log(proj.comments[0].comment)} */}
+            <i class="fa-solid fa-message"></i>
+            &nbsp;
+            {proj.comments.length}
+          </div>
+        </div>
         <div>
-          <strong>comments</strong> {JSON.stringify(projectComments)}
+          <div>
+            <strong>comments</strong>
+          </div>
           {/* {
                       !!projectComments && projectComments.map((com) => (
                           <div>

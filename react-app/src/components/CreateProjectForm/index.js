@@ -47,15 +47,13 @@ function CreateProject() {
             method: "POST",
             body: formData
         }).then((res) => res.json())
-        console.log("PICTURES", pictures)
-        setImages(pictures.images)
-        console.log("IMAGES", images)
         const new_project = {
             name,
             description,
             user_id: sessionUser.id,
-            images: images
+            images: pictures.images
         }
+        // console.log(new_project)
         dispatch(projectActions.createProject(new_project)); window.alert("Upload complete!")
     }
     return (
