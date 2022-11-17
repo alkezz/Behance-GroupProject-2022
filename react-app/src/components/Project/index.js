@@ -12,7 +12,7 @@ function ProjectGallery() {
   const sessionUser = useSelector((state) => state.session.user);
   // const projectComments = useSelector((state) => state.comments);
   const [proj, setProj] = useState({});
-  const [projImg, setProjImg] = useState({});
+  const [projImg, setProjImg] = useState([]);
   const[projComments, setProjComments] = useState({});
   const comments = useSelector((state) => state.comments);
 
@@ -139,7 +139,7 @@ function ProjectGallery() {
         </div>
         <div>
           <strong>data</strong> {JSON.stringify(proj)}
-        </div>
+        </div> */}
 
         {
           projImg.map((eachImg) => (
@@ -151,8 +151,8 @@ function ProjectGallery() {
           ))
         }
 
-        <strong>imgs</strong> {JSON.stringify(projImg)}
-        
+        {/* <strong>imgs</strong> {JSON.stringify(projImg)}
+         */}
         <div>
           <CreateComment projectId={projectId} proj={proj}/>
         </div>
@@ -173,7 +173,7 @@ function ProjectGallery() {
             </button>
 
           </div>
-        )} */}
+        )}
         <div>
           {/* <strong>comments</strong> {JSON.stringify(projectComments)} */}
           {/* {
@@ -198,7 +198,7 @@ function ProjectGallery() {
                   onChange={(e) => setComment(e.target.value)} />
               <button type="submit">add comm</button>
             </form> */}
-      </div>
+      {/* </div> */}
     </div>
   );
 }
