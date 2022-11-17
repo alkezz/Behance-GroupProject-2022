@@ -114,9 +114,21 @@
     height: 75px;
     border-radius: 50%;
     background-color: #0046cc;
+    margin-bottom: 10px;
 }
 
 .below-like-button{
     color: white;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
+.fa-solid{
+    color: white;
+}
+
+/* #thumbs-icon{
+    font-size: 16px;
+} */
