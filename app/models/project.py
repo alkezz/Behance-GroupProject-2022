@@ -29,7 +29,7 @@ class Project(db.Model):
         "User",
         secondary=appreciations,
         back_populates="project_likes",
-        cascade="all, delete"
+        # cascade="all, delete"
     )
 
 

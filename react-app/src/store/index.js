@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import comments from './comments'
 import follows from './follows'
+import projects from './projects'
 
 const rootReducer = combineReducers({
   session,
   comments,
-  follows
+  follows,
+  projects
 });
 
 

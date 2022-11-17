@@ -105,6 +105,7 @@ def delete_project(id):
     project = Project.query.get(id)
     if project:
         if project.user_id == current_user.id:
+            print(project)
             db.session.delete(project)
             db.session.commit()
             return {

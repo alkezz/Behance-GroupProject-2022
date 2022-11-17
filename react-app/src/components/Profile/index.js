@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Redirect, Link, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as followActions from '../../store/follows'
+import { deleteProjectId } from '../../store/projects';
 import avatar from '../../assets/behance-profile-image.png'
 import "./Profile.css"
-// import * as profileActions from '../../store/songs'
 
 function ProfilePage() {
   const dispatch = useDispatch()
@@ -19,7 +19,15 @@ function ProfilePage() {
   const [apprecInfo, setApprecInfo] = useState({})
   const { username }  = useParams();
   
-  
+  const deleteProject = (e) => {
+    e.preventDefault();
+    let projectId = document.getElementById("delete-project-button").value
+    console.log(projectId)
+    fetch(`/api/projects/${projectId}/`, {
+      method: "DELETE"
+    })
+    console.log("I ran after ")
+    }
 
   const projList = prof.projects.map((project) => {
     return (
@@ -31,6 +39,9 @@ function ProfilePage() {
         <div className='projectText'>
           {project.name}
         </div>
+        {!!sessionUser && sessionUser.user.id === prof.id && (
+          <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+        )}
         <div className='projectAppr'>
           <i className="apprIcon fa-solid fa-thumbs-up"/>
           <div className='projectAppr_text'>{project.appreciations}</div>
@@ -69,6 +80,8 @@ function ProfilePage() {
   //   return count
   // }
 
+
+  
   const handleFollow = (e) => {
     setUpdate(true)
     e.preventDefault();
@@ -98,7 +111,6 @@ function ProfilePage() {
         const response3 = await fetch(`/api/users/${data.id}/follows`);
         const data2 = await response2.json();
         const data3 = await response3.json();
-        console.log("eff")
         setApprecInfo(data2);
         setFollowerInfo(data3)
       }
@@ -169,9 +181,9 @@ function ProfilePage() {
             {!!prof && projList}
           </div>
           {!!prof && projList.length}
-          {!!prof && JSON.stringify(prof)}
+          {/* {!!prof && JSON.stringify(prof)}
           {JSON.stringify(apprecInfo)}
-          {JSON.stringify(followerInfo)}
+          {JSON.stringify(followerInfo)} */}
         </div>
       </div>
     </div>
