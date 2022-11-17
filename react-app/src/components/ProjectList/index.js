@@ -8,15 +8,17 @@ const ProjectList = () => {
   const [projects, setProjects] = useState([])
 
   useEffect(() => {
-    fetch('/api/projects').then(response => {
-      response.json().then(data => {
-        setProjects(data)
+    (async () => {
+      await fetch('/api/projects/').then(response => {
+        response.json().then(data => {
+          setProjects(data)
+        })
       })
-    })
+    })();
   }, [])
 
-  const allProjects = projects.Projects
-  console.log(allProjects)
+
+  const allProjects = projects
   if (!allProjects) return null;
 
   return (

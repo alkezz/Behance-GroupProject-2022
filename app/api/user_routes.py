@@ -134,7 +134,6 @@ def user(id):
     return user.to_dict()
 
 @user_routes.route('/username/<string:un>')
-@login_required
 def username(un):
     """
     Query for a user by username and returns that user in a dictionary
@@ -143,6 +142,9 @@ def username(un):
     """
     user = User.query.filter(func.lower(User.username) == func.lower(un)).first()
     if user:
-        return user.to_dict(projects=True)
+        user_info = user.to_dict(projects=True)
+        for each in user_info["projects"]:
+            each["images" ] = each["images"].strip("'] ['").split(', ')
+        return user_info
     else:
         return "No User Found"

@@ -35,49 +35,49 @@ def seed_users():
         username='katie', email='katie@aa.io', password='password15', first_name="Katie", last_name="Keshi", followers=[demo, rel, jay, tracy, felicia, sean, talia, edward])
 
     project_1 = Project(
-        name="COOL Project", description="Such a cool project wow!", user_id=1, project_appreciations=[marnie, bobbie]
+        name="COOL Project", description="Such a cool project wow!", user_id=1, project_appreciations=[marnie, bobbie], images="[https://i.imgur.com/f8Mo04S.jpg, https://i.imgur.com/QjWyuWM.jpeg]"
     )
     project_2 = Project(
-        name="Ez Project", description="Not bad", user_id=2, project_appreciations=[demo]
+        name="Ez Project", description="Not bad", user_id=2, project_appreciations=[demo], images="[https://i.imgur.com/oK6ulak.jpg]"
     )
     project_3 = Project(
-        name="Bad Project", description="wow this sucked", user_id=3, project_appreciations=[jimmy, francis, demo]
+        name="Bad Project", description="wow this sucked", user_id=3, project_appreciations=[jimmy, francis, demo], images="[https://i.imgur.com/1YeIqqk.jpg]"
     )
     project_4 = Project(
-        name="Long Project", description="This is long!", user_id=4, project_appreciations=[demo, bobbie]
+        name="Long Project", description="This is long!", user_id=4, project_appreciations=[demo, bobbie], images="[https://i.imgur.com/ooHJOy1.jpg]"
     )
     project_5 = Project(
-        name="Short Project", description="Are you even trying?", user_id=5, project_appreciations=[]
+        name="Short Project", description="Are you even trying?", user_id=5, project_appreciations=[], images="[https://i.imgur.com/7XwgGw2.jpg]"
     )
     project_6 = Project(
-        name="ArtsyAF", description="I'm so artistic lewl", user_id=6, project_appreciations=[]
+        name="ArtsyAF", description="I'm so artistic lewl", user_id=6, project_appreciations=[], images="[https://thetechviral.com/wp-content/uploads/2017/08/behance.jpg]"
     )
     project_7 = Project(
-        name="Books Aesthetics", description="Great read", user_id=7, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Books Aesthetics", description="Great read", user_id=7, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.essaysdeluxe.com/uploads/212/how_to_find_ideas_for_creative_book_reports.jpg]"
     )
     project_8 = Project(
-        name="Porsche", description="992 911 gt3rs ", user_id=8, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Porsche", description="992 911 gt3rs ", user_id=8, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.topgear.com/sites/default/files/2022/10/1%20Porsche%20911%20GT3%20RS.jpg]"
     )
     project_9 = Project(
-        name="Falls Fall", description="Fall weather is up. Just vibe.", user_id=9, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Falls Fall", description="Fall weather is up. Just vibe.", user_id=9, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.adobe.com/content/dam/cc/us/en/creative-cloud/photography/discover/landscape-photography/CODERED_B1_landscape_hero-img_900x420.jpg.img.jpg]"
     )
     project_10 = Project(
-        name="Utopia", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Utopia", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis], images="[https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dG9reW98ZW58MHx8MHx8&w=1000&q=80]"
     )
     project_11 = Project(
-        name="Tokyo", description="Teriyaki Boyz", user_id=11, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Tokyo", description="Teriyaki Boyz", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://thesmartcanine.com/wp-content/uploads/2021/02/things-to-know-before-getting-corgi.jpg]"
     )
     project_12 = Project(
-        name="Corgis", description="doggos!!!", user_id=12, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Corgis", description="doggos!!!", user_id=12, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.dinneratthezoo.com/wp-content/uploads/2018/12/korean-fried-chicken-5.jpg]"
     )
     project_13 = Project(
-        name="Food Heaven", description="I love fried chicken", user_id=13, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Food Heaven", description="I love fried chicken", user_id=13, project_appreciations=[marnie, bobbie, demo, francis], images="[https://i.pinimg.com/originals/93/dd/6c/93dd6c51a3cf9e60106ede7fed50c035.jpg]"
     )
     project_14 = Project(
-        name="Demon Slayer", description="BEST ANIME EVER", user_id=14, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Demon Slayer", description="BEST ANIME EVER", user_id=14, project_appreciations=[marnie, bobbie, demo, francis], images="[https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx5ifKifvNWbg2fwCBV3QtfyHLztF8mPQMfg&usqp=CAU]"
     )
     project_15 = Project(
-        name="Scifi", description="beep beep", user_id=15, project_appreciations=[marnie, bobbie, demo, francis]
+        name="Scifi", description="beep beep", user_id=15, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
     )
 
 

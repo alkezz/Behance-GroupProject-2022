@@ -1,119 +1,115 @@
-const ADD_COMMENT = 'comment/addComment';
-const GET_COMMENTS = 'comment/getComments';
-const EDIT_COMMENT = 'comment/editComment';
-const DELETE_COMMENT = 'comment/deleteComment';
 
-//actions
 
-const getComments = (comments) => {
+
+const GET_FOLLOWS = 'follow/getFollows'
+const ADD_FOLLOWS = 'follow/addFollow'
+const REM_FOLLOWS = 'follow/remFollow'
+// const ADD_SONG = 'songs/addSong'
+// const DELETE_SONG = 'songs/deleteSong'
+// const EDIT_SONG = 'songs/editSong'
+// const GET_USERTRACKS = 'songs/userSongs'
+// const FIND_SONG = 'songs/findSong'
+
+const getFollows = (data) => {
     return {
-        type: GET_COMMENTS,
-        comments
+        type: GET_FOLLOWS,
+        data
     }
 }
 
-const addComment = (comment) => {
+const addFollows = (user) => {
     return {
-        type: ADD_COMMENT,
-        comment,
+        type: ADD_FOLLOWS,
+        user
     }
 }
 
-const editComment = (editedComment) => {
+const remFollows = (user) => {
     return {
-        type: EDIT_COMMENT,
-        editedComment
+        type: REM_FOLLOWS,
+        user
     }
 }
 
+// const getSong = (single_song) => {
+//     return {
+//         type: GET_SONG,
+//         single_song
+//     }
+// }
 
-const deleteComment = (commentId) => {
-    return {
-        type: DELETE_COMMENT,
-        commentId
-    }
-}
+// const addSong = (song, user) => {
+//     return {
+//         type: ADD_SONG,
+//         song,
+//         user
+//     }
+// }
+// const editSong = (song, user) => {
+//     return {
+//         type: EDIT_SONG,
+//         song,
+//         user
+//     }
+// }
 
-// thunks
+// const delSong = (song, id) => {
+//     return {
+//         type: DELETE_SONG,
+//         song,
+//         id
+//     }
+// }
 
-export const getProjectComments = (id) => async (dispatch) => {
-    const response = await fetch(`/api/projects/${id}/comments`)
+// const userTracks = (songs) => {
+//     return {
+//         type: GET_USERTRACKS,
+//         songs
+//     }
+// }
+
+export const userFollows = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/users/${userId}/follows`)
     const data = await response.json()
-    // console.log(data)
-    dispatch(getComments(data))
+    dispatch(getFollows(data))
     return data;
 };
 
-export const addCommentToProject = (comData) => async (dispatch) => {
-    const { comment, user_id, project_id } = comData
-
-    const formData = new FormData();
-
-    formData.append("comment", comment)
-    formData.append("user_id", user_id)
-    formData.append("project_id", project_id)
-
-    const response = await fetch(`/api/comments/${project_id}/comments`, {
-        method: "POST",
-        body: formData,
-    });
-
-    const newComment = await response.json();
-    dispatch(addComment(newComment));
-    return newComment;
-
-    // const response = await fetch(`/api/comments/new`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         comment,
-    //         user_id,
-    //         project_id
-    //     })
-    // })
-    // if (response.ok) {
-    //     const data = await response.json()
-    //     dispatch(addComment(data))
-    //     return data;
-    // }
-}
-
-
-export const commentEdit = (comment) => async (dispatch) => {
-    const response = await fetch(`/api/${comment.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(comment)
-    });
-    if (response.ok) {
-        const editedComment = await response.json();
-        dispatch(editComment(editedComment));
-        return editedComment
-    }
-    return response;
-}
-
-export const deleteProjectComment = (id) => async (dispatch) => {
-    const response = await fetch(`/api/projects/${id}/comments`, {
-        method: "DELETE",
-    });
-    if (response.ok) {
-        const deletedComment = await response.json();
-        dispatch(deleteComment(deletedComment))
-        return dispatch
-    }
-    return response
-}
-
-export const delCommentFromProj = (id) => async (dispatch) => {
-    const response = await fetch(`/api/comments/${id}/delete`)
+export const followUser = (curr, userId) => async (dispatch) => {
+    const response = await fetch(`api/users/${curr}/follow_/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: ''
+    })
     const data = await response.json()
-    // console.log(data)
-    dispatch(deleteComment(data))
+    dispatch(addFollows(userId))
     return data;
 };
+
+export const unfollowUser = (curr, userId) => async (dispatch) => {
+    const response = await fetch(`api/users/${curr}/follow_/${userId}`, {
+        method: 'DELETE'
+    })
+    const data = await response.json()
+    dispatch(remFollows(userId))
+    return data;
+};
+
+// export const getUserProjects = (id) => async (dispatch) => {
+//     const response = await fetch(`/api/users/${id}/projects/`)
+//     const data = await response.json()
+//     dispatch(userProjects(data))
+//     return data
+// }
+// export const userSongsGrab = () => async (dispatch) => {
+//     const response = await csrfFetch('/api/songs/current')
+//     const data = await response.json()
+//     // console.log(data)
+//     dispatch(userTracks(data))
+//     return data;
+// };
 
 // export const songSingleGrab = (id) => async (dispatch) => {
 //     const response = await csrfFetch(`/api/songs/${id}`)
@@ -198,29 +194,26 @@ export const delCommentFromProj = (id) => async (dispatch) => {
 //     return data;
 // };
 
-const initialState = {}
+const initialState = {"current_followed_user_ids":[],"followed_by_user_ids":[]}
 
-const commentReducer = (state = initialState, action) => {
+const followsReducer = (state = initialState, action) => {
+    let newState;
     switch (action.type) {
-        case GET_COMMENTS: {
-            const newState = {};
-            action.comments.comments.forEach((comment) => {newState[comment.id] = comment});
-            return newState;
+        case GET_FOLLOWS:
+            return { ...state, ...action.data }
+        case ADD_FOLLOWS: {
+            return {...state, current_followed_user_ids: [...state.current_followed_user_ids, action.user]};
         }
-        case ADD_COMMENT: {
-            let newState = { ...state };
-            newState[action.comment.id] = action.comment
-            return newState
+        case REM_FOLLOWS: {
+            return {...state, current_followed_user_ids: state.current_followed_user_ids.filter((e) => e !== action.user)};
         }
-        case EDIT_COMMENT: {
-            return [...state, { ...action.editedComment }]
-        }
-        case DELETE_COMMENT: {
-            let newState = { ...state };
-            delete newState[action.id];
-            return newState;
-        }
-
+        // case GET_SONG:
+        //     return {
+        //         ...state,
+        //         singleSong: {
+        //             [action.single_song.id]: action.single_song
+        //         }
+        //     }
         // case GET_USERTRACKS:
         //     let res = {}
         //     action.songs.Songs.forEach(e => {
@@ -253,4 +246,4 @@ const commentReducer = (state = initialState, action) => {
     }
 };
 
-export default commentReducer;
+export default followsReducer;

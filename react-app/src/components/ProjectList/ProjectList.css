@@ -11,11 +11,24 @@
   grid-template-columns: repeat(5, 1fr)
 }
 
+@media (max-width: 1024px) {
+  .landing-page-grid {
+    grid-template-columns: repeat(3, 1fr)
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1350px) {
+  .landing-page-grid {
+    grid-template-columns: repeat(4, 1fr)
+  }
+}
+
 .project-list-card {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   max-width: 400px;
+  min-width: 250px;
   height: 300px;
   padding: 10px;
   text-decoration: none;
