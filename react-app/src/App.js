@@ -48,7 +48,6 @@ function App() {
         </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
-          <DemoUser />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
