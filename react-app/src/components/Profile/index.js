@@ -18,6 +18,8 @@ function ProfilePage() {
   const [followerInfo, setFollowerInfo] = useState({})
   const [apprecInfo, setApprecInfo] = useState({})
   const { username }  = useParams();
+  
+  
 
   const projList = prof.projects.map((project) => {
     return (
