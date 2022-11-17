@@ -44,15 +44,13 @@ function CreateProject() {
             method: "POST",
             body: formData
         }).then((res) => res.json())
-        console.log("PICTURES", pictures)
-        setImages(pictures.images)
-        console.log("IMAGES", images)
         const new_project = {
             name,
             description,
             user_id: sessionUser.id,
             images: pictures.images
         }
+        // console.log(new_project)
         dispatch(projectActions.createProject(new_project)); window.alert("Upload complete!")
     }
     return (
@@ -71,16 +69,16 @@ function CreateProject() {
                     )}
                 </div>
                 <label>Provide a brief description of your project</label>
-                <input
-                    type='text'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="create-project-fields" />
-                <div>
-                    {errors.map((error, idx) =>
-                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
-                    )}
-                </div>
+                    <input
+                        type='text'
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="create-project-fields" />
+                    <div>
+                        {errors.map((error, idx) =>
+                            error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                        )}
+                    </div>
                 <div className="create-project-image-container">
                     <div className="create-project-image-prompt">
                         Attach image files
@@ -89,6 +87,7 @@ function CreateProject() {
                         <div>
                             <input type="file" name="file" id='imageinput' multiple encType="multipart/form-data" />
                         </div>
+
                     </div>
                 </div>
                 <button type="submit" className="submit-button">Submit</button>

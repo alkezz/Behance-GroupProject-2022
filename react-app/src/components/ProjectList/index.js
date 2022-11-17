@@ -17,6 +17,7 @@ const ProjectList = () => {
     })();
   }, [])
 
+
   const allProjects = projects
   if (!allProjects) return null;
 
