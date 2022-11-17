@@ -13,7 +13,7 @@ const ProjectList = () => {
         setProjects(data)
       })
     })
-  }, [projects])
+  }, [JSON.stringify(projects)])
 
   const allProjects = projects
   console.log(allProjects)
