@@ -18,9 +18,6 @@ function CreateProject() {
     const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
 
-    useEffect(() => {
-
-    })
 
     if (!sessionUser) {
         return null

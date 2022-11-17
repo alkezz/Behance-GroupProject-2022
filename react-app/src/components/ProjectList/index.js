@@ -14,8 +14,9 @@ const ProjectList = () => {
           setProjects(data)
         })
       })
-    })
-  }, [JSON.stringify(projects)])
+    })();
+  }, [])
+
 
   const allProjects = projects
   if (!allProjects) return null;
