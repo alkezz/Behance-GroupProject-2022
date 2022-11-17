@@ -2,11 +2,6 @@ const ADD_COMMENT = 'comment/addComment';
 const GET_COMMENTS = 'comment/getComments';
 const EDIT_COMMENT = 'comment/editComment';
 const DELETE_COMMENT = 'comment/deleteComment';
-// const ADD_SONG = 'songs/addSong'
-// const DELETE_SONG = 'songs/deleteSong'
-// const EDIT_SONG = 'songs/editSong'
-// const GET_USERTRACKS = 'songs/userSongs'
-// const FIND_SONG = 'songs/findSong'
 
 //actions
 
@@ -38,35 +33,6 @@ const deleteComment = (commentId) => {
         commentId
     }
 }
-// const addSong = (song, user) => {
-//     return {
-//         type: ADD_SONG,
-//         song,
-//         user
-//     }
-// }
-// const editSong = (song, user) => {
-//     return {
-//         type: EDIT_SONG,
-//         song,
-//         user
-//     }
-// }
-
-// const delSong = (song, id) => {
-//     return {
-//         type: DELETE_SONG,
-//         song,
-//         id
-//     }
-// }
-
-// const userTracks = (songs) => {
-//     return {
-//         type: GET_USERTRACKS,
-//         songs
-//     }
-// }
 
 // thunks
 
@@ -80,22 +46,38 @@ export const getProjectComments = (id) => async (dispatch) => {
 
 export const addCommentToProject = (comData) => async (dispatch) => {
     const { comment, user_id, project_id } = comData
-    const response = await fetch(`/api/comments/new`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            comment,
-            user_id,
-            project_id
-        })
-    })
-    if (response.ok) {
-        const data = await response.json()
-        dispatch(addComment(data))
-        return data;
-    }
+
+    const formData = new FormData();
+
+    formData.append("comment", comment)
+    formData.append("user_id", user_id)
+    formData.append("project_id", project_id)
+
+    const response = await fetch(`/api/comments/${project_id}/comments`, {
+        method: "POST",
+        body: formData,
+    });
+
+    const newComment = await response.json();
+    dispatch(addComment(newComment));
+    return newComment;
+
+    // const response = await fetch(`/api/comments/new`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         comment,
+    //         user_id,
+    //         project_id
+    //     })
+    // })
+    // if (response.ok) {
+    //     const data = await response.json()
+    //     dispatch(addComment(data))
+    //     return data;
+    // }
 }
 
 
@@ -221,9 +203,9 @@ const initialState = {}
 const commentReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_COMMENTS: {
-            return [
-                ...state, ...action.comments.comments
-            ]
+            const newState = {};
+            action.comments.comments.forEach((comment) => {newState[comment.id] = comment});
+            return newState;
         }
         case ADD_COMMENT: {
             let newState = { ...state };

@@ -62,33 +62,29 @@ function CreateProject() {
                     )}
                 </div>
                 <label>Provide a brief description of your project</label>
-                <input
-                    type='text'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="create-project-fields" />
-                <div>
-                    {errors.map((error, idx) =>
-                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
-                    )}
-                </div>
+                    <input
+                        type='text'
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="create-project-fields" />
+                    <div>
+                        {errors.map((error, idx) =>
+                            error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                        )}
+                    </div>
                 <div className="create-project-image-container">
                     <div className="create-project-image-prompt">
                         Attach image files
                     </div>
                     <div className="create-project-image-input">
-                        <div>
-                            <input type="file" name="file" multiple encType="multipart/form-data" onChange={async (e) => {
-                                for (let i = 0; i < e.target.files.length; i++) {
-                                    let img = e.target.files[i]
-                                    formData.append('file', img)
-                                }
-                            }} />
-                            <button type='button' name="upload" value="Upload" onClick={async (e) => await fetch('/api/projects/upload', {
-                                method: "POST",
-                                body: formData
-                            }).then((data) => data.json()).then((res) => setUrl(res.images)).then(() => window.alert("Upload complete!"))}>Upload</button>
-                        </div>
+                    <input className="create-project-image-upload" type="file" name="file" multiple value='' encType="multipart/form-data" onChange={async (e) => await fetch('/api/projects/upload', {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': "multipart/form-data"
+                        },
+                        body: e.target.files[0].webkitRelativePath
+                    }).then((data) => console.log(data.json()))} />
+                    {/* <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button> */}
                     </div>
                 </div>
                 <button type="submit" name="upload" value="Upload" className="submit-button">Submit</button>
