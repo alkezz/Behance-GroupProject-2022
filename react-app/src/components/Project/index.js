@@ -46,7 +46,8 @@ function ProjectGallery() {
 
   useEffect(() => {
     dispatch(commentActions.getProjectComments(projectId))
-  }, [dispatch], projComments)
+    dispatch(projComments)
+  }, [dispatch])
 
 
   if (!projectId) {
