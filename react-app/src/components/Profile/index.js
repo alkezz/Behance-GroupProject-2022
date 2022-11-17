@@ -9,6 +9,7 @@ import "./Profile.css"
 function ProfilePage() {
   const dispatch = useDispatch()
   const location = useLocation()
+  const history = useHistory()
   const sessionUser = useSelector((state) => state.session);
   const followedList = useSelector((state) => state.follows.current_followed_user_ids)
   const [prof, setProf] = useState({ username: null, projects: [] });
@@ -36,6 +37,7 @@ function ProfilePage() {
     );
   });
   let followButton
+<<<<<<< HEAD
   if (sessionUser.user !== null && !!username) {
     if (followedList.includes(prof.id)) {
       followButton = (
@@ -46,10 +48,31 @@ function ProfilePage() {
     else {
       followButton = (
         <button onClick={(e) => { handleFollow(e); setUpdate(!update) }} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+=======
+  if(sessionUser.user !== null && !!username){
+    if (followedList.includes(prof.id)) {
+      followButton = (
+        <button onClick={(e) => {handleUnFollow(e);setUpdate(!update)}} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+        </button>
+      )
+    } else {
+      followButton = (
+        <button onClick={(e) => {handleFollow(e);setUpdate(!update)}} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+>>>>>>> e07cf8480ef3eabe28e6fdf20b3f4037eceec1d8
           Follow
         </button>
       )
     }
+<<<<<<< HEAD
+=======
+  } else {
+    followButton = (
+      <button onClick={() => history.push('/login')} className='userCard_followBut'>
+        Follow
+      </button>
+
+    )
+>>>>>>> e07cf8480ef3eabe28e6fdf20b3f4037eceec1d8
   }
 
   const followcount = () => {
@@ -77,6 +100,7 @@ function ProfilePage() {
     if (!username) {
       return;
     }
+<<<<<<< HEAD
     if (username !== "gallery") {
       (async () => {
         const response = await fetch(`/api/users/username/${username}`);
@@ -94,6 +118,25 @@ function ProfilePage() {
         }
         // console.log("test", data)
       })();
+=======
+    if(username !== "gallery"){
+    (async () => {
+      const response = await fetch(`/api/users/username/${username}`);
+      let data
+      if(response) {
+        data = await response.json();
+        setProf(data);
+        // console.log("test", data)
+        const response2 = await fetch(`/api/users/${data.id}/appreciations`);
+        const response3 = await fetch(`/api/users/${data.id}/follows`);
+        const data2 = await response2.json();
+        const data3 = await response3.json();
+        console.log("eff")
+        setApprecInfo(data2);
+        setFollowerInfo(data3)
+      }
+    })();
+>>>>>>> e07cf8480ef3eabe28e6fdf20b3f4037eceec1d8
     }
     // (async () => {
     //   const response = await fetch(`/api/users/${prof.id}/appreciations`);
@@ -110,7 +153,10 @@ function ProfilePage() {
   if (!prof.username) {
     return <>
       <div>
+<<<<<<< HEAD
         Oops! We can’t find that page.
+=======
+>>>>>>> e07cf8480ef3eabe28e6fdf20b3f4037eceec1d8
       </div>
     </>;
   }

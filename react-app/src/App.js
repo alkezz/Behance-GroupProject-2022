@@ -26,7 +26,11 @@ function App() {
     (async () => {
       await dispatch(authenticate())
         .then((res) => {
+<<<<<<< HEAD
           if (res) {
+=======
+          if(res){
+>>>>>>> e07cf8480ef3eabe28e6fdf20b3f4037eceec1d8
             dispatch(followsActions.userFollows(res.id))
           }
         });
