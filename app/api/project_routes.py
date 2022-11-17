@@ -166,6 +166,7 @@ def add_project():
     """
     form = ProjectForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("FORMDATA",form.data)
     if form.validate_on_submit():
         new_project = Project(
             name = form.data["name"],
@@ -173,6 +174,7 @@ def add_project():
             user_id = form.data["user_id"],
             images = form.data["images"]
         )
+        print("NEWPROJ IMAGES", new_project.images)
         db.session.add(new_project)
         db.session.commit()
         # image_list = []
@@ -185,6 +187,7 @@ def add_project():
         #             ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
         #         )
         #         image_list.append(f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}")
+        print(new_project.to_dict())
         return new_project.to_dict(images=True)
     else:
         return form.errors
@@ -219,6 +222,13 @@ def add_project_image_index():
 
 
 
+# onChange={async (e) => {
+#                                 for (let i = 0; i < e.target.files.length; i++) {
+#                                     let img = e.target.files[i]
+#                                     formData.append('file', img)
+#                                 }
+#                             }}
+
 @project_routes.route("/upload", methods=["POST"])
 def upload():
     image_list = []
@@ -232,7 +242,7 @@ def upload():
                     ExtraArgs = {'ACL':"public-read", 'ContentType': i.content_type}
                 )
                 image_list.append(f"https://ali-practice-aws-bucket.s3.amazonaws.com/{filename}")
-    return {"images": image_list}
+    return {"images": "[" + ", ".join(image_list) + "]"}
 # @project_routes.route("/project-images/upload", methods=["POST"])
 # def upload_image():
 #     form = PortfolioImageForm()

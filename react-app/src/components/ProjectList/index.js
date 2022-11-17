@@ -9,14 +9,15 @@ const ProjectList = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch('/api/projects/');
-      const data = await response.json();
-      setProjects(data)
+      await fetch('/api/projects/').then(response => {
+        response.json().then(data => {
+          setProjects(data)
+        })
+      })
     })();
-  }, [setProjects])
+  }, [projects])
 
   const allProjects = projects
-  console.log(allProjects)
   if (!allProjects) return null;
 
   return (
