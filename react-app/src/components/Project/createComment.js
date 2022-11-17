@@ -41,10 +41,11 @@ const CreateComment = ({ projectId, proj }) => {
     };
 
     let newComment = await dispatch(commentActions.addCommentToProject(payload));
-    await dispatch(commentActions.getProjectComments(projectId))
+    if (newComment) {
+      dispatch(commentActions.getProjectComments(projectId))
       setCommentMessage("")
       history.push(`/gallery/${projectId}`)
-
+    }
 
     // if (newComment) {
     //     setCommentMessage("")
