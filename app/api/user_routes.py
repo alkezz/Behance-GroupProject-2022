@@ -134,7 +134,6 @@ def user(id):
     return user.to_dict()
 
 @user_routes.route('/username/<string:un>')
-@login_required
 def username(un):
     """
     Query for a user by username and returns that user in a dictionary
