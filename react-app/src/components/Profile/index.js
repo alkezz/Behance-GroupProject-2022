@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Redirect, Link, NavLink, useHistory } from 'react-router-dom';
+import { useParams, Redirect, Link, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as followActions from '../../store/follows'
 import avatar from '../../assets/behance-profile-image.png'
@@ -8,10 +8,12 @@ import "./Profile.css"
 
 function ProfilePage() {
   const dispatch = useDispatch()
+  const location = useLocation()
   const sessionUser = useSelector((state) => state.session);
-  const followedList = useSelector((state) => state.follows.followed_by_user_ids)
+  const followedList = useSelector((state) => state.follows.current_followed_user_ids)
   const [prof, setProf] = useState({username:null,projects:[]});
   // console.log(prof)
+  const [update, setUpdate] = useState(true)
   const [followerInfo, setFollowerInfo] = useState({})
   const [apprecInfo, setApprecInfo] = useState({})
   const { username }  = useParams();
@@ -19,7 +21,7 @@ function ProfilePage() {
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
-        <Link className='projPreviewImgCont' to={`/gallery/${project.id}`}><img className='projPreviewImg' src={project.images[0]} /></Link>
+        <Link className='projPreviewImgCont' to={{pathname:`/gallery/${project.id}`, state: { background: location }}}><img className='projPreviewImg' src={project.images[0]} /></Link>
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
@@ -33,18 +35,16 @@ function ProfilePage() {
       </div>
     );
   });
-
   let followButton
   if (followedList.includes(prof.id)) {
     followButton = (
-      <button onClick={(e) => handleUnFollow(e)} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
-        Following
+      <button onClick={(e) => {handleUnFollow(e);setUpdate(!update)}} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
       </button>
     )
   }
   else {
     followButton = (
-      <button onClick={(e) => handleFollow(e)} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+      <button onClick={(e) => {handleFollow(e);setUpdate(!update)}} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
         Follow
       </button>
     )
@@ -59,17 +59,18 @@ function ProfilePage() {
   // }
 
   const handleFollow = (e) => {
+    setUpdate(true)
     e.preventDefault();
     dispatch(followActions.followUser(sessionUser.user.id, prof.id))
   }
 
   const handleUnFollow = (e) => {
+    setUpdate(true)
     e.preventDefault();
-    dispatch(followActions.followUser(sessionUser.user.id, prof.id))
+    dispatch(followActions.unfollowUser(sessionUser.user.id, prof.id))
   }
 
   useEffect(() => {
-    
     document.title = `Enhance :: ${username}`
     if (!username) {
       return;
@@ -84,6 +85,7 @@ function ProfilePage() {
       const response3 = await fetch(`/api/users/${data.id}/follows`);
       const data2 = await response2.json();
       const data3 = await response3.json();
+      console.log("eff")
       setApprecInfo(data2);
       setFollowerInfo(data3)
     })();
@@ -98,7 +100,7 @@ function ProfilePage() {
     //   const data = await response.json();
     //   setFollowerInfo(data);
     // })();
-  }, [username, dispatch]);
+  }, [username, dispatch, update]);
 
   if (!prof.username) {
     return <>

@@ -3,6 +3,7 @@
 
 const GET_FOLLOWS = 'follow/getFollows'
 const ADD_FOLLOWS = 'follow/addFollow'
+const REM_FOLLOWS = 'follow/remFollow'
 // const ADD_SONG = 'songs/addSong'
 // const DELETE_SONG = 'songs/deleteSong'
 // const EDIT_SONG = 'songs/editSong'
@@ -16,9 +17,16 @@ const getFollows = (data) => {
     }
 }
 
-const userProjects = (user) => {
+const addFollows = (user) => {
     return {
         type: ADD_FOLLOWS,
+        user
+    }
+}
+
+const remFollows = (user) => {
+    return {
+        type: REM_FOLLOWS,
         user
     }
 }
@@ -76,7 +84,16 @@ export const followUser = (curr, userId) => async (dispatch) => {
         body: ''
     })
     const data = await response.json()
-    dispatch(userProjects(userId))
+    dispatch(addFollows(userId))
+    return data;
+};
+
+export const unfollowUser = (curr, userId) => async (dispatch) => {
+    const response = await fetch(`api/users/${curr}/follow_/${userId}`, {
+        method: 'DELETE'
+    })
+    const data = await response.json()
+    dispatch(remFollows(userId))
     return data;
 };
 
@@ -185,7 +202,10 @@ const followsReducer = (state = initialState, action) => {
         case GET_FOLLOWS:
             return { ...state, ...action.data }
         case ADD_FOLLOWS: {
-            return {...state, followed_by_user_ids: [...state.followed_by_user_ids, action.user]};
+            return {...state, current_followed_user_ids: [...state.current_followed_user_ids, action.user]};
+        }
+        case REM_FOLLOWS: {
+            return {...state, current_followed_user_ids: state.current_followed_user_ids.filter((e) => e !== action.user)};
         }
         // case GET_SONG:
         //     return {
