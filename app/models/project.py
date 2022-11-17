@@ -7,6 +7,9 @@ appreciations = db.Table(
     db.Column("project_id", db.Integer, db.ForeignKey(add_prefix_for_prod("projects.id")))
 )
 
+if environment == 'production':
+    appreciations.schema = SCHEMA
+
 class Project(db.Model):
   __tablename__ = "projects"
 
