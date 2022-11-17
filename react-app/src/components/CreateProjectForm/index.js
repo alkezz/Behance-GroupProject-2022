@@ -72,16 +72,16 @@ function CreateProject() {
                     )}
                 </div>
                 <label>Provide a brief description of your project</label>
-                <input
-                    type='text'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="create-project-fields" />
-                <div>
-                    {errors.map((error, idx) =>
-                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
-                    )}
-                </div>
+                    <input
+                        type='text'
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="create-project-fields" />
+                    <div>
+                        {errors.map((error, idx) =>
+                            error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                        )}
+                    </div>
                 <div className="create-project-image-container">
                     <div className="create-project-image-prompt">
                         Attach image files
@@ -90,6 +90,7 @@ function CreateProject() {
                         <div>
                             <input type="file" name="file" id='imageinput' multiple encType="multipart/form-data" />
                         </div>
+
                     </div>
                 </div>
                 <button type="submit" className="submit-button">Submit</button>
