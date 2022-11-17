@@ -22,12 +22,13 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const session = useSelector((store) => store.session)
-
   useEffect(() => {
     (async () => {
       await dispatch(authenticate())
         .then((res) => {
-          dispatch(followsActions.userFollows(res.id))
+          if (res) {
+            dispatch(followsActions.userFollows(res.id))
+          }
         });
       setLoaded(true);
     })();

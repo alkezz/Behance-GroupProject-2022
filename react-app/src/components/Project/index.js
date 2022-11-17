@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Redirect, NavLink, Link,  useHistory } from 'react-router-dom';
+import { useParams, Redirect, NavLink, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
 import avatar from '../../assets/behance-profile-image.png'
@@ -13,7 +13,7 @@ function ProjectGallery() {
   // const projectComments = useSelector((state) => state.comments);
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
-  const[projComments, setProjComments] = useState({});
+  const [projComments, setProjComments] = useState({});
   const comments = useSelector((state) => state.comments);
 
   // const [comment, setComment] = useState('')
@@ -118,20 +118,20 @@ function ProjectGallery() {
         <i className="projCloseIcon fa-solid fa-circle-xmark" />
       </button>
 
-      { !!proj.User &&
-      <div className='projUserInfo' onClick={test}>
-        <div className='projUserInfoCont'>
+      {!!proj.User &&
+        <div className='projUserInfo' onClick={test}>
+          <div className='projUserInfoCont'>
             <img className='projUserIcon' src={avatar} alt="profile-avatar" height="40" width="40" />
-            <div className='projUserCont'> 
-            <div className='projName'>
-              {proj.name}
-            </div>
-            <Link className='projUsername' to={`/${proj.User.username}`}>
+            <div className='projUserCont'>
+              <div className='projName'>
+                {proj.name}
+              </div>
+              <Link className='projUsername' to={`/${proj.User.username}`}>
                 {proj.User.first_name} {proj.User.last_name}
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
       }
       <div className="modal" onClick={test}>
         {/* <div>
@@ -150,11 +150,30 @@ function ProjectGallery() {
 
           ))
         }
-
+        <div className='appreciate-container'>
+          <button className='appreciate-button'>
+            <i className="fa-solid fa-thumbs-up fa-3x"></i>
+          </button>
+          <div className='project-name-appreciate'>
+            {proj.name}
+            <div className='below-like-button'>
+              <i class="fa-solid fa-heart"></i>
+              &nbsp;
+              {proj.appreciations}
+              {/* <i className="fa-solid fa-thumbs-up fa-1x">{proj.appreciations}</i> */}
+              &nbsp;
+              &nbsp;
+              {/* {console.log(proj.comments[0].comment)} */}
+              <i class="fa-solid fa-message"></i>
+              &nbsp;
+              {/* {proj.comments.length} */}
+            </div>
+          </div>
+        </div>
         {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
         <div>
-          <CreateComment projectId={projectId} proj={proj}/>
+          <CreateComment projectId={projectId} proj={proj} />
         </div>
         <div className="comments-section">
           {projComments.comments &&
@@ -176,7 +195,7 @@ function ProjectGallery() {
         )}
         <div>
           {/* <strong>comments</strong> {JSON.stringify(projectComments)} */}
-          {/* {
+        {/* {
                       !!projectComments && projectComments.map((com) => (
                           <div>
                               <div>
@@ -188,8 +207,8 @@ function ProjectGallery() {
                           </div>
                       ))
                   } */}
-        </div>
-        {/* <form onSubmit={handleSubmit}>
+      </div>
+      {/* <form onSubmit={handleSubmit}>
               <textarea
                   type="text"
                   placeholder="What do you think about this project?"
