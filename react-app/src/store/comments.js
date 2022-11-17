@@ -80,6 +80,7 @@ export const addCommentToProject = (comData) => async (dispatch) => {
     // }
 }
 
+//thunks
 
 export const commentEdit = (comment) => async (dispatch) => {
     const response = await fetch(`/api/${comment.id}`, {

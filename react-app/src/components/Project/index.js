@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
-import CreateComment from "./createcomment.js";
+import CreateComment from './createComment.js';
 
 function ProjectGallery() {
   const history = useHistory();
@@ -45,8 +45,8 @@ function ProjectGallery() {
 
   useEffect(() => {
     dispatch(commentActions.getProjectComments(projectId))
-    dispatch(projComments)
-  }, [dispatch])
+    // dispatch(projComments)
+  }, [dispatch, projComments])
 
 
   if (!projectId) {
