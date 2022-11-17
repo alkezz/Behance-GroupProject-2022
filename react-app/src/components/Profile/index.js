@@ -18,7 +18,7 @@ function ProfilePage() {
   const [followerInfo, setFollowerInfo] = useState({})
   const [apprecInfo, setApprecInfo] = useState({})
   const { username }  = useParams();
-  
+
   const deleteProject = (e) => {
     e.preventDefault();
     let projectId = document.getElementById("delete-project-button").value
