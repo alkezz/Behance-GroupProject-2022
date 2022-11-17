@@ -7,48 +7,55 @@ import "./CreateProject.css"
 function CreateProject() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const sessionUser = useSelector((state) => state.session);
+    const sessionUser = useSelector((state) => state.session.user);
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
+    const [images, setImages] = useState("")
     const [url, setUrl] = useState([])
     const [is_preview, setIsPreview] = useState(true)
     const [errors, setErrors] = useState([])
     const [proj, setProj] = useState({});
     const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
+
+
     if (!sessionUser) {
         return null
     }
     if (!proj) {
         return null
     }
-    const handleImageUpload = (e) => {
-        e.preventDefault()
-    }
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
+        setImages("")
         const errorList = []
         if (name.length > 50 || name.length < 10) errorList.push("Name but be between 10 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
         setErrors(errorList)
         if (errors.length) return
+        let imageInput = document.querySelector("#imageinput")
+        for (let i = 0; i < imageInput.files.length; i++) {
+            let img = imageInput.files[i]
+            console.log("IMG", img)
+            formData.append('file', img)
+        }
+        const pictures = await fetch('/api/projects/upload', {
+            method: "POST",
+            body: formData
+        }).then((res) => res.json())
         const new_project = {
             name,
-            description
+            description,
+            user_id: sessionUser.id,
+            images: pictures.images
         }
-        console.log("NEW_PROJECT", new_project)
-        const project_images = {
-            url,
-            is_preview
-        }
-        console.log("PROJECT_IMAGES", project_images)
-        dispatch(projectActions.createProject(new_project, project_images))
+        // console.log(new_project)
+        dispatch(projectActions.createProject(new_project)); window.alert("Upload complete!")
     }
     return (
         <div className="create-project-container">
-            <form className="create-project-form" onSubmit={handleSubmit} action="/api/projects/project-images/upload" method="post" encType="multipart/form-data">
+            <form className="create-project-form" onSubmit={handleSubmit}>
                 <h1>Start building your project:</h1>
                 <label>Project Name</label>
                 <input
@@ -77,17 +84,13 @@ function CreateProject() {
                         Attach image files
                     </div>
                     <div className="create-project-image-input">
-                    <input className="create-project-image-upload" type="file" name="file" multiple value='' encType="multipart/form-data" onChange={async (e) => await fetch('/api/projects/upload', {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': "multipart/form-data"
-                        },
-                        body: e.target.files[0].webkitRelativePath
-                    }).then((data) => console.log(data.json()))} />
-                    {/* <button onSubmit={handleImageUpload} type="submit" name="upload" value="Upload" class="btn btn-success">Upload</button> */}
+                        <div>
+                            <input type="file" name="file" id='imageinput' multiple encType="multipart/form-data" />
+                        </div>
+
                     </div>
                 </div>
-                <button type="submit" name="upload" value="Upload" className="submit-button">Submit</button>
+                <button type="submit" className="submit-button">Submit</button>
             </form>
         </div>
     )

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Redirect, NavLink, useHistory } from "react-router-dom";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import * as commentActions from "../../store/comments.js";
+import React, { useState, useEffect } from 'react';
+import { useParams, Redirect, NavLink, Link,  useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import * as commentActions from '../../store/comments.js'
+import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
 import CreateComment from "./createcomment.js";
 
@@ -114,22 +115,45 @@ function ProjectGallery() {
 
   return (
     <div className="one" onClick={back}>
-      <button type="button" onClick={back}>
-        Close
+      <button className='projClose' onClick={back}>
+        <i className="projCloseIcon fa-solid fa-circle-xmark" />
       </button>
-      <div className="userInfo"></div>
+
+      { !!proj.User &&
+      <div className='projUserInfo' onClick={test}>
+        <div className='projUserInfoCont'>
+            <img className='projUserIcon' src={avatar} alt="profile-avatar" height="40" width="40" />
+            <div className='projUserCont'> 
+            <div className='projName'>
+              {proj.name}
+            </div>
+            <Link className='projUsername' to={`/${proj.User.username}`}>
+                {proj.User.first_name} {proj.User.last_name}
+            </Link>
+          </div>
+        </div>
+      </div>
+      }
       <div className="modal" onClick={test}>
-        <div>
+        {/* <div>
           <strong>projid</strong> {projectId}
         </div>
         <div>
           <strong>data</strong> {JSON.stringify(proj)}
         </div>
+
+        {
+          projImg.map((eachImg) => (
+
+            <img className='projImg' src={eachImg}>
+
+            </img>
+
+          ))
+        }
+
         <strong>imgs</strong> {JSON.stringify(projImg)}
-        {!!projImg.images &&
-          projImg.images.map((eachImg) => (
-            <img className="projImg" src={eachImg.url}></img>
-          ))}
+        
         <div>
           <CreateComment projectId={projectId} proj={proj}/>
         </div>
