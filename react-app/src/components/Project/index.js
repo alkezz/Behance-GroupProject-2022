@@ -13,16 +13,14 @@ function ProjectGallery() {
   // const projectComments = useSelector((state) => state.comments);
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
-  const [projComments, setProjComments] = useState({});
+  const [projComments, setProjComments] = useState({ comments: [] });
   const comments = useSelector((state) => state.comments);
-
   // const [comment, setComment] = useState('')
   // console.log(sessionUser, "user")
-
   const { projectId } = useParams();
-  console.log(projComments, "comments")
-  console.log(proj, "proj");
 
+  console.log(comments, "comments")
+  console.log(proj, "proj");
   useEffect(() => {
     if (!projectId) {
       return;
@@ -157,16 +155,19 @@ function ProjectGallery() {
           <div className='project-name-appreciate'>
             {proj.name}
             <div className='below-like-button'>
+              &nbsp;
               <i id="thumbs-icon" class="fa-solid fa-thumbs-up fa-1x"></i>
               &nbsp;
               {proj.appreciations}
-              {/* <i className="fa-solid fa-thumbs-up fa-1x">{proj.appreciations}</i> */}
+              &nbsp;
+              &nbsp;
               &nbsp;
               &nbsp;
               {/* {console.log(proj.comments[0].comment)} */}
               <i class="fa-solid fa-message fa-1x"></i>
               &nbsp;
-              {/* {proj.comments.length} */}
+              {projComments.comments.length}
+              {console.log(projComments)}
             </div>
           </div>
         </div>

@@ -119,6 +119,10 @@
 
 .below-like-button{
     color: white;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .fa-solid{
