@@ -12,12 +12,12 @@ function ProfilePage() {
   const history = useHistory()
   const sessionUser = useSelector((state) => state.session);
   const followedList = useSelector((state) => state.follows.current_followed_user_ids)
-  const [prof, setProf] = useState({username:null,projects:[]});
+  const [prof, setProf] = useState({ username: null, projects: [] });
   // console.log(prof)
   const [update, setUpdate] = useState(true)
   const [followerInfo, setFollowerInfo] = useState({})
   const [apprecInfo, setApprecInfo] = useState({})
-  const { username }  = useParams();
+  const { username } = useParams();
 
   const deleteProject = async (e) => {
     
@@ -42,7 +42,7 @@ function ProfilePage() {
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
-        <Link className='projPreviewImgCont' to={{pathname:`/gallery/${project.id}`, state: { background: location }}}><img className='projPreviewImg' src={project.images[0]} /></Link>
+        <Link className='projPreviewImgCont' to={{ pathname: `/gallery/${project.id}`, state: { background: location } }}><img className='projPreviewImg' src={project.images[0]} /></Link>
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
@@ -56,22 +56,22 @@ function ProfilePage() {
           </div>
         ) : null } 
         <div className='projectAppr'>
-          <i className="apprIcon fa-solid fa-thumbs-up"/>
+          <i className="apprIcon fa-solid fa-thumbs-up" />
           <div className='projectAppr_text'>{project.appreciations}</div>
         </div>
       </div>
     );
   });
   let followButton
-  if(sessionUser.user !== null && !!username){
+  if (sessionUser.user !== null && !!username) {
     if (followedList.includes(prof.id)) {
       followButton = (
-        <button onClick={(e) => {handleUnFollow(e);setUpdate(!update)}} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+        <button onClick={(e) => { handleUnFollow(e); setUpdate(!update) }} className='userCard_unfollowBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
         </button>
       )
     } else {
       followButton = (
-        <button onClick={(e) => {handleFollow(e);setUpdate(!update)}} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
+        <button onClick={(e) => { handleFollow(e); setUpdate(!update) }} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
           Follow
         </button>
       )
@@ -85,13 +85,13 @@ function ProfilePage() {
     )
   }
 
-  // const followcount = () => {
-  //   let count = 0
-  //   prof.projects.forEach((e) => {
-  //     count += e.appreciations
-  //   })
-  //   return count
-  // }
+  const followcount = () => {
+    let count = 0
+    prof.projects.forEach((e) => {
+      count += e.appreciations
+    })
+    return count
+  }
 
 
   
@@ -112,6 +112,7 @@ function ProfilePage() {
     if (!username) {
       return;
     }
+    
     if(username !== "gallery"){
     (async () => {
       const response = await fetch(`/api/users/username/${username}`);
@@ -129,6 +130,7 @@ function ProfilePage() {
       }
     })();
     }
+    
     // (async () => {
     //   const response = await fetch(`/api/users/${prof.id}/appreciations`);
     //   const data = await response.json();
@@ -154,7 +156,7 @@ function ProfilePage() {
         <div className='userCard'>
           <img className='userIcon' src={avatar} alt="profile-avatar" height="110" width="110" />
           <div className='userCard_name'>
-            {prof.first_name} {prof.last_name }
+            {prof.first_name} {prof.last_name}
           </div>
           <div className='userCard_username'>
             {prof.username}
@@ -176,7 +178,7 @@ function ProfilePage() {
                 Followers
               </div>
               <div className='userStat'>
-              {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
+                {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
               </div>
             </div>
             <div className='statsRow'>
@@ -184,7 +186,7 @@ function ProfilePage() {
                 Following
               </div>
               <div className='userStat'>
-              {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
+                {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
               </div>
             </div>
           </div>

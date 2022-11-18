@@ -102,7 +102,6 @@ export const signUp = (username, email, password, firstName, lastName) => async 
     return ['An error occurred. Please try again.']
   }
 }
-
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:

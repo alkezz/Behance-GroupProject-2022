@@ -28,7 +28,7 @@ function App() {
     (async () => {
       await dispatch(authenticate())
         .then((res) => {
-          if(res){
+          if (res) {
             dispatch(followsActions.userFollows(res.id))
           }
         });
@@ -62,6 +62,9 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true}>
           <User />
         </ProtectedRoute>
+        <Route path='/project/create' exact={true}>
+          <CreateProject />
+        </Route>
         <Route path='/' exact={true} >
           <ProjectList />
         </Route>

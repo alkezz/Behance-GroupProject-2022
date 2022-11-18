@@ -1,6 +1,6 @@
 .login-page {
   position: fixed;
-  background-image: url("https://source.unsplash.com/2000x1000?music%20festival");
+  background-image: url("https://source.unsplash.com/1920x1440?art");
   top: 0;
   left: 0;
   right: 0;
@@ -66,4 +66,24 @@ input:active {
   border-radius: 5em;
   width: 100%;
   cursor: pointer;
+}
+
+.enLogo {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  top: 40%;
+  left: 25%
+}
+
+.enLogoimg {
+  height:40px ;
+  width:40px;
+  margin-right: 10px;
+}
+
+.enLogoText {
+  color: white;
+  font-size: xx-large;
 }

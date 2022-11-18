@@ -1,8 +1,8 @@
 .projPreview {
     display: flex;
     flex-direction: column;
-    height: 300px;
-    width: 375px;
+    height: 315px;
+    width: 400px;
     background-color:white;
     object-fit:fill;
     overflow: visible;
@@ -15,8 +15,8 @@
     background-color: #333;
     border: 1px rgba(111, 111, 111, 0.459) solid;
     mix-blend-mode: normal;
-    height:300px;
-    width: 375px;
+    height: 315px;
+    width: 400px;
     border-radius: 4px;
     transition: mix-blend-mode 0.2s linear;
     object-fit: cover;
@@ -38,8 +38,8 @@
     justify-content: center;
     position: relative;
     background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(93, 93, 93, 0.8) 00%, rgba(255,255,255,0) 30%);
-    height: 300px;
-    width: 375px;
+    height: 315px;
+    width: 400px;
 }
 
 .projPreview:hover .projectText {
@@ -118,7 +118,7 @@
     display: flex;
     flex-direction: row;
     height:90%;
-    width:95%
+    width:85%
 }
 
 .userCard {
@@ -218,29 +218,34 @@
 
 .userProjectsGrid {
     display: grid;
-    width: 100%;
+    max-width: 25px;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
     row-gap: 20px;
 }
 
-@media (max-width: 1700px) and (max-width: 2100px) {
+@media (min-width: 1800px) and (max-width: 2250px) {
     .userProjectsGrid {
         grid-template-columns: repeat(3, 1fr)
     }
 }
   
-@media (max-width: 1300px) and (max-width: 1699px) {
+@media (min-width: 1400px) and (max-width: 1799px) {
     .userProjectsGrid {
         grid-template-columns: repeat(2, 1fr)
     }
+}
 
+@media (min-width: 1001px) and (max-width: 1399px) {
+    .userProjectsGrid {
+        grid-template-columns: repeat(2, 1fr)
+    }
     .userCard {
         display:none
     }
 }
-
-@media (max-width: 1px) and (max-width: 1299px) {
+  
+@media (min-width: 1px) and (max-width: 1000px) {
     .userProjectsGrid {
         grid-template-columns: repeat(1, 1fr)
     }
