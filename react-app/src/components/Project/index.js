@@ -8,6 +8,7 @@ import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
 import CreateComment from './createComment.js';
 import DeleteComment from './deleteComment.js';
+import EditCommentModal from './editModal.js';
 
 function ProjectGallery() {
   const history = useHistory();
@@ -63,7 +64,7 @@ function ProjectGallery() {
       setProjImg(data);
     })();
   }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projIds)]);
-  
+
   // useEffect(() => {
   //   (async () => {
   //     const response = await fetch(`/api/comments/${projectId}/comments`);
@@ -241,6 +242,9 @@ function ProjectGallery() {
                   <div>
                     {sessionUser?.id === comments?.user?.id && (
                       <>
+                      <div className='edit-comment'>
+                        <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+                      </div>
                         <div className='delete-comment'>
                           <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
                         </div>
