@@ -19,10 +19,11 @@ const addComment = (comment) => {
     }
 }
 
-const editComment = (editedComment) => {
+const editComment = (comment, commentId) => {
     return {
         type: EDIT_COMMENT,
-        editedComment
+        comment,
+        commentId
     }
 }
 
@@ -87,8 +88,8 @@ export const addCommentToProject = (comData) => async (dispatch) => {
 
 //thunks
 
-export const commentEdit = (comment) => async (dispatch) => {
-    const response = await fetch(`/api/${comment.id}`, {
+export const commentEdit = (comment, commentId) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${commentId}/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(comment)
@@ -205,7 +206,7 @@ const initialState = {}
 
 const commentReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_COMMENTS: 
+        case GET_COMMENTS:
             let newState = {}
             action.comments.comments.forEach((comment) => newState[comment.id] = comment)
             return newState
@@ -214,8 +215,11 @@ const commentReducer = (state = initialState, action) => {
             newState[action.comment.id] = action.comment
             return newState
         }
-        case EDIT_COMMENT:
-            return {...state, [action.editedComment.id]: action.editedComment}
+        case EDIT_COMMENT:{
+            let newState = { ...state };
+            newState[action.comment.id] = action.comment
+            return newState
+        }
         case DELETE_COMMENT: {
             let newState = { ...state };
             delete newState[action.commentId];

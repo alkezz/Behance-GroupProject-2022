@@ -91,7 +91,7 @@ def add_comment(project_id):
 #         return "unauthorized user", 403
 
 
-@comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
+@comments_routes.route("/<int:id>/", methods=["PUT"])
 def edit_comment(id):
     comment = Comment.query.get(id)
     new_comment = request.json["comment"]
