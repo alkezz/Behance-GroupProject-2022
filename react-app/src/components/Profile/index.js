@@ -56,7 +56,7 @@ function ProfilePage() {
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <div className="project-features">
             <button id="edit-project-button" value={project.id} onClick={(e) => {toEditPage(e, project.id)}}>Edit Project</button>
-            <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+            <button id="delete-project-button" value={project.id} onClick={(e) => {deleteProject(e, project.id)}}>Delete Project</button>
           </div>
         ) : null}
         <div className='projectAppr'>
