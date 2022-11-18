@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Redirect, NavLink, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
+import * as appreciateActions from '../../store/appreciations.js'
+// import * as appreciateActions from '../../store/appreciations'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
 import CreateComment from "./createcomment.js";
@@ -14,11 +16,13 @@ function ProjectGallery() {
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
   const [projComments, setProjComments] = useState({ comments: [] });
+  const [appreciations, setAppreciations] = useState({ project_ids: [] })
+  const [inList, setInList] = useState(false)
   const comments = useSelector((state) => state.comments);
   // const [comment, setComment] = useState('')
   // console.log(sessionUser, "user")
   const { projectId } = useParams();
-
+  console.log("APPRECIATION LIST: ", appreciations)
   console.log(comments, "comments")
   console.log(proj, "proj");
   useEffect(() => {
@@ -28,7 +32,9 @@ function ProjectGallery() {
     (async () => {
       const response = await fetch(`/api/comments/${projectId}/comments`);
       const data = await response.json();
+      const appreciateList = await dispatch(appreciateActions.getAppreciations(projectId))
       setProjComments(data);
+      setAppreciations(appreciateList.appreciations)
     })();
     (async () => {
       const response = await fetch(`/api/projects/${projectId}`);
@@ -110,6 +116,18 @@ function ProjectGallery() {
     e.stopPropagation();
   };
 
+  const handleAppreciate = (e) => {
+    console.log(inList)
+    e.preventDefault()
+    if (inList === false) {
+      dispatch(appreciateActions.addAppreciations(projectId, sessionUser.id))
+      setInList(true)
+    } else {
+      dispatch(appreciateActions.removeAppreciations(projectId, sessionUser.id))
+      setInList(false)
+    }
+  }
+
   return (
     <div className="one" onClick={back}>
       <button className='projClose' onClick={back}>
@@ -149,7 +167,7 @@ function ProjectGallery() {
           ))
         }
         <div className='appreciate-container'>
-          <button className='appreciate-button'>
+          <button className='appreciate-button' onClick={(e) => { handleAppreciate(e) }}>
             <i className="fa-solid fa-thumbs-up fa-3x"></i>
           </button>
           <div className='project-name-appreciate'>
