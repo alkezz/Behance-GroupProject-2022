@@ -43,9 +43,9 @@ function ProfilePage() {
         <div className='projectText'>
           {project.name}
         </div>
-        {!!sessionUser && sessionUser.user.id === prof.id && (
+        {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
-        )}
+        ) : null } 
         <div className='projectAppr'>
           <i className="apprIcon fa-solid fa-thumbs-up"/>
           <div className='projectAppr_text'>{project.appreciations}</div>
