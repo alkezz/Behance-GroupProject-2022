@@ -268,24 +268,7 @@
     }
 }
 
-.ourInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    bottom: -220px
-}
-
-.ourIco {
-    font-size: xx-large;
-    color: #333;
-    margin:5px 5px
-}
-
-.ourIco:hover {
-    color:black;
-    cursor: pointer
-}
+<<<<<<<<< Temporary merge branch 1
 .project-features {
     display: flex;
     flex-direction: row;
@@ -316,3 +299,23 @@
   #edit-project-button:hover {
     background-color: rgb(236, 236, 236);
   }
+=========
+.ourInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    bottom: -220px
+}
+
+.ourIco {
+    font-size: xx-large;
+    color: #333;
+    margin:5px 5px
+}
+
+.ourIco:hover {
+    color:black;
+    cursor: pointer
+}
+>>>>>>>>> Temporary merge branch 2
