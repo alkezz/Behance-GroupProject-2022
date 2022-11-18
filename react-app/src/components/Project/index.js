@@ -55,7 +55,6 @@ function ProjectGallery() {
       }
     })();
     (async () => {
-
       const response = await fetch(`/api/projects/${projectId}`);
       const data = await response.json();
       setProj(data);
@@ -67,8 +66,7 @@ function ProjectGallery() {
     })();
     dispatch(commentActions.getProjectComments(projectId))
   }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
-
-
+  
   // useEffect(() => {
   //   (async () => {
   //     const response = await fetch(`/api/comments/${projectId}/comments`);
@@ -135,20 +133,22 @@ function ProjectGallery() {
 
   // }
 
+  console.log("INLIST", inList)
+
   const test = async (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
   // projIds.project_ids.forEach((id) => console.log("FOREACH", id))
   // projIds.forEach((id) => id === Number(projectId) ? setInList(true) : null)
-  const handleAppreciate = (e) => {
+  const handleAppreciate = async (e) => {
     e.preventDefault()
     if (inList === false) {
-      dispatch(appreciateActions.addAppreciations(projectId, sessionUser.id))
+      await dispatch(appreciateActions.addAppreciations(projectId, sessionUser.id))
       // setAppreciations(appreciations + 1)
       setInList(true)
     } else {
-      dispatch(appreciateActions.removeAppreciations(projectId, sessionUser.id))
+      await dispatch(appreciateActions.removeAppreciations(projectId, sessionUser.id))
       // setAppreciations(appreciations - 1)
       setInList(false)
     }
@@ -204,7 +204,7 @@ function ProjectGallery() {
             </button>
           }
           {!sessionUser &&
-            <button className='appreciate-button' onClick={() => history.push("/login", { from: 'project page' })}>
+            <button className='appreciate-button' onClick={() => history.push("/login")}>
               <i className="fa-solid fa-thumbs-up fa-3x"></i>
             </button>
           }
@@ -222,7 +222,7 @@ function ProjectGallery() {
               {/* {console.log(proj.comments[0].comment)} */}
               <i className="fa-solid fa-message fa-1x"></i>
               &nbsp;
-              {/* {Object.values(projComments.comments).length} */}
+              {Object.values(comments).length}
               {/* {console.log(projComments)} */}
             </div>
           </div>
