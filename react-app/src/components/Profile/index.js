@@ -19,15 +19,16 @@ function ProfilePage() {
   const [apprecInfo, setApprecInfo] = useState({})
   const { username }  = useParams();
 
-  const deleteProject = (e) => {
+  const deleteProject = async (e) => {
+    
     e.preventDefault();
-    let projectId = document.getElementById("delete-project-button").value
-    console.log(projectId)
+    let projectId = document.getElementById("delete-project-button").value;
     fetch(`/api/projects/${projectId}/`, {
       method: "DELETE"
     })
-    console.log("I ran after ")
-    }
+    
+    history.push('/')
+  }
 
   const projList = prof.projects.map((project) => {
     return (
