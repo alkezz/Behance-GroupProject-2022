@@ -26,7 +26,6 @@ const SignUpForm = () => {
         setErrors(data)
       }
     } else {
-      console.log("I am an error")
       return setErrors(["Password fields must match"])
     }
 
@@ -110,7 +109,6 @@ const SignUpForm = () => {
           name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
         ></input>
       <div className="form-submit-container">
       <button className="submit-button" type='submit'>Sign Up</button>

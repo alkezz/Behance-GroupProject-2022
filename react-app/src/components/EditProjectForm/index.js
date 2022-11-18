@@ -54,7 +54,7 @@ function EditProject() {
             images: pictures.images
         }
         // console.log(new_project)
-        dispatch(projectActions.createProject(new_project)); window.alert("Upload complete!")
+        dispatch(projectActions.editProject(new_project, projectId)); window.alert("Upload complete!")
     }
     return (
         <div className="create-project-container">
