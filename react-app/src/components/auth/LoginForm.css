@@ -74,7 +74,8 @@ input:active {
   align-items: center;
   position: relative;
   top: 40%;
-  left: 25%
+  left: 25%;
+  width: 15%
 }
 
 .enLogoimg {
