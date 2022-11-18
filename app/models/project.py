@@ -17,10 +17,10 @@ class Project(db.Model):
     __table_args__ = {'schema': SCHEMA}
 
   id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String, nullable=False)
+  name = db.Column(db.String(5000), nullable=False)
   description = db.Column(db.String)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
-  images = db.Column(db.String(255))
+  images = db.Column(db.Text)
   # Relationships
   user = db.relationship("User", back_populates="projects")
 #   images = db.relationship("ProjectImage", back_populates="project")
