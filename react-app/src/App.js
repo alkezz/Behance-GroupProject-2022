@@ -22,6 +22,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const session = useSelector((store) => store.session)
+
   useEffect(() => {
     (async () => {
       await dispatch(authenticate())

@@ -3,6 +3,7 @@ import { useParams, Redirect, NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
 import "./Project.css"
+import { getProjectId } from '../../store/projects.js';
 
 
 const CreateComment = ({ projectId, proj }) => {
@@ -12,7 +13,7 @@ const CreateComment = ({ projectId, proj }) => {
 
   const [commentMessage, setCommentMessage] = useState("");
   const [errors, setErrors] = useState([])
-  // const user = useSelector(state => state.session.user)
+  const user = useSelector(state => state.session.user)
 
 
 
@@ -35,7 +36,7 @@ const CreateComment = ({ projectId, proj }) => {
     console.log('handle submit')
     e.preventDefault();
     const payload = {
-      user_id: proj.User.id,
+      user_id: user.id,
       comment: commentMessage,
       project_id: projectId,
     };
@@ -43,6 +44,7 @@ const CreateComment = ({ projectId, proj }) => {
     let newComment = await dispatch(commentActions.addCommentToProject(payload));
     if (newComment) {
       dispatch(commentActions.getProjectComments(projectId))
+      dispatch(getProjectId(projectId))
       setCommentMessage("")
       history.push(`/gallery/${projectId}`)
     }

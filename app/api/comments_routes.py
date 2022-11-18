@@ -90,15 +90,6 @@ def add_comment(project_id):
 #     else:
 #         return "unauthorized user", 403
 
-@comments_routes.route("/<int:id>/delete", methods=["DELETE"])
-@login_required
-def del_commemnt(id):
-    """
-    Deletes a comment for logged in User
-    """
-    found_comment = Comment.query.filter_by(id=id).delete()
-    db.session.commit()
-    return {"message": "Comment successfully deleted"}
 
 @comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
 def edit_comment(id):
@@ -107,3 +98,17 @@ def edit_comment(id):
     comment.comment = new_comment
     db.session.commit()
     return comment.to_dict(user=True)
+
+@comments_routes.route("/<int:id>/delete", methods=["DELETE"])
+@login_required
+def del_comment(id):
+    """
+    Deletes a comment for logged in User
+    """
+    comment = Comment.query.get(id)
+    if current_user.id == comment.user.id:
+        db.session.delete(comment)
+        db.session.commit()
+        return {"message": "Comment successfully deleted"}
+    else:
+        return "Unauthorized"
