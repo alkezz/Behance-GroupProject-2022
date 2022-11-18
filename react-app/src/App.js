@@ -15,6 +15,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import Project from './components/Project';
 import Profile from './components/Profile'
+import EditProject from './components/EditProjectForm';
 import './index.css'
 import * as followsActions from './store/follows';
 
@@ -43,9 +44,14 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/project/create' exact={true}>
+          <CreateProject />
+        </Route>
+        <Route path='/project/:projectId/edit'>
+          <EditProject />
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
-          <DemoUser />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />

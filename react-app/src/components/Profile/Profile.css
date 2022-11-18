@@ -253,4 +253,34 @@
         display:none
     }
 }
+
+.project-features {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+}
   
+#delete-project-button,
+#edit-project-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid lightgray;
+    text-decoration: none;
+    border-radius: 5em;
+    color: #5d5d5d;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    height: 25px;
+    transition: background-color .5s;
+    width: 40%;
+  }
+  
+  #delete-project-button:hover,
+  #edit-project-button:hover {
+    background-color: rgb(236, 236, 236);
+  }

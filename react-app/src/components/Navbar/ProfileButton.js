@@ -36,7 +36,7 @@ function ProfileButton({ user }) {
           <div className='dropdown-profile-email'>{user.email}</div>
           </div>
           <div className='dropdown-profile-link'>
-          <Link to='/user/profile' className="manage-account-link">Enhance Profile</Link>
+          <Link to={`/${user.username}`} className="manage-account-link">Enhance Profile</Link>
           </div>
           <div className='dropdown-logout'>
           <LogoutButton />

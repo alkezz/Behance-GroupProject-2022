@@ -107,6 +107,7 @@ def delete_project(id):
     project = Project.query.get(id)
     if project:
         if project.user_id == current_user.id:
+            print(project)
             db.session.delete(project)
             db.session.commit()
             return {
@@ -231,10 +232,10 @@ def add_project_image_index():
 #                                 }
 #                             }}
 
-@project_routes.route("/upload", methods=["POST"])
+@project_routes.route("/upload", methods=["POST", "PUT"])
 def upload():
     image_list = []
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method == 'PUT':
         for i in request.files.getlist('file'):
                 filename = secure_filename(i.filename)
                 s3.upload_fileobj(
