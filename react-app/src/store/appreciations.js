@@ -43,6 +43,7 @@ export const addAppreciations = (postId, userId) => async (dispatch) => {
         },
         body: ''
     })
+    console.log("RESPONSE IN ADD APP", response)
     if (response.ok) {
         const data = await response.json()
         console.log("DATA IN ADDAPPRECITE THUNK", data)
