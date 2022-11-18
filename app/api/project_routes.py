@@ -22,21 +22,6 @@ def projects():
        x["images"] = x["images"].strip("'] ['").split(', ')
     return jsonify(project_dicts)
 
-@project_routes.route("/apprecRoute", methods=["POST"])
-def get_apprec_projs():
-    """
-    Query for all provided projects from appreciations list and returns them as a json dictionary
-    Url:
-    "/api/projects/apprecRoute/<userList>"
-    """
-    data = request.json
-    for x in data:
-        proj = Project.query.get(x).to_dict(images=True, user=True)
-        proj["images"] = proj["images"].strip("'] ['").split(', ')
-        data[x] = proj
-
-    return jsonify(data)
-
 @project_routes.route("/<int:id>/comments")
 def project_comments_by_id(id):
     """
@@ -137,7 +122,7 @@ def delete_project(id):
             "message": f"No such project with id of {id}"
         }
 
-@project_routes.route("/<int:id>", methods=["PUT"])
+@project_routes.route("/<int:id>/", methods=["PUT"])
 @login_required
 def edit_project(id):
     project = Project.query.get(id)
@@ -247,10 +232,10 @@ def add_project_image_index():
 #                                 }
 #                             }}
 
-@project_routes.route("/upload", methods=["POST"])
+@project_routes.route("/upload", methods=["POST", "PUT"])
 def upload():
     image_list = []
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method == 'PUT':
         for i in request.files.getlist('file'):
                 filename = secure_filename(i.filename)
                 s3.upload_fileobj(

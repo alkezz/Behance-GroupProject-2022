@@ -33,7 +33,7 @@ function ProjectGallery() {
   // console.log(comments, "comments")
   // console.log(proj, "proj");
   // console.log("SETPROJIDS", projIds)
-  useEffect(() => {
+  useEffect(async () => {
     // projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
       return;
@@ -64,9 +64,9 @@ function ProjectGallery() {
       const data = await response.json();
       setProjImg(data);
     })();
-    dispatch(commentActions.getProjectComments(projectId))
+    await dispatch(commentActions.getProjectComments(projectId))
   }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
-  
+
   // useEffect(() => {
   //   (async () => {
   //     const response = await fetch(`/api/comments/${projectId}/comments`);
