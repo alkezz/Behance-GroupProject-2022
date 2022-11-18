@@ -32,6 +32,12 @@ function ProfilePage() {
     
     history.push(`/${refresh}`)
   }
+  
+  const toEditPage = (e) => {
+    e.preventDefault();
+    let projectId = document.getElementById('edit-project-button').value;
+    history.push(`/project/${projectId}/edit`)
+  }
 
   const projList = prof.projects.map((project) => {
     return (
@@ -44,7 +50,10 @@ function ProfilePage() {
           {project.name}
         </div>
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
-          <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+          <div className="project-features">
+            <button id="edit-project-button" value={project.id} onClick={toEditPage}>Edit Project</button>
+            <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+          </div>
         ) : null } 
         <div className='projectAppr'>
           <i className="apprIcon fa-solid fa-thumbs-up"/>
