@@ -223,7 +223,7 @@ function ProjectGallery() {
               {/* {console.log(proj.comments[0].comment)} */}
               <i class="fa-solid fa-message fa-1x"></i>
               &nbsp;
-              {/* {Object.values(projComments.comments).length} */}
+              {Object.values(comments).length}
               {/* {console.log(projComments)} */}
             </div>
           </div>
