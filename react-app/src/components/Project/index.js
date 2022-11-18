@@ -160,7 +160,12 @@ function ProjectGallery() {
       <button className='projClose' onClick={back}>
         <i className="projCloseIcon fa-solid fa-circle-xmark" />
       </button>
-
+      {
+        !!proj.User &&
+        <div className='projUserSideCont'>
+          test
+        </div>
+      }
       {!!proj.User &&
         <div className='projUserInfo' onClick={test}>
           <div className='projUserInfoCont'>

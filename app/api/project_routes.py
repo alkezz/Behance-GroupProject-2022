@@ -22,6 +22,21 @@ def projects():
        x["images"] = x["images"].strip("'] ['").split(', ')
     return jsonify(project_dicts)
 
+@project_routes.route("/apprecRoute", methods=["POST"])
+def get_apprec_projs():
+    """
+    Query for all provided projects from appreciations list and returns them as a json dictionary
+    Url:
+    "/api/projects/apprecRoute/<userList>"
+    """
+    data = request.json
+    for x in data:
+        proj = Project.query.get(x).to_dict(images=True, user=True)
+        proj["images"] = proj["images"].strip("'] ['").split(', ')
+        data[x] = proj
+
+    return jsonify(data)
+
 @project_routes.route("/<int:id>/comments")
 def project_comments_by_id(id):
     """

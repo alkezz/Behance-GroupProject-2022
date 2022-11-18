@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Redirect, Link, useLocation, useHistory } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useParams, Redirect, Link, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import AppeciationsList from '../ApprecList';
 import * as followActions from '../../store/follows'
 import { deleteProjectId } from '../../store/projects';
 import avatar from '../../assets/behance-profile-image.png'
 import "./Profile.css"
+import MiniNav from '../MiniNav';
+import Rando from './rando';
+// import * as profileActions from '../../store/songs'
 
 function ProfilePage() {
   const dispatch = useDispatch()
@@ -16,7 +20,7 @@ function ProfilePage() {
   // console.log(prof)
   const [update, setUpdate] = useState(true)
   const [followerInfo, setFollowerInfo] = useState({})
-  const [apprecInfo, setApprecInfo] = useState({})
+  const [apprecInfo, setApprecInfo] = useState({"project_ids":[]})
   const { username } = useParams();
 
   const deleteProject = async (e) => {
@@ -46,8 +50,9 @@ function ProfilePage() {
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
-        <div className='projectText'>
+        <Link className='projectText' to={`/gallery/${project.id}`}>
           {project.name}
+        </Link>
         </div>
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <div className="project-features">
@@ -72,7 +77,7 @@ function ProfilePage() {
     } else {
       followButton = (
         <button onClick={(e) => { handleFollow(e); setUpdate(!update) }} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
-          Follow
+          <i className="followIcon fa-solid fa-circle-plus" /> Follow
         </button>
       )
     }
@@ -146,6 +151,7 @@ function ProfilePage() {
   if (!prof.username) {
     return <>
       <div>
+        {console.log(location, 'location')}
       </div>
     </>;
   }
@@ -177,7 +183,7 @@ function ProfilePage() {
               <div className='userStat'>
                 Followers
               </div>
-              <div className='userStat'>
+              <div className='userStatNum'>
                 {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
               </div>
             </div>
@@ -185,16 +191,33 @@ function ProfilePage() {
               <div className='userStat'>
                 Following
               </div>
-              <div className='userStat'>
+              <div className='userStatNum'>
                 {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
               </div>
             </div>
           </div>
+          <div>
+            You can email me here at:
+          </div>
+          <div>
+            {prof.email}
+          </div>
+          <div className='ourInfo'>
+            <Rando />
+          </div>
         </div>
         <div className='userProjects'>
-          <div className='userProjectsGrid' >
-            {!!prof && projList}
-          </div>
+        <MiniNav data={prof}></MiniNav>
+        <Switch>
+          <Route exact path={`/${prof.username}` || `/${prof.username}/work`}>
+            <div className='userProjectsGrid' >
+              {!!prof && projList}
+            </div>
+          </Route>
+          <Route path={`/${prof.username}/appreciations`}>
+            <AppeciationsList appreciations={apprecInfo}/>
+          </Route>
+        </Switch>
           {/* {!!prof && projList.length}
           {!!prof && JSON.stringify(prof)}
           {JSON.stringify(apprecInfo)}
