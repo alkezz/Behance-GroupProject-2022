@@ -55,7 +55,6 @@ function ProjectGallery() {
       }
     })();
     (async () => {
-
       const response = await fetch(`/api/projects/${projectId}`);
       const data = await response.json();
       setProj(data);
@@ -134,6 +133,8 @@ function ProjectGallery() {
   //   }
 
   // }
+
+  console.log("INLIST", inList)
 
   const test = async (e) => {
     e.preventDefault();
