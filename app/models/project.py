@@ -20,7 +20,7 @@ class Project(db.Model):
   name = db.Column(db.String, nullable=False)
   description = db.Column(db.String)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
-  images = db.Column(db.String(255))
+  images = db.Column(db.String)
   # Relationships
   user = db.relationship("User", back_populates="projects")
 #   images = db.relationship("ProjectImage", back_populates="project")
