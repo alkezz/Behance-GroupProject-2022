@@ -29,14 +29,16 @@ def project_comments_by_id(id):
     Url:
     "/api/projects/:id/comments"
     """
-
-    one_project = Comment.query.filter_by(project_id=id).all()
+    print(type(id), "YO ID")
+    one_project = Comment.query.filter(Comment.project_id == id).all()
+    print(one_project, "PROJECT STUFF")
     if one_project:
+        print("HIT")
         res = { "comments": [img.to_dict(user=True) for img in one_project]}
         print(res, "comments")
         return res
     else:
-        return f"No such project with id of {id}"
+        return {"message": f"There are no comments for project with id of {id}"}
 
 @project_routes.route("/<int:id>/images")
 def project_imgs_by_id(id):

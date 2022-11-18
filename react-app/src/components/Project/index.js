@@ -18,7 +18,7 @@ function ProjectGallery() {
   const { projectId } = useParams();
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
-  const [projComments, setProjComments] = useState({ comments: [] });
+  // const [projComments, setProjComments] = useState({ comments: [] });
   const [appreciations, setAppreciations] = useState(0)
   const [appreciateCount, setAppreciateCount] = useState("")
   const [update, setUpdate] = useState(true)
@@ -39,9 +39,7 @@ function ProjectGallery() {
       return;
     }
     (async () => {
-      const response = await fetch(`/api/comments/${projectId}/comments`);
-      const data = await response.json();
-      setProjComments(data);
+      dispatch(commentActions.getProjectComments(projectId))
       const likes = await dispatch(appreciateActions.getAppreciations(projectId))
       setAppreciations(likes)
     })();
@@ -64,8 +62,7 @@ function ProjectGallery() {
       const data = await response.json();
       setProjImg(data);
     })();
-    await dispatch(commentActions.getProjectComments(projectId))
-  }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
+  }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projIds)]);
 
   // useEffect(() => {
   //   (async () => {

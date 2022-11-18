@@ -39,9 +39,14 @@ const deleteComment = (commentId) => {
 export const getProjectComments = (id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}/comments`)
     const data = await response.json()
-    // console.log(data)
-    dispatch(getComments(data))
-    return data;
+    if(!data.message)
+        {
+            dispatch(getComments(data))
+            return data;
+        }
+    else {
+        dispatch(getComments({"comments":[]}))
+    }
 };
 
 export const addCommentToProject = (comData) => async (dispatch) => {
@@ -200,11 +205,10 @@ const initialState = {}
 
 const commentReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_COMMENTS: {
-            const newState = {};
-            action.comments.comments.forEach((comment) => {newState[comment.id] = comment});
-            return newState;
-        }
+        case GET_COMMENTS: 
+            let newState = {}
+            action.comments.comments.forEach((comment) => newState[comment.id] = comment)
+            return newState
         case ADD_COMMENT: {
             let newState = { ...state };
             newState[action.comment.id] = action.comment
