@@ -6,7 +6,8 @@ import * as appreciateActions from '../../store/appreciations.js'
 // import * as appreciateActions from '../../store/appreciations'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
-import CreateComment from "./createcomment.js";
+import CreateComment from './createComment.js';
+import DeleteComment from './deleteComment.js';
 
 function ProjectGallery() {
   const history = useHistory();
@@ -54,6 +55,7 @@ function ProjectGallery() {
       }
     })();
     (async () => {
+
       const response = await fetch(`/api/projects/${projectId}`);
       const data = await response.json();
       setProj(data);
@@ -66,9 +68,14 @@ function ProjectGallery() {
     // dispatch(commentActions.getProjectComments(projectId))
   }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
 
+
   useEffect(() => {
-    dispatch(commentActions.getProjectComments(projectId))
-  }, [dispatch], projComments)
+    (async () => {
+      const response = await fetch(`/api/comments/${projectId}/comments`);
+      const data = await response.json();
+      setProjComments(data);
+    })();
+  }, [dispatch, JSON.stringify(projComments)]);
 
   if (!projectId) {
     return null;
@@ -80,26 +87,26 @@ function ProjectGallery() {
     history.goBack();
   };
 
-  const handleSubmit = async (e) => {
-    console.log("hit");
-    // console.log(comment, sessionUser.id, projectId)
+  // const handleSubmit = async (e) => {
+  //   // console.log("hit");
+  //   // console.log(comment, sessionUser.id, projectId)
 
-    const response = await fetch(`/api/comments/new`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // comment,
-        user_id: sessionUser.id,
-        project_id: projectId,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-    }
-  };
+  //   const response = await fetch(`/api/comments/new`, {
+  //     method: "post",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       // comment,
+  //       user_id: sessionUser.id,
+  //       project_id: projectId,
+  //     }),
+  //   });
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     // console.log(data);
+  //   }
+  // };
   // const handleCreateComment = (e) => {
   //   e.preventDefault();
   //   history.push(`/projects/${projectId}`)
@@ -210,26 +217,39 @@ function ProjectGallery() {
               {/* {console.log(proj.comments[0].comment)} */}
               <i class="fa-solid fa-message fa-1x"></i>
               &nbsp;
-              {projComments.comments.length}
-              {console.log(projComments)}
+              {/* {Object.values(projComments.comments).length} */}
+              {/* {console.log(projComments)} */}
             </div>
           </div>
         </div>
         {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
-        <div>
+        <div className='create-comment'>
           <CreateComment projectId={projectId} proj={proj} />
         </div>
         <div className="comments-section">
           {projComments.comments &&
             projComments.comments.map((comments) => {
+              console.log('each comment', comments)
               return (
-                <div className="each-comment" key={comments?.id}>
-                  <div>{comments.comment}</div>
+                <div>
+                  <div className="each-comment" key={comments?.id}>
+                    <div>{comments.comment}</div>
+                  </div>
+                  <div>
+                    {sessionUser?.id === comments?.user?.id && (
+                      <>
+                        <div className='delete-comment'>
+                          <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               );
             })}
         </div>
+
         {/* {sessionUser && (
           <div>
             <button className="reviewButton" onClick={handleCreateComment}>
