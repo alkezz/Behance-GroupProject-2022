@@ -27,12 +27,12 @@ function ProjectGallery() {
   const comments = useSelector((state) => state.comments);
   // const [comment, setComment] = useState('')
   // console.log(sessionUser, "user")
-  console.log("PROJECTID", projectId)
-  console.log("APPRECIATION LIST: ", appreciations)
-  console.log("SELECTOR", appreciate)
-  console.log(comments, "comments")
-  console.log(proj, "proj");
-  console.log("SETPROJIDS", projIds)
+  // console.log("PROJECTID", projectId)
+  // console.log("APPRECIATION LIST: ", appreciations)
+  // console.log("SELECTOR", appreciate)
+  // console.log(comments, "comments")
+  // console.log(proj, "proj");
+  // console.log("SETPROJIDS", projIds)
   useEffect(() => {
     // projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
@@ -65,17 +65,17 @@ function ProjectGallery() {
       const data = await response.json();
       setProjImg(data);
     })();
-    // dispatch(commentActions.getProjectComments(projectId))
+    dispatch(commentActions.getProjectComments(projectId))
   }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
 
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(`/api/comments/${projectId}/comments`);
-      const data = await response.json();
-      setProjComments(data);
-    })();
-  }, [dispatch, JSON.stringify(projComments)]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await fetch(`/api/comments/${projectId}/comments`);
+  //     const data = await response.json();
+  //     setProjComments(data);
+  //   })();
+  // }, [dispatch, comments]);
 
   if (!projectId) {
     return null;
@@ -212,7 +212,7 @@ function ProjectGallery() {
             {proj.name}
             <div className='below-like-button'>
               &nbsp;
-              <i id="thumbs-icon" class="fa-solid fa-thumbs-up fa-1x"></i>
+              <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
               &nbsp;
               {appreciations}
               &nbsp;
@@ -220,7 +220,7 @@ function ProjectGallery() {
               &nbsp;
               &nbsp;
               {/* {console.log(proj.comments[0].comment)} */}
-              <i class="fa-solid fa-message fa-1x"></i>
+              <i className="fa-solid fa-message fa-1x"></i>
               &nbsp;
               {/* {Object.values(projComments.comments).length} */}
               {/* {console.log(projComments)} */}
@@ -233,8 +233,8 @@ function ProjectGallery() {
           <CreateComment projectId={projectId} proj={proj} />
         </div>
         <div className="comments-section">
-          {projComments.comments &&
-            projComments.comments.map((comments) => {
+          {!!Object.values(comments) &&
+            Object.values(comments).map((comments) => {
               console.log('each comment', comments)
               return (
                 <div>

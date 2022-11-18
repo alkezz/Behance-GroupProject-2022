@@ -50,7 +50,7 @@ function rando() {
                 <a href={ourInfo[e].github} target="_blank" >
                 <i className="ourIco fa-brands fa-github"></i>
                 </a>
-                <a href={ourInfo[e].github} target="_blank" >
+                <a href={null} target="_blank" >
                 <i className="ourIco fa-brands fa-linkedin"></i>
                 </a>
                 </div>
