@@ -30,7 +30,7 @@ export const getAppreciations = (projectId) => async (dispatch) => {
         const data = await response.json()
         console.log("RES OK2")
         dispatch(getAppreciationsAction(data))
-        return data
+        return data.appreciations
     }
     return response
 }

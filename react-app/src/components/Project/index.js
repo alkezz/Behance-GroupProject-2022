@@ -12,29 +12,46 @@ function ProjectGallery() {
   const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const appreciate = useSelector((state) => state)
   // const projectComments = useSelector((state) => state.comments);
+  const { projectId } = useParams();
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
   const [projComments, setProjComments] = useState({ comments: [] });
-  const [appreciations, setAppreciations] = useState({ project_ids: [] })
+  const [appreciations, setAppreciations] = useState(0)
+  const [appreciateCount, setAppreciateCount] = useState("")
+  const [update, setUpdate] = useState(true)
+  const [projIds, setProjIds] = useState([])
   const [inList, setInList] = useState(false)
   const comments = useSelector((state) => state.comments);
   // const [comment, setComment] = useState('')
   // console.log(sessionUser, "user")
-  const { projectId } = useParams();
+  console.log("PROJECTID", projectId)
   console.log("APPRECIATION LIST: ", appreciations)
+  console.log("SELECTOR", appreciate)
   console.log(comments, "comments")
   console.log(proj, "proj");
+  console.log("SETPROJIDS", projIds)
   useEffect(() => {
+    projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
       return;
     }
     (async () => {
       const response = await fetch(`/api/comments/${projectId}/comments`);
       const data = await response.json();
-      const appreciateList = await dispatch(appreciateActions.getAppreciations(projectId))
       setProjComments(data);
-      setAppreciations(appreciateList.appreciations)
+      const likes = await dispatch(appreciateActions.getAppreciations(projectId))
+      setAppreciations(likes)
+    })();
+    (async () => {
+      if (sessionUser) {
+        let lst = []
+        const res = await fetch(`/api/users/${sessionUser.id}/appreciations`)
+        const data2 = await res.json()
+        data2.project_ids.forEach((id) => lst.push(id))
+        lst.forEach((id) => id === Number(projectId) ? setInList(true) : null)
+      }
     })();
     (async () => {
       const response = await fetch(`/api/projects/${projectId}`);
@@ -47,17 +64,17 @@ function ProjectGallery() {
       setProjImg(data);
     })();
     // dispatch(commentActions.getProjectComments(projectId))
-  }, [JSON.stringify(proj), dispatch, JSON.stringify(projComments)]);
+  }, [JSON.stringify(proj), dispatch, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
 
   useEffect(() => {
     dispatch(commentActions.getProjectComments(projectId))
   }, [dispatch], projComments)
 
-
   if (!projectId) {
     return null;
   }
 
+  console.log(inList)
   let back = (e) => {
     e.stopPropagation();
     history.goBack();
@@ -115,15 +132,17 @@ function ProjectGallery() {
     e.preventDefault();
     e.stopPropagation();
   };
-
+  // projIds.project_ids.forEach((id) => console.log("FOREACH", id))
+  // projIds.forEach((id) => id === Number(projectId) ? setInList(true) : null)
   const handleAppreciate = (e) => {
-    console.log(inList)
     e.preventDefault()
     if (inList === false) {
       dispatch(appreciateActions.addAppreciations(projectId, sessionUser.id))
+      setAppreciations(appreciations + 1)
       setInList(true)
     } else {
       dispatch(appreciateActions.removeAppreciations(projectId, sessionUser.id))
+      setAppreciations(appreciations - 1)
       setInList(false)
     }
   }
@@ -167,16 +186,23 @@ function ProjectGallery() {
           ))
         }
         <div className='appreciate-container'>
-          <button className='appreciate-button' onClick={(e) => { handleAppreciate(e) }}>
-            <i className="fa-solid fa-thumbs-up fa-3x"></i>
-          </button>
+          {sessionUser &&
+            <button className='appreciate-button' onClick={(e) => { handleAppreciate(e) }}>
+              <i className="fa-solid fa-thumbs-up fa-3x"></i>
+            </button>
+          }
+          {!sessionUser &&
+            <button className='appreciate-button' onClick={() => history.push("/login", { from: 'project page' })}>
+              <i className="fa-solid fa-thumbs-up fa-3x"></i>
+            </button>
+          }
           <div className='project-name-appreciate'>
             {proj.name}
             <div className='below-like-button'>
               &nbsp;
               <i id="thumbs-icon" class="fa-solid fa-thumbs-up fa-1x"></i>
               &nbsp;
-              {proj.appreciations}
+              {appreciations}
               &nbsp;
               &nbsp;
               &nbsp;

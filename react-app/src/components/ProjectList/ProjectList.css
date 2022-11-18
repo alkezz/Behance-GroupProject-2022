@@ -75,6 +75,7 @@
   height:20px;
   width: 100%;
   left:5%;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   bottom: 10%;
 }
 
