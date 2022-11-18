@@ -44,7 +44,7 @@ const CreateComment = ({ projectId, proj }) => {
     let newComment = await dispatch(commentActions.addCommentToProject(payload));
     if (newComment) {
       dispatch(commentActions.getProjectComments(projectId))
-      dispatch(getProjectId(projectId))
+      // dispatch(getProjectId(projectId))
       setCommentMessage("")
       history.push(`/gallery/${projectId}`)
     }
@@ -112,7 +112,7 @@ const CreateComment = ({ projectId, proj }) => {
           required
         />
         <div className="reply-btn-div">
-          <button className="reply-btn" type="submit" onClick={handleSubmit}>
+          <button className="reply-btn" type="submit" onClick={handleSubmit} hidden={!user}>
             Post a comment
           </button>
         </div>

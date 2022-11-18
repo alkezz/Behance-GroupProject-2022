@@ -64,7 +64,7 @@ function ProjectGallery() {
       const data = await response.json();
       setProjImg(data);
     })();
-    // dispatch(commentActions.getProjectComments(projectId))
+    dispatch(commentActions.getProjectComments(projectId))
   }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
 
 
@@ -74,7 +74,7 @@ function ProjectGallery() {
       const data = await response.json();
       setProjComments(data);
     })();
-  }, [dispatch, JSON.stringify(projComments)]);
+  }, [dispatch, comments, JSON.stringify(projComments)]);
 
   if (!projectId) {
     return null;
@@ -234,8 +234,8 @@ function ProjectGallery() {
           <CreateComment projectId={projectId} proj={proj} />
         </div>
         <div className="comments-section">
-          {projComments.comments &&
-            projComments.comments.map((comments) => {
+          {!!Object.values(comments) &&
+            Object.values(comments).map((comments) => {
               console.log('each comment', comments)
               return (
                 <div>
