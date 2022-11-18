@@ -166,17 +166,18 @@ export const editProject = (project, id) => async (dispatch) => {
     return response;
 };
 
-//delete a spot
+//delete project
 export const deleteProjectId = (id) => async (dispatch) => {
-    const response = await fetch(`/api/projects/${id}`, {
+    const response = await fetch(`/api/projects/${id}/`, {
         method: "DELETE",
         // body: JSON.stringify(spotId)
     });
     if (response.ok) {
         const deletedProject = await response.json();
-        dispatch(deleteProject(deletedProject))
-        return dispatch
+        dispatch(deleteProject(id))
+        return deletedProject
     }
+    
     return response
 }
 
@@ -218,7 +219,7 @@ const projectsReducer = (state = initialState, action) => {
         case DELETE_PROJECT: {
             const newState = { ...state };
             delete newState[action.projectId];
-            return newState;
+            return { ...newState};
         }
         default:
             return state;
