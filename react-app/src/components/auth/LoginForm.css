@@ -65,3 +65,23 @@ input:active {
   width: 100%;
   cursor: pointer;
 }
+
+.enLogo {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  top: 40%;
+  left: 25%
+}
+
+.enLogoimg {
+  height:40px ;
+  width:40px;
+  margin-right: 10px;
+}
+
+.enLogoText {
+  color: white;
+  font-size: xx-large;
+}
