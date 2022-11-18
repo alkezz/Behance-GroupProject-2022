@@ -42,7 +42,7 @@ const LoginForm = () => {
       <div className='enLogo'>
         <img className='enLogoimg' src={logo}/>
         <div className='enLogoText'>
-          Behance
+          Enhance
         </div>
       </div>
       <form className="login-form" onSubmit={onLogin}>

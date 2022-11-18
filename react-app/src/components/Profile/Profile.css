@@ -82,6 +82,7 @@
     height:20px;
     left:5%;
     bottom: 25%;
+    text-decoration: none;
 }
 
 
@@ -110,7 +111,6 @@
     align-items: center;
     height:100%;
     width:100%;
-    min-height: 100vh
 }
 
 .profileContent {
@@ -118,7 +118,9 @@
     display: flex;
     flex-direction: row;
     height:90%;
-    width:85%
+    width:85%;
+    max-width:2500px;
+    min-height: 1000px
 }
 
 .userCard {
@@ -129,6 +131,7 @@
     border-radius: 5px;
     width: 360px;
     min-width: 360px;
+    height: 1000px;
     box-shadow: 0px 0px 2px #c9c9c9;
 }
 
@@ -147,6 +150,12 @@
     margin-left: 50px;
     width: 80%
 }
+
+.followIcon {
+    font-size: medium;
+    margin: 0px 10px;
+}
+
 .userCard_followBut:hover {
     background-color: rgb(45, 118, 236);
 }
@@ -156,7 +165,7 @@
     height: 40px;
     border-radius: 50px;
     background-color: rgb(0, 84, 220);
-    font-size: larger;
+    font-size: medium;
     font-weight: bold;
     color: white;
     outline: none;
@@ -190,7 +199,7 @@
     height: 40px;
     border-radius: 50px;
     background-color: rgb(255, 255, 255);
-    font-size: larger;
+    font-size: medium;
     font-weight: bold;
     color: rgb(46, 46, 46);
     margin: 10px 0px;
@@ -198,6 +207,7 @@
 
 .userStats {
     width: 80%;
+    margin: 10px 0px;
 }
 
 .statsRow {
@@ -213,7 +223,11 @@
 }
 
 .userStat {
-    font-weight: bold;
+    font-size: 15;
+}
+
+.userStatNum {
+    font-size: 17;
 }
 
 .userProjectsGrid {
@@ -254,6 +268,25 @@
     }
 }
 
+.ourInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    bottom: -220px
+}
+
+.ourIco {
+    font-size: xx-large;
+    color: #333;
+    margin:5px 5px
+}
+
+.ourIco:hover {
+    color:black;
+    cursor: pointer
+}
+
 .project-features {
     display: flex;
     flex-direction: row;
@@ -284,3 +317,4 @@
   #edit-project-button:hover {
     background-color: rgb(236, 236, 236);
   }
+
