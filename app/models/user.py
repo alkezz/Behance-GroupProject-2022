@@ -45,7 +45,7 @@ class User(db.Model, UserMixin):
         'Project',
         secondary= "appreciations",
         back_populates="project_appreciations",
-        cascade= "all, delete"
+        # cascade= "all, delete"
     )
     followers = db.relationship(
         'User', secondary=follows,
@@ -54,6 +54,7 @@ class User(db.Model, UserMixin):
         backref=db.backref('follows', lazy='dynamic'),
         lazy='dynamic'
     )
+
     def to_dict(self, projects=False):
         userInfo =  {
             'id': self.id,

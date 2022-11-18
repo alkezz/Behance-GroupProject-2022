@@ -22,6 +22,21 @@ def projects():
        x["images"] = x["images"].strip("'] ['").split(', ')
     return jsonify(project_dicts)
 
+@project_routes.route("/apprecRoute", methods=["POST"])
+def get_apprec_projs():
+    """
+    Query for all provided projects from appreciations list and returns them as a json dictionary
+    Url:
+    "/api/projects/apprecRoute/<userList>"
+    """
+    data = request.json
+    for x in data:
+        proj = Project.query.get(x).to_dict(images=True, user=True)
+        proj["images"] = proj["images"].strip("'] ['").split(', ')
+        data[x] = proj
+
+    return jsonify(data)
+
 @project_routes.route("/<int:id>/comments")
 def project_comments_by_id(id):
     """
@@ -29,14 +44,16 @@ def project_comments_by_id(id):
     Url:
     "/api/projects/:id/comments"
     """
-
-    one_project = Comment.query.filter_by(project_id=id).all()
+    print(type(id), "YO ID")
+    one_project = Comment.query.filter(Comment.project_id == id).all()
+    print(one_project, "PROJECT STUFF")
     if one_project:
+        print("HIT")
         res = { "comments": [img.to_dict(user=True) for img in one_project]}
         print(res, "comments")
         return res
     else:
-        return f"No such project with id of {id}"
+        return {"message": f"There are no comments for project with id of {id}"}
 
 @project_routes.route("/<int:id>/images")
 def project_imgs_by_id(id):
@@ -61,6 +78,7 @@ def appreciate_project(id, id2):
     ref_project.project_appreciations.append(curr_user)
     db.session.commit()
     user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    print("APPINFO", user_appinfo)
     newObj = { "project_ids": []}
     for x,z in user_appinfo:
         if x == id:
@@ -75,6 +93,7 @@ def delete_appreciations(id, id2):
     ref_project.project_appreciations.remove(curr_user)
     db.session.commit()
     user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    print("APPINFO", user_appinfo)
     newObj = { "project_ids": []}
     for x,z in user_appinfo:
         if x == id:
@@ -105,6 +124,7 @@ def delete_project(id):
     project = Project.query.get(id)
     if project:
         if project.user_id == current_user.id:
+            print(project)
             db.session.delete(project)
             db.session.commit()
             return {
@@ -119,7 +139,7 @@ def delete_project(id):
             "message": f"No such project with id of {id}"
         }
 
-@project_routes.route("/<int:id>/", methods=["PUT"])
+@project_routes.route("/<int:id>", methods=["PUT"])
 @login_required
 def edit_project(id):
     project = Project.query.get(id)

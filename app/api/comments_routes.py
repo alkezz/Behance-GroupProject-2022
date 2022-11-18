@@ -14,8 +14,8 @@ def comments():
     Query for all comments and returns them in a list of user dictionaries
     """
     all_coms = Comment.query.all()
-    print('test')
-    print('test')
+    # print('test')
+    # print('test')
     return {'comments': [com.to_dict() for com in all_coms]}
 
 @comments_routes.route("/<int:id>/")
@@ -25,7 +25,7 @@ def one_comment(id):
 
 
 #get all comments by project ID
-@comments_routes.route("/<project_id>/comments")
+@comments_routes.route("/<int:project_id>/comments")
 def tweet_comments(project_id):
     comments = Comment.query.filter(Comment.project_id == project_id ).all()
 
@@ -37,7 +37,7 @@ def tweet_comments(project_id):
     return res
 
 
-@comments_routes.route("/<project_id>/comments", methods=["POST"])
+@comments_routes.route("/<int:project_id>/comments", methods=["POST"])
 # @login_required
 def add_comment(project_id):
     """
@@ -52,7 +52,7 @@ def add_comment(project_id):
             user_id = form.data["user_id"],
             project_id = form.data["project_id"]
         )
-        print(new_comment)
+        # print(new_comment)
         db.session.add(new_comment)
         db.session.commit()
         return new_comment.to_dict(user=True)
@@ -90,15 +90,6 @@ def add_comment(project_id):
 #     else:
 #         return "unauthorized user", 403
 
-@comments_routes.route("/<int:id>/delete", methods=["DELETE"])
-@login_required
-def del_commemnt(id):
-    """
-    Deletes a comment for logged in User
-    """
-    found_comment = Comment.query.filter_by(id=id).delete()
-    db.session.commit()
-    return {"message": "Comment successfully deleted"}
 
 @comments_routes.route("/<int:id>/", methods=["GET", "PUT"])
 def edit_comment(id):
@@ -107,3 +98,17 @@ def edit_comment(id):
     comment.comment = new_comment
     db.session.commit()
     return comment.to_dict(user=True)
+
+@comments_routes.route("/<int:id>/delete", methods=["DELETE"])
+@login_required
+def del_comment(id):
+    """
+    Deletes a comment for logged in User
+    """
+    comment = Comment.query.get(id)
+    if current_user.id == comment.user.id:
+        db.session.delete(comment)
+        db.session.commit()
+        return {"message": "Comment successfully deleted"}
+    else:
+        return "Unauthorized"

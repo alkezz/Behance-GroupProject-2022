@@ -15,6 +15,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import Project from './components/Project';
 import Profile from './components/Profile'
+import EditProject from './components/EditProjectForm';
 import './index.css'
 import * as followsActions from './store/follows';
 
@@ -27,7 +28,7 @@ function App() {
     (async () => {
       await dispatch(authenticate())
         .then((res) => {
-          if(res){
+          if (res) {
             dispatch(followsActions.userFollows(res.id))
           }
         });
@@ -46,9 +47,11 @@ function App() {
         <Route path='/project/create' exact={true}>
           <CreateProject />
         </Route>
+        <Route path='/project/:projectId/edit'>
+          <EditProject />
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
-          <DemoUser />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
@@ -59,6 +62,9 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true}>
           <User />
         </ProtectedRoute>
+        <Route path='/project/create' exact={true}>
+          <CreateProject />
+        </Route>
         <Route path='/' exact={true} >
           <ProjectList />
         </Route>

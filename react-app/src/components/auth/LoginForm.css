@@ -1,11 +1,11 @@
 .login-page {
   position: fixed;
-  background-image: url("https://source.unsplash.com/2000x1000?music%20festival");
+  background-image: url("https://source.unsplash.com/1920x1440?art");
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  overflow-y: scroll;
+  background-size: cover;
 }
 
 .login-form {
@@ -28,7 +28,8 @@
   transition: background-color .5s;
 }
 
-.submit-button:hover {
+.submit-button:hover,
+.demo-login-form-button:hover {
   background-color: #0011ffd2;
 }
 
@@ -55,13 +56,36 @@ input:active {
 }
 
 .demo-login-form-button {
-  background: blue;
+  background: #0057ff;
   color: white;
+  border: none;
   font-weight: 500;
   height: 45px;
   width: 103%;
   margin-bottom: 15px;
-  border-radius: 5px;
+  border-radius: 5em;
   width: 100%;
   cursor: pointer;
+  transition: background-color .5s;
+}
+
+.enLogo {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  top: 40%;
+  left: 25%;
+  width: 15%
+}
+
+.enLogoimg {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.enLogoText {
+  color: white;
+  font-size: xx-large;
 }

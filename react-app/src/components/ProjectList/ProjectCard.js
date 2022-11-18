@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import avatar from '../../assets/behance-profile-image.png'
 import "./ProjectList.css"
 
@@ -14,10 +15,10 @@ const ProjectCard = ({ project }) => {
       <img className="project-list-img" src={previewImage} alt={project.name}></img>
       <div className='project-list-name'>{project.name}</div>
       <div className='project-list-info'>
-        <div className='project-list-user'>
+        <Link to={`/${project.User.username}`} className='project-list-user'>
           <img className='project-list-user-avatar' src={avatar} alt="user avatar" width="14" height="14" />
           <span>{project.User.first_name} {project.User.last_name}</span>
-        </div>
+        </Link>
         <div className="project-list-likes"><i className="fa-solid fa-thumbs-up"></i> {project.appreciations}</div>
       </div>
     </div>

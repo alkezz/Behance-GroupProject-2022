@@ -39,9 +39,14 @@ const deleteComment = (commentId) => {
 export const getProjectComments = (id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}/comments`)
     const data = await response.json()
-    // console.log(data)
-    dispatch(getComments(data))
-    return data;
+    if(!data.message)
+        {
+            dispatch(getComments(data))
+            return data;
+        }
+    else {
+        dispatch(getComments({"comments":[]}))
+    }
 };
 
 export const addCommentToProject = (comData) => async (dispatch) => {
@@ -80,6 +85,7 @@ export const addCommentToProject = (comData) => async (dispatch) => {
     // }
 }
 
+//thunks
 
 export const commentEdit = (comment) => async (dispatch) => {
     const response = await fetch(`/api/${comment.id}`, {
@@ -96,24 +102,21 @@ export const commentEdit = (comment) => async (dispatch) => {
 }
 
 export const deleteProjectComment = (id) => async (dispatch) => {
-    const response = await fetch(`/api/projects/${id}/comments`, {
+    const response = await fetch(`/api/comments/${id}/delete`, {
         method: "DELETE",
     });
     if (response.ok) {
-        const deletedComment = await response.json();
-        dispatch(deleteComment(deletedComment))
-        return dispatch
+      dispatch(deleteComment(id))
     }
-    return response
 }
 
-export const delCommentFromProj = (id) => async (dispatch) => {
-    const response = await fetch(`/api/comments/${id}/delete`)
-    const data = await response.json()
-    // console.log(data)
-    dispatch(deleteComment(data))
-    return data;
-};
+// export const delCommentFromProj = (id) => async (dispatch) => {
+//     const response = await fetch(`/api/comments/${id}/delete`, )
+//     const data = await response.json()
+//     // console.log(data)
+//     dispatch(deleteComment(data))
+//     return data;
+// };
 
 // export const songSingleGrab = (id) => async (dispatch) => {
 //     const response = await csrfFetch(`/api/songs/${id}`)
@@ -202,22 +205,20 @@ const initialState = {}
 
 const commentReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_COMMENTS: {
-            const newState = {};
-            action.comments.comments.forEach((comment) => {newState[comment.id] = comment});
-            return newState;
-        }
+        case GET_COMMENTS: 
+            let newState = {}
+            action.comments.comments.forEach((comment) => newState[comment.id] = comment)
+            return newState
         case ADD_COMMENT: {
             let newState = { ...state };
             newState[action.comment.id] = action.comment
             return newState
         }
-        case EDIT_COMMENT: {
-            return [...state, { ...action.editedComment }]
-        }
+        case EDIT_COMMENT:
+            return {...state, [action.editedComment.id]: action.editedComment}
         case DELETE_COMMENT: {
             let newState = { ...state };
-            delete newState[action.id];
+            delete newState[action.commentId];
             return newState;
         }
 

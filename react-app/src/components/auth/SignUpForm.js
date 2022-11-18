@@ -17,7 +17,7 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    
+
     console.log("This ran")
 
     if (password === repeatPassword) {
@@ -26,16 +26,15 @@ const SignUpForm = () => {
         setErrors(data)
       }
     } else {
-      console.log("I am an error")
       return setErrors(["Password fields must match"])
     }
 
   };
-  
+
   const updateFirstName = (e) => {
     setFirstName(e.target.value);
   }
-  
+
   const updateLastName = (e) => {
     setLastName(e.target.value);
   }
@@ -110,7 +109,6 @@ const SignUpForm = () => {
           name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
         ></input>
       <div className="form-submit-container">
       <button className="submit-button" type='submit'>Sign Up</button>

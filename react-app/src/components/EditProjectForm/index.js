@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as projectActions from '../../store/projects';
 import "./CreateProject.css"
 
-function CreateProject() {
+function EditProject() {
     const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
@@ -17,6 +17,7 @@ function CreateProject() {
     const [proj, setProj] = useState({});
     const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
+    const { projectId } = useParams()
 
 
     if (!sessionUser) {
@@ -40,26 +41,22 @@ function CreateProject() {
             console.log("IMG", img)
             formData.append('file', img)
         }
-        const pictures = await fetch('/api/projects/upload', {
+        const pictures = await fetch(`/api/projects/upload`, {
             method: "POST",
             body: formData
         }).then((res) => res.json())
         const new_project = {
             name,
             description,
-            user_id: sessionUser.id,
             images: pictures.images
         }
         // console.log(new_project)
-        dispatch(projectActions.createProject(new_project)).then((data) => {
-            history.push("/")
-            history.push(`/gallery/${data.id}`)
-        })
+        dispatch(projectActions.editProject(new_project, projectId)); window.alert("Upload complete!")
     }
     return (
         <div className="create-project-container">
             <form className="create-project-form" onSubmit={handleSubmit}>
-                <h1>Start building your project:</h1>
+                <h1>Let's rebuild your project:</h1>
                 <label>Project Name</label>
                 <input
                     type='text'
@@ -72,16 +69,16 @@ function CreateProject() {
                     )}
                 </div>
                 <label>Provide a brief description of your project</label>
-                <input
-                    type='text'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="create-project-fields" />
-                <div>
-                    {errors.map((error, idx) =>
-                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
-                    )}
-                </div>
+                    <input
+                        type='text'
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="create-project-fields" />
+                    <div>
+                        {errors.map((error, idx) =>
+                            error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                        )}
+                    </div>
                 <div className="create-project-image-container">
                     <div className="create-project-image-prompt">
                         Attach image files
@@ -100,4 +97,4 @@ function CreateProject() {
 
 }
 
-export default CreateProject
+export default EditProject
