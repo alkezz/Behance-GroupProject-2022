@@ -33,7 +33,7 @@ function ProjectGallery() {
   console.log(proj, "proj");
   console.log("SETPROJIDS", projIds)
   useEffect(() => {
-    projIds.forEach((id) => id === projectId ? setInList(true) : null)
+    // projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
       return;
     }
@@ -64,7 +64,7 @@ function ProjectGallery() {
       setProjImg(data);
     })();
     // dispatch(commentActions.getProjectComments(projectId))
-  }, [JSON.stringify(proj), dispatch, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
+  }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
 
   useEffect(() => {
     dispatch(commentActions.getProjectComments(projectId))
@@ -138,11 +138,11 @@ function ProjectGallery() {
     e.preventDefault()
     if (inList === false) {
       dispatch(appreciateActions.addAppreciations(projectId, sessionUser.id))
-      setAppreciations(appreciations + 1)
+      // setAppreciations(appreciations + 1)
       setInList(true)
     } else {
       dispatch(appreciateActions.removeAppreciations(projectId, sessionUser.id))
-      setAppreciations(appreciations - 1)
+      // setAppreciations(appreciations - 1)
       setInList(false)
     }
   }
@@ -187,7 +187,7 @@ function ProjectGallery() {
         }
         <div className='appreciate-container'>
           {sessionUser &&
-            <button className='appreciate-button' onClick={(e) => { handleAppreciate(e) }}>
+            <button className='appreciate-button' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
               <i className="fa-solid fa-thumbs-up fa-3x"></i>
             </button>
           }
