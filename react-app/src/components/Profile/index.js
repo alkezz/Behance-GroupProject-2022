@@ -120,6 +120,7 @@ function ProfilePage() {
   if (!prof.username) {
     return <>
       <div>
+        {console.log(location, 'location')}
       </div>
     </>;
   }

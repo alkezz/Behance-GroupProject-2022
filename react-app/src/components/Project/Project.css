@@ -128,3 +128,13 @@
 /* #thumbs-icon{
     font-size: 16px;
 } */
+
+.projUserSideCont {
+    display: flex;
+    flex-direction: column;
+    position:relative;
+    bottom:400px;
+    left:750px;
+    z-index: 9001;
+    color: white;
+}
