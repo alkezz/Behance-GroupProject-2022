@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Redirect, Link, useLocation, useHistory } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useParams, Redirect, Link, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import AppeciationsList from '../ApprecList';
 import * as followActions from '../../store/follows'
+import { deleteProjectId } from '../../store/projects';
 import avatar from '../../assets/behance-profile-image.png'
 import "./Profile.css"
+import MiniNav from '../MiniNav';
+import Rando from './rando';
 // import * as profileActions from '../../store/songs'
 
 function ProfilePage() {
@@ -16,8 +20,28 @@ function ProfilePage() {
   // console.log(prof)
   const [update, setUpdate] = useState(true)
   const [followerInfo, setFollowerInfo] = useState({})
-  const [apprecInfo, setApprecInfo] = useState({})
+  const [apprecInfo, setApprecInfo] = useState({"project_ids":[]})
   const { username } = useParams();
+
+  const deleteProject = async (e) => {
+    
+    e.preventDefault();
+    let projectId = document.getElementById("delete-project-button").value;
+    const response = await fetch(`/api/projects/${projectId}/`, {
+      method: "DELETE"
+    })
+    const data = await response.json()
+    setUpdate(!update)
+    let refresh = sessionUser.user.username
+    
+    history.push(`/${refresh}`)
+  }
+  
+  const toEditPage = (e) => {
+    e.preventDefault();
+    let projectId = document.getElementById('edit-project-button').value;
+    history.push(`/project/${projectId}/edit`)
+  }
 
   const projList = prof.projects.map((project) => {
     return (
@@ -26,9 +50,16 @@ function ProfilePage() {
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
-        <div className='projectText'>
+        <Link className='projectText' to={`/gallery/${project.id}`}>
           {project.name}
+        </Link>
         </div>
+        {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
+          <div className="project-features">
+            <button id="edit-project-button" value={project.id} onClick={toEditPage}>Edit Project</button>
+            <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+          </div>
+        ) : null } 
         <div className='projectAppr'>
           <i className="apprIcon fa-solid fa-thumbs-up" />
           <div className='projectAppr_text'>{project.appreciations}</div>
@@ -46,7 +77,7 @@ function ProfilePage() {
     } else {
       followButton = (
         <button onClick={(e) => { handleFollow(e); setUpdate(!update) }} className='userCard_followBut' hidden={sessionUser.user.username.toLowerCase() === username.toLowerCase()}>
-          Follow
+          <i className="followIcon fa-solid fa-circle-plus" /> Follow
         </button>
       )
     }
@@ -67,6 +98,8 @@ function ProfilePage() {
     return count
   }
 
+
+  
   const handleFollow = (e) => {
     setUpdate(true)
     e.preventDefault();
@@ -84,24 +117,25 @@ function ProfilePage() {
     if (!username) {
       return;
     }
-    if (username !== "gallery") {
-      (async () => {
-        const response = await fetch(`/api/users/username/${username}`);
-        let data
-        if (response) {
-          data = await response.json();
-          setProf(data);
-          // console.log("test", data)
-          const response2 = await fetch(`/api/users/${data.id}/appreciations`);
-          const response3 = await fetch(`/api/users/${data.id}/follows`);
-          const data2 = await response2.json();
-          const data3 = await response3.json();
-          console.log("eff")
-          setApprecInfo(data2);
-          setFollowerInfo(data3)
-        }
-      })();
+    
+    if(username !== "gallery"){
+    (async () => {
+      const response = await fetch(`/api/users/username/${username}`);
+      let data
+      if(response) {
+        data = await response.json();
+        setProf(data);
+        // console.log("test", data)
+        const response2 = await fetch(`/api/users/${data.id}/appreciations`);
+        const response3 = await fetch(`/api/users/${data.id}/follows`);
+        const data2 = await response2.json();
+        const data3 = await response3.json();
+        setApprecInfo(data2);
+        setFollowerInfo(data3)
+      }
+    })();
     }
+    
     // (async () => {
     //   const response = await fetch(`/api/users/${prof.id}/appreciations`);
     //   const data = await response.json();
@@ -117,6 +151,7 @@ function ProfilePage() {
   if (!prof.username) {
     return <>
       <div>
+        {console.log(location, 'location')}
       </div>
     </>;
   }
@@ -148,7 +183,7 @@ function ProfilePage() {
               <div className='userStat'>
                 Followers
               </div>
-              <div className='userStat'>
+              <div className='userStatNum'>
                 {!!Object.keys(followerInfo).length && followerInfo.followed_by_user_ids.length}
               </div>
             </div>
@@ -156,16 +191,33 @@ function ProfilePage() {
               <div className='userStat'>
                 Following
               </div>
-              <div className='userStat'>
+              <div className='userStatNum'>
                 {!!Object.keys(followerInfo).length && followerInfo.current_followed_user_ids.length}
               </div>
             </div>
           </div>
+          <div>
+            You can email me here at:
+          </div>
+          <div>
+            {prof.email}
+          </div>
+          <div className='ourInfo'>
+            <Rando />
+          </div>
         </div>
         <div className='userProjects'>
-          <div className='userProjectsGrid' >
-            {!!prof && projList}
-          </div>
+        <MiniNav data={prof}></MiniNav>
+        <Switch>
+          <Route exact path={`/${prof.username}` || `/${prof.username}/work`}>
+            <div className='userProjectsGrid' >
+              {!!prof && projList}
+            </div>
+          </Route>
+          <Route path={`/${prof.username}/appreciations`}>
+            <AppeciationsList appreciations={apprecInfo}/>
+          </Route>
+        </Switch>
           {/* {!!prof && projList.length}
           {!!prof && JSON.stringify(prof)}
           {JSON.stringify(apprecInfo)}

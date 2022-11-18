@@ -18,7 +18,8 @@ class Comment(db.Model):
   def to_dict(self, user=False, project=False):
     comment =  {
       "id": self.id,
-      "comment": self.comment
+      "comment": self.comment,
+      "user": self.user.to_dict(),
     }
 
     if user:

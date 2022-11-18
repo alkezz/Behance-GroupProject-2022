@@ -9,6 +9,8 @@ follows = db.Table(
     db.Column("follower_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"))),
     db.Column("followed_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
 )
+if environment == 'production':
+    follows.schema = SCHEMA
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -43,7 +45,7 @@ class User(db.Model, UserMixin):
         'Project',
         secondary= "appreciations",
         back_populates="project_appreciations",
-        cascade= "all, delete"
+        # cascade= "all, delete"
     )
     followers = db.relationship(
         'User', secondary=follows,
