@@ -184,8 +184,8 @@ function ProfilePage() {
           <div className='userProjectsGrid' >
             {!!prof && projList}
           </div>
-          {!!prof && projList.length}
-          {/* {!!prof && JSON.stringify(prof)}
+          {/* {!!prof && projList.length}
+          {!!prof && JSON.stringify(prof)}
           {JSON.stringify(apprecInfo)}
           {JSON.stringify(followerInfo)} */}
         </div>

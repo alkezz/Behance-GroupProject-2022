@@ -249,3 +249,22 @@
     }
 }
   
+#delete-project-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid lightgray;
+    text-decoration: none;
+    border-radius: 5em;
+    color: #5d5d5d;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    height: 10px;
+    transition: background-color .5s;
+  }
+  
+  #delete-project-button:hover {
+    background-color: rgb(236, 236, 236);
+  }
