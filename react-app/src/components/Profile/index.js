@@ -23,11 +23,11 @@ function ProfilePage() {
   const [apprecInfo, setApprecInfo] = useState({ "project_ids": [] })
   const { username } = useParams();
 
-  const deleteProject = async (e) => {
+  const deleteProject = async (e, id) => {
 
     e.preventDefault();
     let projectId = document.getElementById("delete-project-button").value;
-    const response = await fetch(`/api/projects/${projectId}/`, {
+    const response = await fetch(`/api/projects/${id}/`, {
       method: "DELETE"
     })
     const data = await response.json()
@@ -37,13 +37,14 @@ function ProfilePage() {
     history.push(`/${refresh}`)
   }
 
-  const toEditPage = (e) => {
+  const toEditPage = (e, id) => {
     e.preventDefault();
     let projectId = document.getElementById('edit-project-button').value;
-    history.push(`/project/${projectId}/edit`)
+    history.push(`/project/${id}/edit`)
   }
 
   const projList = prof.projects.map((project) => {
+    console.log("PROJECT in PROFILE", project.id)
     return (
       <div className='projPreview' key={project.id}>
         <Link className='projPreviewImgCont' to={{ pathname: `/gallery/${project.id}`, state: { background: location } }}><img className='projPreviewImg' src={project.images[0]} /></Link>
@@ -55,8 +56,9 @@ function ProfilePage() {
         </Link>
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <div className="project-features">
-            <button id="edit-project-button" value={project.id} onClick={toEditPage}>Edit Project</button>
-            <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+            <button id="edit-project-button" value={project.id} onClick={(e) => toEditPage(e, project.id)}>Edit Project</button>
+            {console.log("PROJECT ID IN BUTTON ASSIGNMENT", project.id)}
+            <button id="delete-project-button" value={project.id} onClick={(e) => deleteProject(e, project.id)}>Delete Project</button>
           </div>
         ) : null}
         <div className='projectAppr'>
