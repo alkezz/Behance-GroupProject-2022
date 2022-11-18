@@ -51,7 +51,9 @@ function EditProject() {
             images: pictures.images
         }
         // console.log(new_project)
-        dispatch(projectActions.editProject(new_project, projectId)); window.alert("Upload complete!")
+        dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
+            history.push(`/gallery/${data.id}`)
+        })
     }
     return (
         <div className="create-project-container">
