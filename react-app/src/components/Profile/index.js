@@ -53,7 +53,6 @@ function ProfilePage() {
         <Link className='projectText' to={`/gallery/${project.id}`}>
           {project.name}
         </Link>
-        </div>
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <div className="project-features">
             <button id="edit-project-button" value={project.id} onClick={toEditPage}>Edit Project</button>

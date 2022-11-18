@@ -42,10 +42,7 @@ function EditProject() {
             formData.append('file', img)
         }
         const pictures = await fetch(`/api/projects/upload`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            method: "POST",
             body: formData
         }).then((res) => res.json())
         const new_project = {

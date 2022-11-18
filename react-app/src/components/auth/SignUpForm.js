@@ -17,7 +17,7 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    
+
     console.log("This ran")
 
     if (password === repeatPassword) {
@@ -30,11 +30,11 @@ const SignUpForm = () => {
     }
 
   };
-  
+
   const updateFirstName = (e) => {
     setFirstName(e.target.value);
   }
-  
+
   const updateLastName = (e) => {
     setLastName(e.target.value);
   }
