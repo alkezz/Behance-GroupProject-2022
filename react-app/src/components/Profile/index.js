@@ -23,11 +23,14 @@ function ProfilePage() {
     
     e.preventDefault();
     let projectId = document.getElementById("delete-project-button").value;
-    fetch(`/api/projects/${projectId}/`, {
+    const response = await fetch(`/api/projects/${projectId}/`, {
       method: "DELETE"
     })
+    const data = await response.json()
+    setUpdate(!update)
+    let refresh = sessionUser.user.username
     
-    history.push('/')
+    history.push(`/${refresh}`)
   }
 
   const projList = prof.projects.map((project) => {
