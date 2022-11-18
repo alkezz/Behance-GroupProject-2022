@@ -56,7 +56,7 @@ input:active {
 }
 
 .demo-login-form-button {
-  background: #0011ffd2;
+  background: #0057ff;
   color: white;
   border: none;
   font-weight: 500;
@@ -66,6 +66,7 @@ input:active {
   border-radius: 5em;
   width: 100%;
   cursor: pointer;
+  transition: background-color .5s;
 }
 
 .enLogo {
@@ -79,8 +80,8 @@ input:active {
 }
 
 .enLogoimg {
-  height:40px ;
-  width:40px;
+  height: 40px;
+  width: 40px;
   margin-right: 10px;
 }
 

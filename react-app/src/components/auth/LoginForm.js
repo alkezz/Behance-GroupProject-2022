@@ -13,12 +13,16 @@ const LoginForm = () => {
   const user = useSelector(state => state.session.user);
   // const [pastHistory, setPastHistory] = useState(history.location.state.from)
   const dispatch = useDispatch();
+  // console.log("HISTORY", history.location.state.from)
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
     }
+    // if (pastHistory === 'project page') {
+    //   history.goBack()
+    // }
   };
 
   const updateEmail = (e) => {
