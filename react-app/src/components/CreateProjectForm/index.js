@@ -51,7 +51,10 @@ function CreateProject() {
             images: pictures.images
         }
         // console.log(new_project)
-        dispatch(projectActions.createProject(new_project)); window.alert("Upload complete!")
+        dispatch(projectActions.createProject(new_project)).then((data) => {
+            history.push("/")
+            history.push(`/gallery/${data.id}`)
+        })
     }
     return (
         <div className="create-project-container">
@@ -69,16 +72,16 @@ function CreateProject() {
                     )}
                 </div>
                 <label>Provide a brief description of your project</label>
-                    <input
-                        type='text'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="create-project-fields" />
-                    <div>
-                        {errors.map((error, idx) =>
-                            error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
-                        )}
-                    </div>
+                <input
+                    type='text'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="create-project-fields" />
+                <div>
+                    {errors.map((error, idx) =>
+                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                    )}
+                </div>
                 <div className="create-project-image-container">
                     <div className="create-project-image-prompt">
                         Attach image files

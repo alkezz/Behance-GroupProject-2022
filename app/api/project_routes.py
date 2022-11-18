@@ -61,6 +61,7 @@ def appreciate_project(id, id2):
     ref_project.project_appreciations.append(curr_user)
     db.session.commit()
     user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    print("APPINFO", user_appinfo)
     newObj = { "project_ids": []}
     for x,z in user_appinfo:
         if x == id:
@@ -75,6 +76,7 @@ def delete_appreciations(id, id2):
     ref_project.project_appreciations.remove(curr_user)
     db.session.commit()
     user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    print("APPINFO", user_appinfo)
     newObj = { "project_ids": []}
     for x,z in user_appinfo:
         if x == id:

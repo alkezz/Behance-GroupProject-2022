@@ -43,9 +43,6 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path='/project/create' exact={true}>
-          <CreateProject />
-        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
           <DemoUser />
@@ -59,6 +56,9 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true}>
           <User />
         </ProtectedRoute>
+        <Route path='/project/create' exact={true}>
+          <CreateProject />
+        </Route>
         <Route path='/' exact={true} >
           <ProjectList />
         </Route>
