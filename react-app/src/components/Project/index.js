@@ -2,26 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Redirect, NavLink, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
+import * as appreciateActions from '../../store/appreciations.js'
+// import * as appreciateActions from '../../store/appreciations'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
-import CreateComment from "./createcomment.js";
+import CreateComment from './createComment.js';
+import DeleteComment from './deleteComment.js';
 
 function ProjectGallery() {
   const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const appreciate = useSelector((state) => state)
   // const projectComments = useSelector((state) => state.comments);
+  const { projectId } = useParams();
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
   const [projComments, setProjComments] = useState({ comments: [] });
+  const [appreciations, setAppreciations] = useState(0)
+  const [appreciateCount, setAppreciateCount] = useState("")
+  const [update, setUpdate] = useState(true)
+  const [projIds, setProjIds] = useState([])
+  const [inList, setInList] = useState(false)
   const comments = useSelector((state) => state.comments);
   // const [comment, setComment] = useState('')
   // console.log(sessionUser, "user")
-  const { projectId } = useParams();
-
+  console.log("PROJECTID", projectId)
+  console.log("APPRECIATION LIST: ", appreciations)
+  console.log("SELECTOR", appreciate)
   console.log(comments, "comments")
   console.log(proj, "proj");
+  console.log("SETPROJIDS", projIds)
   useEffect(() => {
+    // projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
       return;
     }
@@ -29,8 +42,20 @@ function ProjectGallery() {
       const response = await fetch(`/api/comments/${projectId}/comments`);
       const data = await response.json();
       setProjComments(data);
+      const likes = await dispatch(appreciateActions.getAppreciations(projectId))
+      setAppreciations(likes)
     })();
     (async () => {
+      if (sessionUser) {
+        let lst = []
+        const res = await fetch(`/api/users/${sessionUser.id}/appreciations`)
+        const data2 = await res.json()
+        data2.project_ids.forEach((id) => lst.push(id))
+        lst.forEach((id) => id === Number(projectId) ? setInList(true) : null)
+      }
+    })();
+    (async () => {
+
       const response = await fetch(`/api/projects/${projectId}`);
       const data = await response.json();
       setProj(data);
@@ -41,42 +66,47 @@ function ProjectGallery() {
       setProjImg(data);
     })();
     // dispatch(commentActions.getProjectComments(projectId))
-  }, [JSON.stringify(proj), dispatch, JSON.stringify(projComments)]);
+  }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projComments), JSON.stringify(projIds)]);
+
 
   useEffect(() => {
-    dispatch(commentActions.getProjectComments(projectId))
-  }, [dispatch], projComments)
-
+    (async () => {
+      const response = await fetch(`/api/comments/${projectId}/comments`);
+      const data = await response.json();
+      setProjComments(data);
+    })();
+  }, [dispatch, JSON.stringify(projComments)]);
 
   if (!projectId) {
     return null;
   }
 
+  console.log(inList)
   let back = (e) => {
     e.stopPropagation();
     history.goBack();
   };
 
-  const handleSubmit = async (e) => {
-    console.log("hit");
-    // console.log(comment, sessionUser.id, projectId)
+  // const handleSubmit = async (e) => {
+  //   // console.log("hit");
+  //   // console.log(comment, sessionUser.id, projectId)
 
-    const response = await fetch(`/api/comments/new`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // comment,
-        user_id: sessionUser.id,
-        project_id: projectId,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-    }
-  };
+  //   const response = await fetch(`/api/comments/new`, {
+  //     method: "post",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       // comment,
+  //       user_id: sessionUser.id,
+  //       project_id: projectId,
+  //     }),
+  //   });
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     // console.log(data);
+  //   }
+  // };
   // const handleCreateComment = (e) => {
   //   e.preventDefault();
   //   history.push(`/projects/${projectId}`)
@@ -109,6 +139,20 @@ function ProjectGallery() {
     e.preventDefault();
     e.stopPropagation();
   };
+  // projIds.project_ids.forEach((id) => console.log("FOREACH", id))
+  // projIds.forEach((id) => id === Number(projectId) ? setInList(true) : null)
+  const handleAppreciate = (e) => {
+    e.preventDefault()
+    if (inList === false) {
+      dispatch(appreciateActions.addAppreciations(projectId, sessionUser.id))
+      // setAppreciations(appreciations + 1)
+      setInList(true)
+    } else {
+      dispatch(appreciateActions.removeAppreciations(projectId, sessionUser.id))
+      // setAppreciations(appreciations - 1)
+      setInList(false)
+    }
+  }
 
   return (
     <div className="one" onClick={back}>
@@ -154,16 +198,23 @@ function ProjectGallery() {
           ))
         }
         <div className='appreciate-container'>
-          <button className='appreciate-button'>
-            <i className="fa-solid fa-thumbs-up fa-3x"></i>
-          </button>
+          {sessionUser &&
+            <button className='appreciate-button' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
+              <i className="fa-solid fa-thumbs-up fa-3x"></i>
+            </button>
+          }
+          {!sessionUser &&
+            <button className='appreciate-button' onClick={() => history.push("/login", { from: 'project page' })}>
+              <i className="fa-solid fa-thumbs-up fa-3x"></i>
+            </button>
+          }
           <div className='project-name-appreciate'>
             {proj.name}
             <div className='below-like-button'>
               &nbsp;
               <i id="thumbs-icon" class="fa-solid fa-thumbs-up fa-1x"></i>
               &nbsp;
-              {proj.appreciations}
+              {appreciations}
               &nbsp;
               &nbsp;
               &nbsp;
@@ -171,26 +222,39 @@ function ProjectGallery() {
               {/* {console.log(proj.comments[0].comment)} */}
               <i class="fa-solid fa-message fa-1x"></i>
               &nbsp;
-              {projComments.comments.length}
-              {console.log(projComments)}
+              {/* {Object.values(projComments.comments).length} */}
+              {/* {console.log(projComments)} */}
             </div>
           </div>
         </div>
         {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
-        <div>
+        <div className='create-comment'>
           <CreateComment projectId={projectId} proj={proj} />
         </div>
         <div className="comments-section">
           {projComments.comments &&
             projComments.comments.map((comments) => {
+              console.log('each comment', comments)
               return (
-                <div className="each-comment" key={comments?.id}>
-                  <div>{comments.comment}</div>
+                <div>
+                  <div className="each-comment" key={comments?.id}>
+                    <div>{comments.comment}</div>
+                  </div>
+                  <div>
+                    {sessionUser?.id === comments?.user?.id && (
+                      <>
+                        <div className='delete-comment'>
+                          <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               );
             })}
         </div>
+
         {/* {sessionUser && (
           <div>
             <button className="reviewButton" onClick={handleCreateComment}>

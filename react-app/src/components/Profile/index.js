@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, useParams, Redirect, Link, useLocation, u
 import { useDispatch, useSelector } from 'react-redux'
 import AppeciationsList from '../ApprecList';
 import * as followActions from '../../store/follows'
+import { deleteProjectId } from '../../store/projects';
 import avatar from '../../assets/behance-profile-image.png'
 import "./Profile.css"
 import MiniNav from '../MiniNav';
@@ -22,6 +23,26 @@ function ProfilePage() {
   const [apprecInfo, setApprecInfo] = useState({"project_ids":[]})
   const { username } = useParams();
 
+  const deleteProject = async (e) => {
+    
+    e.preventDefault();
+    let projectId = document.getElementById("delete-project-button").value;
+    const response = await fetch(`/api/projects/${projectId}/`, {
+      method: "DELETE"
+    })
+    const data = await response.json()
+    setUpdate(!update)
+    let refresh = sessionUser.user.username
+    
+    history.push(`/${refresh}`)
+  }
+  
+  const toEditPage = (e) => {
+    e.preventDefault();
+    let projectId = document.getElementById('edit-project-button').value;
+    history.push(`/project/${projectId}/edit`)
+  }
+
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
@@ -32,6 +53,12 @@ function ProfilePage() {
         <Link className='projectText' to={`/gallery/${project.id}`}>
           {project.name}
         </Link>
+        {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
+          <div className="project-features">
+            <button id="edit-project-button" value={project.id} onClick={toEditPage}>Edit Project</button>
+            <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+          </div>
+        ) : null } 
         <div className='projectAppr'>
           <i className="apprIcon fa-solid fa-thumbs-up" />
           <div className='projectAppr_text'>{project.appreciations}</div>
@@ -70,6 +97,8 @@ function ProfilePage() {
     return count
   }
 
+
+  
   const handleFollow = (e) => {
     setUpdate(true)
     e.preventDefault();
@@ -87,24 +116,25 @@ function ProfilePage() {
     if (!username) {
       return;
     }
-    if (username !== "gallery") {
-      (async () => {
-        const response = await fetch(`/api/users/username/${username}`);
-        let data
-        if (response) {
-          data = await response.json();
-          setProf(data);
-          // console.log("test", data)
-          const response2 = await fetch(`/api/users/${data.id}/appreciations`);
-          const response3 = await fetch(`/api/users/${data.id}/follows`);
-          const data2 = await response2.json();
-          const data3 = await response3.json();
-          console.log("eff")
-          setApprecInfo(data2);
-          setFollowerInfo(data3)
-        }
-      })();
+    
+    if(username !== "gallery"){
+    (async () => {
+      const response = await fetch(`/api/users/username/${username}`);
+      let data
+      if(response) {
+        data = await response.json();
+        setProf(data);
+        // console.log("test", data)
+        const response2 = await fetch(`/api/users/${data.id}/appreciations`);
+        const response3 = await fetch(`/api/users/${data.id}/follows`);
+        const data2 = await response2.json();
+        const data3 = await response3.json();
+        setApprecInfo(data2);
+        setFollowerInfo(data3)
+      }
+    })();
     }
+    
     // (async () => {
     //   const response = await fetch(`/api/users/${prof.id}/appreciations`);
     //   const data = await response.json();

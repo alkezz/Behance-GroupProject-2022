@@ -76,6 +76,7 @@ def appreciate_project(id, id2):
     ref_project.project_appreciations.append(curr_user)
     db.session.commit()
     user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    print("APPINFO", user_appinfo)
     newObj = { "project_ids": []}
     for x,z in user_appinfo:
         if x == id:
@@ -90,6 +91,7 @@ def delete_appreciations(id, id2):
     ref_project.project_appreciations.remove(curr_user)
     db.session.commit()
     user_appinfo = db.session.query(appreciations).filter_by(user_id = id).all()
+    print("APPINFO", user_appinfo)
     newObj = { "project_ids": []}
     for x,z in user_appinfo:
         if x == id:
@@ -120,6 +122,7 @@ def delete_project(id):
     project = Project.query.get(id)
     if project:
         if project.user_id == current_user.id:
+            print(project)
             db.session.delete(project)
             db.session.commit()
             return {
@@ -244,10 +247,10 @@ def add_project_image_index():
 #                                 }
 #                             }}
 
-@project_routes.route("/upload", methods=["POST"])
+@project_routes.route("/upload", methods=["POST", "PUT"])
 def upload():
     image_list = []
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method == 'PUT':
         for i in request.files.getlist('file'):
                 filename = secure_filename(i.filename)
                 s3.upload_fileobj(
