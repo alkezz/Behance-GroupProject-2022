@@ -44,7 +44,7 @@ function EditProject() {
         setImages("")
         const errorList = []
         if (name.length > 50 || name.length < 5) errorList.push("Name but be between 5 and 50 characters")
-        if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
+        if (description.length > 100 || description.length < 20) errorList.push("Description must be between 10 and 50 characters")
         setErrors(errorList)
         if (errorList.length) {
             return
@@ -92,8 +92,8 @@ function EditProject() {
     
     return (
         
-        <div className="create-project-container">
-           <form className="create-project-form" onSubmit={handleSubmit}>
+        <div className="edit-project-container">
+           <form className="edit-project-form" onSubmit={handleSubmit}>
                 <h1>Let's rebuild your project:</h1>
                 <label>Project Name</label>
                 <input
@@ -117,13 +117,14 @@ function EditProject() {
                         error === "Description must be between 10 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
                     )}
                 </div>
-                <div className="create-project-image-container">
+                <div className="edit-project-image-container">
 
-                    <div className="create-project-image-prompt">
-                        Attach image files
+                    <div className="edit-project-image-prompt">
+                        Attach 1-5 files. Supported filetypes: png, jpg/jpeg, gif
                     </div>
-                    <div className="create-project-image-input">
+                    <div className="edit-project-image-input">
                         <div>
+                            <i className="fa-solid fa-paperclip"></i>
                             <input type="file" name="file" id='imageinput' multiple encType="multipart/form-data" />
                         </div>
                         <div>
@@ -138,17 +139,18 @@ function EditProject() {
                 </div>
                     </div>
                 </div>
+                <div className="edit-project-submit-container">
                 <button type="submit" className="submit-button">Submit</button>
+                </div>
             </form>
             { submitted === true && (
                 <div className="loading-popup-container">
                     <div className="loading-popup-text">Thanks for submitting your changes! Please wait a few moments while we update your project, you will be redirected to your profile page shortly.</div>
+                    <div className="loading-wheel-container"><i className="fa-solid fa-spinner"></i></div>
                 </div>
             )}
         </div>
-    
     )
-
 }
 
 export default EditProject
