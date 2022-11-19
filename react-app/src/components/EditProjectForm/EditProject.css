@@ -7,6 +7,8 @@
 .create-project-form {
   display: flex;
   gap: 20px;
+  box-shadow: 1px 1px 3px lightgray;
+  padding: 10px;
 }
 
 .submit-button {
@@ -26,9 +28,10 @@
 .create-project-image-container {
   width: 330px;
   height: 160px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-radius: 3px;
   box-shadow: 0 1px 5px #c7c7c7;
+  margin-left: 40px;
 }
 
 .create-project-image-prompt {
@@ -47,6 +50,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+}
+
+#imageinput {
+  border-bottom: none;
+  color: #787878;
+  font-family:Arial, Helvetica, sans-serif
+}
+
+#file-upload-button {
+  background-color: blue;
 }
 
 .create-project-image-upload {

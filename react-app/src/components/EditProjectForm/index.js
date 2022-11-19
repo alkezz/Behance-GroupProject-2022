@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import * as projectActions from '../../store/projects';
 import "./EditProject.css"
 
 function EditProject() {
+    
     const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
+    
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [images, setImages] = useState("");
-    const [url, setUrl] = useState([]);
-    const [is_preview, setIsPreview] = useState(true);
     const [errors, setErrors] = useState([]);
     const [proj, setProj] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    
     const formData = new FormData();
     const { projectId } = useParams();
-
+    
+    
+    // useEffect(() => {
+    //     setSubmitted(!submitted)
+    // }, [dispatch])
 
     if (!sessionUser) {
         return null
@@ -56,13 +61,14 @@ function EditProject() {
                 description,
                 images: pictures.images
             }
-            // console.log(new_project)
+
             dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
                 history.push(`/${sessionUser.username}`)
-            
             })
         }
     }
+    
+    
     return (
         <div className="create-project-container">
             <form className="create-project-form" onSubmit={handleSubmit}>
