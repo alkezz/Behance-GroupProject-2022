@@ -36,7 +36,7 @@
     justify-content: center;
     background: #fff;
     top: 25;
-    width:1400px;
+    width: 1400px;
     left: 10%;
     right: 10%;
     padding: 5px;
@@ -51,8 +51,8 @@
 
 .projClose {
     position: absolute;
-    top:1%;
-    right:1%;
+    top: 1%;
+    right: 1%;
     background-color: rgba(255, 255, 255, 0);
     border: none;
 }
@@ -75,7 +75,7 @@
 }
 
 .projUsername {
-    color:white;
+    color: white;
     font-size: 14px;
     text-decoration: none;
 }
@@ -85,14 +85,14 @@
 }
 
 .projUserCont {
-    height:40px;
+    height: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 0px 10px;
 }
 
-.appreciate-container{
+.appreciate-container {
     /* margin-top: 7.5%; */
     display: flex;
     flex-direction: column;
@@ -102,14 +102,15 @@
     height: 250px;
 }
 
-.project-name-appreciate{
+.project-name-appreciate {
     /* margin-bottom: 7.5%; */
     color: white;
     font-size: 24px;
     font-weight: bold;
     line-height: 1.2;
 }
-.appreciate-button{
+
+.appreciate-button {
     width: 75px;
     height: 75px;
     border-radius: 50%;
@@ -118,7 +119,7 @@
     color: white;
 }
 
-.below-like-button{
+.below-like-button {
     color: white;
     font-size: 14px;
     display: flex;
@@ -134,9 +135,54 @@
 .projUserSideCont {
     display: flex;
     flex-direction: column;
-    position:relative;
-    bottom:400px;
-    left:750px;
+    position: relative;
+    bottom: 400px;
+    left: 750px;
     z-index: 9001;
     color: white;
+}
+
+.create-comment {
+    width: 500px;
+    display: flex;
+    justify-content:flex-start;
+    align-items: flex-start;
+}
+
+.each-comment {
+    width: 500px;
+    display: flex;
+    justify-content:flex-start;
+    align-items: flex-start;
+}
+
+.project-description-section {
+    min-height: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-comment-section {
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 50px 0;
+    background-color: white;
+    min-width: 500px;
+    min-height: 400px;
+    flex-direction: row;
+}
+
+.comment-form {
+    display: flex;
+    border: 1px solid;
+    font-size: 14px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.comments-section {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    min-height: 50px;
+    flex-direction: column;
 }

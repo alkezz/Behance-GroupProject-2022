@@ -227,33 +227,36 @@ function ProjectGallery() {
         </div>
         {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
-        <div className='create-comment'>
-          <CreateComment projectId={projectId} proj={proj} />
-        </div>
-        <div className="comments-section">
-          {!!Object.values(comments) &&
-            Object.values(comments).map((comments) => {
-              console.log('each comment', comments)
-              return (
-                <div>
-                  <div className="each-comment" key={comments?.id}>
-                    <div>{comments.comment}</div>
-                  </div>
-                  <div>
-                    {sessionUser?.id === comments?.user?.id && (
-                      <>
-                      <div className='edit-comment'>
-                        <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+        <div className='project-description-section'>
+          <div className='project-comment-section'>
+            <div className='create-comment'>
+              <CreateComment projectId={projectId} proj={proj} />
+            </div>
+            <div className="comments-section">
+              {!!Object.values(comments) &&
+                Object.values(comments).map((comments) => {
+                  return (
+                    <div>
+                      <div className="each-comment" key={comments?.id}>
+                        <div>{comments.comment}</div>
                       </div>
-                        <div className='delete-comment'>
-                          <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                      <div>
+                        {sessionUser?.id === comments?.user?.id && (
+                          <>
+                            <div className='edit-comment'>
+                              <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+                            </div>
+                            <div className='delete-comment'>
+                              <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
         </div>
 
         {/* {sessionUser && (
