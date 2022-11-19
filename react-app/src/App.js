@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProjectList from './components/ProjectList/index'
 import LoginForm from './components/auth/LoginForm';
@@ -21,8 +21,18 @@ import * as followsActions from './store/follows';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [prevPath, setPrevPath] = useState('')
   const dispatch = useDispatch();
+  const location = useLocation()
   const session = useSelector((store) => store.session)
+  console.log(location.pathname, 'PATH')
+
+  const currPath = () => {
+    if(!location.pathname.includes('gallery')){
+      return location
+    }
+  }
+
 
   useEffect(() => {
     (async () => {
@@ -34,11 +44,12 @@ function App() {
         });
       setLoaded(true);
     })();
-  }, [dispatch]);
+  }, [dispatch, location]);
 
   if (!loaded) {
     return null;
   }
+
 
   return (
     <BrowserRouter>
@@ -65,7 +76,7 @@ function App() {
         <Route path='/project/create' exact={true}>
           <CreateProject />
         </Route>
-        <Route path='/' exact={true} >
+        <Route path='/' exact={true}>
           <ProjectList />
         </Route>
         {/* <Route path='/gallery/:projectId'>

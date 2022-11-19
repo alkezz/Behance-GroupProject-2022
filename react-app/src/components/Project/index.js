@@ -65,14 +65,6 @@ function ProjectGallery() {
     })();
   }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projIds)]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await fetch(`/api/comments/${projectId}/comments`);
-  //     const data = await response.json();
-  //     setProjComments(data);
-  //   })();
-  // }, [dispatch, comments]);
-
   if (!projectId) {
     return null;
   }
@@ -83,62 +75,13 @@ function ProjectGallery() {
     history.goBack();
   };
 
-  // const handleSubmit = async (e) => {
-  //   // console.log("hit");
-  //   // console.log(comment, sessionUser.id, projectId)
-
-  //   const response = await fetch(`/api/comments/new`, {
-  //     method: "post",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       // comment,
-  //       user_id: sessionUser.id,
-  //       project_id: projectId,
-  //     }),
-  //   });
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     // console.log(data);
-  //   }
-  // };
-  // const handleCreateComment = (e) => {
-  //   e.preventDefault();
-  //   history.push(`/projects/${projectId}`)
-  // }
-  // const handleSumit = async (e) => {
-  //   e.preventDefault();
-
-  //   // const payload = {
-  //   //   comment,
-  //   //   user_id: sessionUser.id,
-  //   //   project_id: projectId
-  //   // };
-
-  //   let createdComment
-  //   try {
-  //     createdComment = await dispatch(commentActions.addCommentToProject(payload))
-  //   } catch (error) {
-  //     if (error) console.log(error);
-  //     // If error is not a ValidationError, add slice at the end to remove extra
-  //     // "Error: "
-  //     else console.log('none')
-  //   }
-  //   if (createdComment) {
-  //     console.log('success')
-  //   }
-
-  // }
-
   console.log("INLIST", inList)
 
   const test = async (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
-  // projIds.project_ids.forEach((id) => console.log("FOREACH", id))
-  // projIds.forEach((id) => id === Number(projectId) ? setInList(true) : null)
+
   const handleAppreciate = async (e) => {
     e.preventDefault()
     if (inList === false) {
@@ -157,12 +100,35 @@ function ProjectGallery() {
       <button className='projClose' onClick={back}>
         <i className="projCloseIcon fa-solid fa-circle-xmark" />
       </button>
-      {
-        !!proj.User &&
-        <div className='projUserSideCont'>
-          test
+      <div className='projContainer'>
+        
+
+      {!!proj.User &&
+      <div className='projUserSideStabs'>
+        <div className='projUserSideBar'>
+          
+          {/* <Link className='projUsername' to={`/${proj.User.username}`}>
+            <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
+          </Link> */}
+          <a href={`/${proj.User.username}`}>
+          <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
+          </a>
+          <div className='projUserSideBarText'>
+            Follow
+          </div> 
+          <button className='appreciateSideButton' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
+              <i className="fa-solid fa-thumbs-up fa-1x"></i>
+          </button>
+          <div className='projUserSideBarText'>
+            Apprreciate
+          </div> 
+
+  
+
         </div>
+      </div>
       }
+
       {!!proj.User &&
         <div className='projUserInfo' onClick={test}>
           <div className='projUserInfoCont'>
@@ -179,12 +145,6 @@ function ProjectGallery() {
         </div>
       }
       <div className="modal" onClick={test}>
-        {/* <div>
-          <strong>projid</strong> {projectId}
-        </div>
-        <div>
-          <strong>data</strong> {JSON.stringify(proj)}
-        </div> */}
 
         {
           projImg.map((eachImg) => (
@@ -289,6 +249,7 @@ function ProjectGallery() {
               <button type="submit">add comm</button>
             </form> */}
       {/* </div> */}
+      </div>
     </div>
   );
 }

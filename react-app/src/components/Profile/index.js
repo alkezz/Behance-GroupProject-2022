@@ -8,6 +8,7 @@ import avatar from '../../assets/behance-profile-image.png'
 import "./Profile.css"
 import MiniNav from '../MiniNav';
 import Rando from './rando';
+import ProjectList from '../ProjectList';
 // import * as profileActions from '../../store/songs'
 
 function ProfilePage() {
@@ -46,7 +47,7 @@ function ProfilePage() {
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
-        <Link className='projPreviewImgCont' to={{ pathname: `/gallery/${project.id}`, state: { background: location } }}><img className='projPreviewImg' src={project.images[0]} /></Link>
+        <Link className='projPreviewImgCont' style={{"borderRadius": "4px"}} to={{ pathname: `/gallery/${project.id}`, state: { background: location } }}><img className='projPreviewImg' style={{"borderRadius": "4px"}} src={project.images[0]} /></Link>
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
@@ -55,11 +56,11 @@ function ProfilePage() {
         </Link>
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <div className="project-features">
-            <button id="edit-project-button" value={project.id} onClick={toEditPage}>Edit Project</button>
-            <button id="delete-project-button" value={project.id} onClick={deleteProject}>Delete Project</button>
+            <button id="edit-project-button" onClick={toEditPage}>Edit Project</button>
+            <button id="delete-project-button" onClick={deleteProject}>Delete Project</button>
           </div>
         ) : null}
-        <div className='projectAppr'>
+        <div className={(!!sessionUser.user && sessionUser.user.id == prof.id) ? 'projectAppr':'projectAppr userEx'} >
           <i className="apprIcon fa-solid fa-thumbs-up" />
           <div className='projectAppr_text'>{project.appreciations}</div>
         </div>
@@ -149,9 +150,7 @@ function ProfilePage() {
 
   if (!prof.username) {
     return <>
-      <div>
-        {console.log(location, 'location')}
-      </div>
+      {console.log(location)}
     </>;
   }
 
@@ -209,7 +208,7 @@ function ProfilePage() {
           <MiniNav data={prof}></MiniNav>
           <Switch>
             <Route exact path={`/${prof.username}` || `/${prof.username}/work`}>
-              <div className='userProjectsGrid' >
+              <div className={(!!sessionUser.user && sessionUser.user.id === prof.id) ? 'userProjectsGrid': 'userProjectsGridU'}>
                 {!!prof && projList}
               </div>
             </Route>
