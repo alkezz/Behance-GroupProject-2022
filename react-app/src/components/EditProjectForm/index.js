@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import * as projectActions from '../../store/projects';
-import "./CreateProject.css"
+import "./EditProject.css"
 
 function EditProject() {
     const history = useHistory()
@@ -38,6 +38,10 @@ function EditProject() {
             return
         } else {
             let imageInput = document.querySelector("#imageinput")
+            if (!imageInput.files.length || imageInput.files.length > 5) {
+                errorList.push("Please select 1 to 5 images to upload")
+                return setErrors(errorList)
+            }
             for (let i = 0; i < imageInput.files.length; i++) {
                 let img = imageInput.files[i]
                 console.log("IMG", img)
@@ -54,7 +58,8 @@ function EditProject() {
             }
             // console.log(new_project)
             dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
-                history.push(`/gallery/${data.id}`)
+                history.push(`/${sessionUser.username}`)
+            
             })
         }
     }
@@ -85,6 +90,7 @@ function EditProject() {
                     )}
                 </div>
                 <div className="create-project-image-container">
+
                     <div className="create-project-image-prompt">
                         Attach image files
                     </div>
@@ -92,7 +98,11 @@ function EditProject() {
                         <div>
                             <input type="file" name="file" id='imageinput' multiple encType="multipart/form-data" />
                         </div>
-
+                        <div>
+                        {errors.map((error, idx) =>
+                            error === "Please select 1 to 5 images to upload" ? <li key={idx} id="error-list">{error}</li> : null
+                        )}
+                    </div>
                     </div>
                 </div>
                 <button type="submit" className="submit-button">Submit</button>
