@@ -153,14 +153,16 @@ export const addProjectImages = (project, images) => async (dispatch) => {
 
 //edit project
 export const editProject = (project, id) => async (dispatch) => {
+    console.log("PROJECT IN THUNK", project)
+    console.log("PROJ ID in thunk", id)
     const response = await fetch(`/api/projects/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
     });
+    console.log("RESPONSE FROM BACKEND", response)
     if (response.ok) {
         const editedProject = await response.json();
-        dispatch(projectEdit(editedProject));
         return editedProject;
     }
     return response;

@@ -38,10 +38,10 @@ function ProfilePage() {
     history.push(`/${refresh}`)
   }
 
-  const toEditPage = (e) => {
+  const toEditPage = (e, id) => {
     e.preventDefault();
-    let projectId = document.getElementById('edit-project-button').value;
-    history.push(`/project/${projectId}/edit`)
+    console.log("Project id in profile page", id)
+    history.push(`/project/${id}/edit`)
   }
 
   const projList = prof.projects.map((project) => {
@@ -54,12 +54,12 @@ function ProfilePage() {
         <Link className='projectText' to={`/gallery/${project.id}`}>
           {project.name}
         </Link>
-        {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
+        {!!sessionUser.user && sessionUser.user.id === prof.id && (
           <div className="project-features">
-            <button id="edit-project-button" onClick={toEditPage}>Edit Project</button>
-            <button id="delete-project-button" onClick={deleteProject}>Delete Project</button>
+            <button id="edit-project-button" value={project.id} onClick={(e) => {toEditPage(e, project.id)}}>Edit Project</button>
+            <button id="delete-project-button" value={project.id} onClick={(e) => {deleteProject(e, project.id)}}>Delete Project</button>
           </div>
-        ) : null}
+        )}
         <div className={(!!sessionUser.user && sessionUser.user.id == prof.id) ? 'projectAppr':'projectAppr userEx'} >
           <i className="apprIcon fa-solid fa-thumbs-up" />
           <div className='projectAppr_text'>{project.appreciations}</div>
