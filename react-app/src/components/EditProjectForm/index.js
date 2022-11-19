@@ -141,7 +141,9 @@ function EditProject() {
                 <button type="submit" className="submit-button">Submit</button>
             </form>
             { submitted === true && (
-                <div>Thanks for submitting your changes! Please wait, you will be redirected to your profile page shortly.</div>
+                <div className="loading-popup-container">
+                    <div className="loading-popup-text">Thanks for submitting your changes! Please wait a few moments while we update your project, you will be redirected to your profile page shortly.</div>
+                </div>
             )}
         </div>
     
