@@ -67,3 +67,10 @@
   display: flex;
   justify-content: center;
 }
+
+#error-list {
+  margin-top: 10px;
+  color: red;
+  list-style: none;
+  font-size: 12px;
+}

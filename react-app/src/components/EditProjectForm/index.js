@@ -14,29 +14,49 @@ function EditProject() {
     const [description, setDescription] = useState("");
     const [images, setImages] = useState("");
     const [errors, setErrors] = useState([]);
-    const [proj, setProj] = useState({});
-    const [submitted, setSubmitted] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(true)
     
     const formData = new FormData();
     const { projectId } = useParams();
     
+    const projectInfo = fetch(`/api/projects/${projectId}`)
+    .catch(data => console.log(data.json()))
+    // .then(data => setDescription(data["description"]))
+    // .then(data => setName(data["name"]))
     
-    // useEffect(() => {
-    //     setSubmitted(!submitted)
-    // }, [dispatch])
-
+    useEffect(() => {
+        (async () => {
+            const data = await fetch(`/api/projects/${projectId}`)
+            const res = await data.json()
+            console.log(res)
+            setName(`${res.name}`)
+            setDescription(`${res.description}`)
+        })();
+    }, [])
+    
+    // if (loaded === false) {
+    //     return null
+    // }
+    
     if (!sessionUser) {
         return null
     }
-    if (!proj) {
+    if (!projectInfo) {
         return null
     }
+    
+    // if (!isLoaded) {
+    //     return <h1>Please Hold</h1>
+    // }
+    
+    let correctFile = true
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
         setImages("")
         const errorList = []
-        if (name.length > 50 || name.length < 10) errorList.push("Name but be between 10 and 50 characters")
+        if (name.length > 50 || name.length < 5) errorList.push("Name but be between 5 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
         setErrors(errorList)
         if (errorList.length) {
@@ -49,18 +69,28 @@ function EditProject() {
             }
             for (let i = 0; i < imageInput.files.length; i++) {
                 let img = imageInput.files[i]
-                console.log("IMG", img)
+                if (img.type !== "image/gif" && 
+                img.type !== "image/jpeg" && 
+                img.type !== "image/png") {
+                    correctFile = false
+                }
                 formData.append('file', img)
             }
+            if (correctFile === false) errorList.push("You may only upload .GIF, .JPEG/.JPG, and .PNG files!")
+            if (errorList.length) return
             const pictures = await fetch(`/api/projects/upload`, {
                 method: "POST",
                 body: formData
             }).then((res) => res.json())
+            
+            
             const new_project = {
                 name,
                 description,
                 images: pictures.images
             }
+            
+            
 
             dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
                 history.push(`/${sessionUser.username}`)
@@ -69,9 +99,11 @@ function EditProject() {
     }
     
     
+    
     return (
+        
         <div className="create-project-container">
-            <form className="create-project-form" onSubmit={handleSubmit}>
+           <form className="create-project-form" onSubmit={handleSubmit}>
                 <h1>Let's rebuild your project:</h1>
                 <label>Project Name</label>
                 <input
@@ -81,7 +113,7 @@ function EditProject() {
                     className="create-project-fields" />
                 <div>
                     {errors.map((error, idx) =>
-                        error === "Name but be between 10 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                        error === "Name but be between 5 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
                     )}
                 </div>
                 <label>Provide a brief description of your project</label>
@@ -92,7 +124,7 @@ function EditProject() {
                     className="create-project-fields" />
                 <div>
                     {errors.map((error, idx) =>
-                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                        error === "Description must be between 10 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
                     )}
                 </div>
                 <div className="create-project-image-container">
@@ -109,11 +141,17 @@ function EditProject() {
                             error === "Please select 1 to 5 images to upload" ? <li key={idx} id="error-list">{error}</li> : null
                         )}
                     </div>
+                    <div>
+                    {errors.map((error, idx) =>
+                        error === "You may only upload .GIF, .JPEG/.JPG, and .PNG files!" ? <li key={idx} id='error-list'>{error}</li> : null
+                    )}
+                </div>
                     </div>
                 </div>
                 <button type="submit" className="submit-button">Submit</button>
             </form>
         </div>
+    
     )
 
 }
