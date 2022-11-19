@@ -14,16 +14,11 @@ function EditProject() {
     const [description, setDescription] = useState("");
     const [images, setImages] = useState("");
     const [errors, setErrors] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(true)
-    
+    const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
     const { projectId } = useParams();
     
-    const projectInfo = fetch(`/api/projects/${projectId}`)
-    .catch(data => console.log(data.json()))
-    // .then(data => setDescription(data["description"]))
-    // .then(data => setName(data["name"]))
-    
+    // This useEffect will fetch the data for the project and autopopulate the form fields with the current data
     useEffect(() => {
         (async () => {
             const data = await fetch(`/api/projects/${projectId}`)
@@ -34,22 +29,14 @@ function EditProject() {
         })();
     }, [])
     
-    // if (loaded === false) {
-    //     return null
-    // }
-    
+    // If there is no logged in user, return a blank page
     if (!sessionUser) {
         return null
     }
-    if (!projectInfo) {
-        return null
-    }
     
-    // if (!isLoaded) {
-    //     return <h1>Please Hold</h1>
-    // }
-    
+    // initialize boolean for triggering error message on image file validation
     let correctFile = true
+    
     
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -78,6 +65,9 @@ function EditProject() {
             }
             if (correctFile === false) errorList.push("You may only upload .GIF, .JPEG/.JPG, and .PNG files!")
             if (errorList.length) return
+            
+            setSubmitted(true)
+            
             const pictures = await fetch(`/api/projects/upload`, {
                 method: "POST",
                 body: formData
@@ -90,8 +80,8 @@ function EditProject() {
                 images: pictures.images
             }
             
-            
 
+            
             dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
                 history.push(`/${sessionUser.username}`)
             })
@@ -150,6 +140,9 @@ function EditProject() {
                 </div>
                 <button type="submit" className="submit-button">Submit</button>
             </form>
+            { submitted === true && (
+                <div>Thanks for submitting your changes! Please wait, you will be redirected to your profile page shortly.</div>
+            )}
         </div>
     
     )
