@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
-import { Link, useHistory } from "react-router-dom"
+import { Link, useLocation, useHistory } from "react-router-dom"
 import ProjectCard from './ProjectCard'
 import './ProjectList.css'
 
 const ProjectList = () => {
+  const location = useLocation()
 
   const [projects, setProjects] = useState([])
   const history = useHistory()
@@ -25,7 +26,7 @@ const ProjectList = () => {
     <div className="landing-page-container">
       <div className="landing-page-grid">
         {allProjects.map(proj => (
-          <Link to={`/gallery/${proj.id}`} key={proj.id} className='project-list-card'>
+          <Link to={{pathname:`/gallery/${proj.id}`, state: { prev: location.pathname }}} key={proj.id} className='project-list-card'>
             <ProjectCard project={proj} />
           </Link>
         ))}

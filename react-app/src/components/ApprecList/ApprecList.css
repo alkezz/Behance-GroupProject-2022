@@ -1,6 +1,5 @@
 .userApprecGrid {
     display: grid;
-    max-width: 25px;
     grid-template-columns: repeat(6, 1fr);
     column-gap: 20px;
     row-gap: 20px;
@@ -89,4 +88,31 @@
     color: rgb(255, 255, 255);
     margin-left: 10px;
     font-size: 12px;
+}
+
+@media (min-width: 1750px) and (max-width: 2020px) {
+    .userApprecGrid {
+        grid-template-columns: repeat(5, 1fr)
+    }
+}
+  
+@media (min-width: 1380px) and (max-width: 1749px) {
+    .userApprecGrid {
+        grid-template-columns: repeat(4, 1fr)
+    }
+}
+@media (min-width: 825px) and (max-width: 1500px) {
+    .userApprecGrid {
+        grid-template-columns: repeat(3, 1fr)
+    }
+}
+
+@media (min-width: 1px) and (max-width: 824px) {
+    .userApprecGrid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+    .userProjects {
+
+        margin-left: 100px;
+    }
 }

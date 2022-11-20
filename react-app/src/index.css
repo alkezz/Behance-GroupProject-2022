@@ -4,10 +4,10 @@ body {
   margin: 0%
 }
 
-body::before {
+#root:first-child::before {
   display:block;
   content: '';
-  height: 4em;
+  /* height: 3em; */
 }
 
 button:hover {
