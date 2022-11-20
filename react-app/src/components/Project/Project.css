@@ -465,3 +465,8 @@
 #thumbs-icon-comment-section{
     color: #979797;
 }
+
+.editedComment-errors {
+    height: 25px;
+
+}
