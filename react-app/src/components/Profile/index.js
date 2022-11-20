@@ -39,7 +39,7 @@ function ProfilePage() {
 
   const toEditPage = (e, id) => {
     e.preventDefault();
-    let projectId = document.getElementById('edit-project-button').value;
+    console.log("Project id in profile page", id)
     history.push(`/project/${id}/edit`)
   }
 
@@ -56,9 +56,8 @@ function ProfilePage() {
         </Link>
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <div className="project-features">
-            <button id="edit-project-button" value={project.id} onClick={(e) => toEditPage(e, project.id)}>Edit Project</button>
-            {console.log("PROJECT ID IN BUTTON ASSIGNMENT", project.id)}
-            <button id="delete-project-button" value={project.id} onClick={(e) => deleteProject(e, project.id)}>Delete Project</button>
+            <button id="edit-project-button" value={project.id} onClick={(e) => { toEditPage(e, project.id) }}>Edit Project</button>
+            <button id="delete-project-button" value={project.id} onClick={(e) => { deleteProject(e, project.id) }}>Delete Project</button>
           </div>
         ) : null}
         <div className='projectAppr'>

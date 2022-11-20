@@ -153,14 +153,16 @@ export const addProjectImages = (project, images) => async (dispatch) => {
 
 //edit project
 export const editProject = (project, id) => async (dispatch) => {
-    const response = await fetch(`/api/projects/${id}`, {
+    console.log("PROJECT IN THUNK", project)
+    console.log("PROJ ID in thunk", id)
+    const response = await fetch(`/api/projects/${id}/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
     });
+    console.log("RESPONSE FROM BACKEND", response)
     if (response.ok) {
         const editedProject = await response.json();
-        dispatch(projectEdit(editedProject));
         return editedProject;
     }
     return response;
@@ -177,7 +179,7 @@ export const deleteProjectId = (id) => async (dispatch) => {
         dispatch(deleteProject(id))
         return deletedProject
     }
-    
+
     return response
 }
 
@@ -219,7 +221,7 @@ const projectsReducer = (state = initialState, action) => {
         case DELETE_PROJECT: {
             const newState = { ...state };
             delete newState[action.projectId];
-            return { ...newState};
+            return { ...newState };
         }
         default:
             return state;

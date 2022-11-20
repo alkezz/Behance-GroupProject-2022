@@ -25,6 +25,7 @@ function CreateProject() {
     if (!proj) {
         return null
     }
+    let correctFile = true
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
@@ -32,14 +33,25 @@ function CreateProject() {
         const errorList = []
         if (name.length > 50 || name.length < 10) errorList.push("Name but be between 10 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
-        setErrors(errorList)
-        if (errors.length) return
         let imageInput = document.querySelector("#imageinput")
+        setErrors(errorList)
+        if (errorList.length) {
+            return
+        } else {
+            if (!imageInput.files.length || imageInput.files.length > 5) {
+                errorList.push("Please select 1 to 5 images to upload")
+                return setErrors(errorList)
+            }
+        }
         for (let i = 0; i < imageInput.files.length; i++) {
             let img = imageInput.files[i]
-            console.log("IMG", img)
+            if (img.type !== "image/gif" && img.type !== "image/jpeg" && img.type !== "image/png") {
+                correctFile = false
+            }
             formData.append('file', img)
         }
+        if (correctFile === false) errorList.push("You may only upload .GIF, .JPEG/.JPG, and .PNG files!")
+        if (errorList.length) return
         const pictures = await fetch('/api/projects/upload', {
             method: "POST",
             body: formData
@@ -86,12 +98,21 @@ function CreateProject() {
                     <div className="create-project-image-prompt">
                         Attach image files
                     </div>
+                    {errors.map((error, idx) =>
+                        error === "Please select 1 to 5 images to upload" ? <li key={idx} id='image-error-list'>{error}</li> : null
+                    )}
+                    {errors.map((error, idx) =>
+                        error === "You may only upload .GIF, .JPEG/.JPG, and .PNG files!" ? <li key={idx} id='image-error-list'>{error}</li> : null
+                    )}
                     <div className="create-project-image-input">
                         <div>
                             <input type="file" name="file" id='imageinput' multiple encType="multipart/form-data" />
                         </div>
-
                     </div>
+                    <div className='pro-tip-div'>
+                        Pro-tip: Use ctrl + click (command + click for mac) to upload multiple pictures!
+                    </div>
+                    <span className='pro-tip-div'>Only PNGs, JPEGs/JPGs, and GIFs allowed</span>
                 </div>
                 <button type="submit" className="submit-button">Submit</button>
             </form>

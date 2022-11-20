@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import * as projectActions from '../../store/projects';
@@ -19,7 +19,6 @@ function EditProject() {
     const formData = new FormData();
     const { projectId } = useParams()
 
-
     if (!sessionUser) {
         return null
     }
@@ -28,13 +27,14 @@ function EditProject() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log("PROJECTID", projectId)
         setErrors([])
         setImages("")
         const errorList = []
         if (name.length > 50 || name.length < 10) errorList.push("Name but be between 10 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 20 and 50 characters")
         setErrors(errorList)
-        if (errors.length) return
+        if (errorList.length) return
         let imageInput = document.querySelector("#imageinput")
         for (let i = 0; i < imageInput.files.length; i++) {
             let img = imageInput.files[i]
@@ -50,8 +50,12 @@ function EditProject() {
             description,
             images: pictures.images
         }
-        // console.log(new_project)
-        dispatch(projectActions.editProject(new_project, projectId)); window.alert("Upload complete!")
+        console.log(new_project)
+        dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
+            console.log("DATAID", data.id)
+            history.push(`/${sessionUser.username}`)
+            history.push(`/gallery/${data.id}`)
+        })
     }
     return (
         <div className="create-project-container">
@@ -69,16 +73,16 @@ function EditProject() {
                     )}
                 </div>
                 <label>Provide a brief description of your project</label>
-                    <input
-                        type='text'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="create-project-fields" />
-                    <div>
-                        {errors.map((error, idx) =>
-                            error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
-                        )}
-                    </div>
+                <input
+                    type='text'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="create-project-fields" />
+                <div>
+                    {errors.map((error, idx) =>
+                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                    )}
+                </div>
                 <div className="create-project-image-container">
                     <div className="create-project-image-prompt">
                         Attach image files
