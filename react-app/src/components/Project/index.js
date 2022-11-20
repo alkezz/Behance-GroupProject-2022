@@ -176,7 +176,7 @@ function ProjectGallery() {
                 </a>
               }
               <div className='projUserSideBarText'>
-                Apprreciate
+                Appreciate
               </div>
 
 
