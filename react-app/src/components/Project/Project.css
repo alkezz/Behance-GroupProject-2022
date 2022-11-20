@@ -323,12 +323,16 @@
 
 
 .appreciateSideButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 45px;
     height: 45px;
     border: none;
     border-radius: 50%;
     background-color: rgb(0, 84, 220);
     color: white;
+    text-decoration: none;
 }
 
 .appreciateSideButton:hover {

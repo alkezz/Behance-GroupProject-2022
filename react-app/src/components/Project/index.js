@@ -172,9 +172,9 @@ function ProjectGallery() {
               </button>
               }
               {!sessionUser &&
-                <button className='appreciateSideButton' onClick={() => history.push("/login")}>
+                <a className='appreciateSideButton' href={"/login"}>
                   <i className="fa-solid fa-thumbs-up fa-1x"></i>
-                </button>
+                </a>
               }
               <div className='projUserSideBarText'>
                 Apprreciate
