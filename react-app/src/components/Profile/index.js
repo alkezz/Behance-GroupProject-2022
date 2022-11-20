@@ -23,11 +23,10 @@ function ProfilePage() {
   const [apprecInfo, setApprecInfo] = useState({ "project_ids": [] })
   const { username } = useParams();
 
-  const deleteProject = async (e) => {
+  const deleteProject = async (e, id) => {
 
     e.preventDefault();
-    let projectId = document.getElementById("delete-project-button").value;
-    const response = await fetch(`/api/projects/${projectId}/`, {
+    const response = await fetch(`/api/projects/${id}/`, {
       method: "DELETE"
     })
     const data = await response.json()
