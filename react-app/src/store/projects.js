@@ -79,6 +79,7 @@ export const getAllProjects = () => async (dispatch) => {
     }
     return {};
 };
+
 //get current project
 export const getProjectId = (id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}`)
