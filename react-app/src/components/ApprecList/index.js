@@ -31,7 +31,7 @@ function AppeciationsList({appreciations}) {
                 body: JSON.stringify(toObjFunc(appreciations.project_ids))
             }).then(res => res.json()).then(data => setApprecList(data))
         }
-    }, [])
+    }, [appreciations])
 
     return (
         <div className='userApprecGrid'> {
