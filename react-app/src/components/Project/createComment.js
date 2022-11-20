@@ -35,6 +35,14 @@ const CreateComment = ({ projectId, proj }) => {
   const handleSubmit = async (e) => {
     console.log('handle submit')
     e.preventDefault();
+    if (!commentMessage) {
+      setErrors(['Comment is required'])
+      return;
+    }
+    if (commentMessage && commentMessage.trim().length === 0) {
+      setErrors(["Comment is required!!"])
+      return;
+    }
     const payload = {
       user_id: user.id,
       comment: commentMessage,
@@ -96,14 +104,14 @@ const CreateComment = ({ projectId, proj }) => {
   return (
     <form className="comment-form" onSubmit={handleSubmit}>
       <div className="create-comment-errors">
-        {errors.map((error) => (
-          <div>{error}</div>
+        {errors.map((error, index) => (
+          <div key={index}>{error}</div>
         ))}
       </div>
       <div className="comment-textarea">
         <textarea
           type="textarea"
-          maxLength="281"
+          maxLength="100"
           className="comment-input"
           value={commentMessage}
           onChange={(e) => setCommentMessage(e.target.value)}

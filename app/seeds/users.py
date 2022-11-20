@@ -122,23 +122,86 @@ def seed_users():
         name="Falls Fall", description="Fall weather is up. Just vibe.", user_id=9, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.adobe.com/content/dam/cc/us/en/creative-cloud/photography/discover/landscape-photography/CODERED_B1_landscape_hero-img_900x420.jpg.img.jpg]"
     )
     project_10 = Project(
-        name="Utopia", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis], images="[https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dG9reW98ZW58MHx8MHx8&w=1000&q=80]"
+        name="Tokyo", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis], images="[https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dG9reW98ZW58MHx8MHx8&w=1000&q=80]"
     )
     project_11 = Project(
-        name="Tokyo", description="Teriyaki Boyz", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://thesmartcanine.com/wp-content/uploads/2021/02/things-to-know-before-getting-corgi.jpg]"
+        name="Corgi", description="doggos!!!", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://thesmartcanine.com/wp-content/uploads/2021/02/things-to-know-before-getting-corgi.jpg]"
     )
     project_12 = Project(
-        name="Corgis", description="doggos!!!", user_id=12, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.dinneratthezoo.com/wp-content/uploads/2018/12/korean-fried-chicken-5.jpg]"
+        name="Korean Fried Chicken", description="I love fried chicken ", user_id=12, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.dinneratthezoo.com/wp-content/uploads/2018/12/korean-fried-chicken-5.jpg]"
     )
     project_13 = Project(
-        name="Food Heaven", description="I love fried chicken", user_id=13, project_appreciations=[marnie, bobbie, demo, francis], images="[https://i.pinimg.com/originals/93/dd/6c/93dd6c51a3cf9e60106ede7fed50c035.jpg]"
+        name="Demon Slayer", description="BEST ANIME EVER", user_id=13, project_appreciations=[marnie, bobbie, demo, francis], images="[https://i.pinimg.com/originals/93/dd/6c/93dd6c51a3cf9e60106ede7fed50c035.jpg]"
     )
     project_14 = Project(
-        name="Demon Slayer", description="BEST ANIME EVER", user_id=14, project_appreciations=[marnie, bobbie, demo, francis], images="[https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx5ifKifvNWbg2fwCBV3QtfyHLztF8mPQMfg&usqp=CAU]"
+        name="Scifi", description="I just love scifi here some of my personal artwork", user_id=14, project_appreciations=[marnie, bobbie, demo, francis], images="[https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx5ifKifvNWbg2fwCBV3QtfyHLztF8mPQMfg&usqp=CAU]"
     )
     project_15 = Project(
-        name="Scifi", description="beep beep", user_id=15, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+        name="Backroads", description="vroom", user_id=15, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
     )
+
+    # projRep = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep2 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep3 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep4 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep5 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep6 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep7 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep8 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep9 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # projRep10 = Project(
+    #     name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+
+    # rprojRep = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep2 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep3 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep4 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep5 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep6 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep7 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep8 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep9 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+    # rprojRep10 = Project(
+    #     name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    # )
+
 
 
     db.session.add(demo)
@@ -192,6 +255,28 @@ def seed_users():
     db.session.add(eclipse)
     db.session.add(blackhole)
     db.session.add(scifi)
+    # db.session.add(projRep)
+    # db.session.add(projRep2)
+    # db.session.add(projRep3)
+    # db.session.add(projRep4)
+    # db.session.add(projRep5)
+    # db.session.add(projRep6)
+    # db.session.add(projRep7)
+    # db.session.add(projRep8)
+    # db.session.add(projRep9)
+    # db.session.add(projRep10)
+    # db.session.add(rprojRep)
+    # db.session.add(rprojRep2)
+    # db.session.add(rprojRep3)
+    # db.session.add(rprojRep4)
+    # db.session.add(rprojRep5)
+    # db.session.add(rprojRep6)
+    # db.session.add(rprojRep7)
+    # db.session.add(rprojRep8)
+    # db.session.add(rprojRep9)
+    # db.session.add(rprojRep10)
+    
+   
     db.session.commit()
 
 

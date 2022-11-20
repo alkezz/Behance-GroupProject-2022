@@ -1,5 +1,5 @@
 .landing-page-container {
-  margin-top: 50px;
+  margin: 100px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,10 +8,13 @@
 .landing-page-grid {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(5, 1fr)
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  column-gap: 20px;
+  row-gap: 50px;
+  max-width: 2400px;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .landing-page-grid {
     grid-template-columns: repeat(3, 1fr)
   }
@@ -21,16 +24,15 @@
   .landing-page-grid {
     grid-template-columns: repeat(4, 1fr)
   }
-}
+} */
 
 .project-list-card {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   max-width: 400px;
-  min-width: 250px;
-  height: 300px;
-  padding: 10px;
+  min-width: 300px;
+  min-height: 300px;
   text-decoration: none;
 }
 
@@ -47,13 +49,12 @@
 
 .project-list-img {
   max-height: 90%;
+  min-height: 100%;
   max-width: 100%;
+  height: fit-content;
   border-radius: 4px;
   object-fit: cover;
   border-radius: 4px;
-  object-fit: cover;
-  width: 399px;
-  height: 250px;
   justify-content: center;
 }
 
@@ -98,7 +99,7 @@
 }
 
 .project-list-user-avatar {
-  padding-right: 3px;
+  padding-right: 5px;
 }
 
 .project-list-likes {

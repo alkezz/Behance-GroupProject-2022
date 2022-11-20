@@ -7,9 +7,10 @@ import { commentEdit } from '../../store/comments'
 function EditCommentForm({ projectId, onClick, commentId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [editedComment, setEditedComment] = useState('');
   const [errors, setErrorsValidaitons] = useState([]);
   const user = useSelector(state => state.session.user)
+  const comment = useSelector(state => state.comments)
+  const [editedComment, setEditedComment] = useState(comment[commentId].comment);
 
   const errorAlerts = () => {
     const errorNotifications = [];
@@ -20,7 +21,14 @@ function EditCommentForm({ projectId, onClick, commentId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setErrorsValidaitons = []
-
+    if (!editedComment) {
+      setErrorsValidaitons(['Comment is required'])
+      return;
+    }
+    if (editedComment && editedComment.trim().length === 0) {
+      setErrorsValidaitons(["Comment is required!!"])
+      return;
+    }
     const payload = {
       user_id: user.id,
       comment: editedComment,
@@ -38,8 +46,8 @@ function EditCommentForm({ projectId, onClick, commentId }) {
   return (
     <form className="edit-comment-form" onSubmit={handleSubmit}>
       <div className="editedComment-errors">
-        {errors.map((error) => (
-          <div>{error}</div>
+        {errors.map((error, index) => (
+          <div key={index}>{error}</div>
         ))}
       </div>
       <div className="comment-textarea">

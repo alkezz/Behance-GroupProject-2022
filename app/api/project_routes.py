@@ -101,7 +101,7 @@ def delete_appreciations(id, id2):
     return newObj
 
 
-@project_routes.route("/<int:id>/")
+@project_routes.route("/<int:id>")
 def project_by_id(id):
     """
     Query for project by its id returns it as a json dictionary

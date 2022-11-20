@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import avatar from '../../assets/behance-profile-image.png'
 import "./ProjectList.css"
 
 
 const ProjectCard = ({ project }) => {
-
+  const location = useLocation()
   let previewImage;
   if (!project.images) return null;
 
@@ -15,8 +15,8 @@ const ProjectCard = ({ project }) => {
       <img className="project-list-img" src={previewImage} alt={project.name}></img>
       <div className='project-list-name'>{project.name}</div>
       <div className='project-list-info'>
-        <Link to={`/${project.User.username}`} className='project-list-user'>
-          <img className='project-list-user-avatar' src={avatar} alt="user avatar" width="14" height="14" />
+        <Link to={{pathname:`/${project.User.username}`, state: {prev: location.pathname}}} className='project-list-user'>
+          <img className='project-list-user-avatar' src={avatar} alt="user avatar" width="20" height="20" />
           <span>{project.User.first_name} {project.User.last_name}</span>
         </Link>
         <div className="project-list-likes"><i className="fa-solid fa-thumbs-up"></i> {project.appreciations}</div>
