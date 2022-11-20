@@ -166,9 +166,9 @@ function ProjectGallery() {
                 Follow
               </div>
               {sessionUser &&
-              <button className='appreciateSideButton' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
-                <i className="fa-solid fa-thumbs-up fa-1x"></i>
-              </button>
+                <button className='appreciateSideButton' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
+                  <i className="fa-solid fa-thumbs-up fa-1x"></i>
+                </button>
               }
               {!sessionUser &&
                 <a className='appreciateSideButton' href={"/login"}>
@@ -225,65 +225,65 @@ function ProjectGallery() {
             <div className='project-name-appreciate'>
               {proj.name}
               <div className='below-like-button'>
-              &nbsp;
-              <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
-              &nbsp;
-              {appreciations}
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              {/* {console.log(proj.comments[0].comment)} */}
-              <i className="fa-solid fa-message fa-1x"></i>
-              &nbsp;
-              {Object.values(comments).length}
-              {/* {console.log(projComments)} */}
+                &nbsp;
+                <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
+                &nbsp;
+                {appreciations}
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                {/* {console.log(proj.comments[0].comment)} */}
+                <i className="fa-solid fa-message fa-1x"></i>
+                &nbsp;
+                {Object.values(comments).length}
+                {/* {console.log(projComments)} */}
+              </div>
             </div>
           </div>
-        </div>
-        {/* <strong>imgs</strong> {JSON.stringify(projImg)}
+          {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
-        {
-          !!proj.User && 
-          <MiniGallery user={proj.User} sessionUser={sessionUser} update={update} setUpdate={setUpdate} projectOwner={projectOwner} handleFollow={handleFollow} handleUnFollow={handleUnFollow} followedList={followedList}/>
-        }
-        <div className='project-description-section'>
-          <div className='project-comment-section'>
-        <br />
-        <div className="comments-container">
-          <div className='information-div'>
-            <div className='owner-info-div'>
-              <div className='owner-text-div'>
-                Owner:
-              </div>
+          {
+            !!proj.User &&
+            <MiniGallery user={proj.User} sessionUser={sessionUser} update={update} setUpdate={setUpdate} projectOwner={projectOwner} handleFollow={handleFollow} handleUnFollow={handleUnFollow} followedList={followedList} />
+          }
+          <div className='project-description-section'>
+            <div className='project-comment-section'>
               <br />
-              {proj.User &&
-                <>
-                  <div className='avatar-username-div'>
-                    <img src={avatar} width="40" height="40" />
-                    <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
-                      {proj.User.first_name} {proj.User.last_name}
-                    </Link>
+              <div className="comments-container">
+                <div className='information-div'>
+                  <div className='owner-info-div'>
+                    <div className='owner-text-div'>
+                      Owner:
+                    </div>
+                    <br />
+                    {proj.User &&
+                      <>
+                        <div className='avatar-username-div'>
+                          <img src={avatar} width="40" height="40" />
+                          <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
+                            {proj.User.first_name} {proj.User.last_name}
+                          </Link>
+                        </div>
+                        {
+                          followButton
+                        }
+                      </>
+                    }
                   </div>
-                  {
-                    followButton
-                  }
-                </>
-              }
-            </div>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <div className='project-info-div'>
-              <div id='project-name'>
-                {proj.name}
-              </div>
-              <br />
-              <div id='project-description'>
-                {proj.description}
-              </div>
-              <div>
-                <br />
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  <div className='project-info-div'>
+                    <div id='project-name'>
+                      {proj.name}
+                    </div>
+                    <br />
+                    <div id='project-description'>
+                      {proj.description}
+                    </div>
+                    <div>
+                      <br />
                       &nbsp;
                       <i id="thumbs-icon-comment-section" className="fa-solid fa-thumbs-up fa-1x"></i>
                       &nbsp;
@@ -310,6 +310,13 @@ function ProjectGallery() {
                     <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
                     <CreateComment projectId={projectId} proj={proj} />
                   </div>
+                  {!sessionUser &&
+                    <div className='button-login-comment'>
+                      <button className='login-comment' onClick={() => history.push("/login")}>
+                        Log In
+                      </button>
+                    </div>
+                  }
                   <hr id='hr-comments' />
                   {!!Object.values(comments) &&
                     Object.values(comments).map((comments) => {
