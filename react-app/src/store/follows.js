@@ -1,6 +1,7 @@
 const GET_FOLLOWS = 'follow/getFollows'
 const ADD_FOLLOWS = 'follow/addFollow'
 const REM_FOLLOWS = 'follow/remFollow'
+const CLEAR_FOLLOWS = 'follow/clrFollow'
 
 const getFollows = (data) => {
     return {
@@ -20,6 +21,12 @@ const remFollows = (user) => {
     return {
         type: REM_FOLLOWS,
         user
+    }
+}
+
+const clrFollows = () => {
+    return {
+        type: CLEAR_FOLLOWS,
     }
 }
 
@@ -55,6 +62,11 @@ export const unfollowUser = (curr, userId) => async (dispatch) => {
     return data;
 };
 
+export const clearUser = () => async (dispatch) => {
+    dispatch(clrFollows())
+    return {message: "User cleared"};
+};
+
 const initialState = { "current_followed_user_ids": [], "followed_by_user_ids": [] }
 
 const followsReducer = (state = initialState, action) => {
@@ -67,6 +79,9 @@ const followsReducer = (state = initialState, action) => {
         }
         case REM_FOLLOWS: {
             return { ...state, current_followed_user_ids: state.current_followed_user_ids.filter((e) => e !== action.user) };
+        }
+        case CLEAR_FOLLOWS: {
+            return { ...initialState }
         }
         default:
             return state

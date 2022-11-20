@@ -1,4 +1,6 @@
-
+import { clearUserComm } from "./comments";
+import { clearUser } from "./follows";
+import { clearUserAppr } from "./appreciations";
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
@@ -48,6 +50,7 @@ export const login = (email, password) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
+    dispatch()
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -69,6 +72,9 @@ export const logout = () => async (dispatch) => {
 
   if (response.ok) {
     dispatch(removeUser());
+    dispatch(clearUser())
+    dispatch(clearUserComm())
+    dispatch(clearUserAppr())
   }
 };
 
