@@ -4,13 +4,13 @@ import { Link, useLocation, useHistory } from "react-router-dom"
 import ProjectCard from './ProjectCard'
 import * as followActions from '../../store/follows'
 import './ProjectList.css'
+import { useDispatch, useSelector } from "react-redux"
 
 const ProjectList = () => {
-  
+
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
   const location = useLocation()
-
   const [projects, setProjects] = useState([])
   const history = useHistory()
   useEffect(() => {
@@ -21,13 +21,14 @@ const ProjectList = () => {
         })
       })
     })();
+    document.title = `Enhance :: For you`
   }, [])
 
   if (sessionUser) {
     console.log("Yo I'm a user")
     dispatch(followActions.userFollows(sessionUser.id))
   }
-  
+
   const allProjects = projects
   if (!allProjects) return null;
 
@@ -35,7 +36,7 @@ const ProjectList = () => {
     <div className="landing-page-container">
       <div className="landing-page-grid">
         {allProjects.map(proj => (
-          <Link to={{pathname:`/gallery/${proj.id}`, state: { prev: location.pathname }}} key={proj.id} className='project-list-card'>
+          <Link to={{ pathname: `/gallery/${proj.id}`, state: { prev: location.pathname } }} key={proj.id} className='project-list-card'>
             <ProjectCard project={proj} />
           </Link>
         ))}

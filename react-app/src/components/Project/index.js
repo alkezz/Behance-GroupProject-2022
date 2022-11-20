@@ -61,6 +61,7 @@ function ProjectGallery() {
         const data2 = await res.json()
         data2.project_ids.forEach((id) => lst.push(id))
         lst.forEach((id) => id === Number(projectId) ? setInList(true) : null)
+        await dispatch(followActions.userFollows(sessionUser.id))
       }
     })();
     (async () => {
@@ -147,138 +148,79 @@ function ProjectGallery() {
         <i className="projCloseIcon fa-solid fa-circle-xmark" />
       </button>
       <div className='projContainer'>
-        
 
-      {!!proj.User &&
-      <div className='projUserSideStabs'>
-        <div className='projUserSideBar'>
-          
-          {/* <Link className='projUsername' to={`/${proj.User.username}`}>
+
+        {!!proj.User &&
+          <div className='projUserSideStabs'>
+            <div className='projUserSideBar'>
+
+              {/* <Link className='projUsername' to={`/${proj.User.username}`}>
             <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
           </Link> */}
-          <a href={`/${proj.User.username}`}>
-          {/* <Link className='projUsername' to={`/${proj.User.username}`}>
+              <a href={`/${proj.User.username}`}>
+                {/* <Link className='projUsername' to={`/${proj.User.username}`}>
             <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
           </Link> */}
-          <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
-          </a>
-          <div className='projUserSideBarText'>
-            Follow
-          </div> 
-          <button className='appreciateSideButton' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
-              <i className="fa-solid fa-thumbs-up fa-1x"></i>
-          </button>
-          <div className='projUserSideBarText'>
-            Apprreciate
-          </div> 
-
-  
-
-        </div>
-      </div>
-      }
-
-      {!!proj.User &&
-        <div className='projUserInfo' onClick={test}>
-          <div className='projUserInfoCont'>
-            <img className='projUserIcon' src={avatar} alt="profile-avatar" height="40" width="40" />
-            <div className='projUserCont'>
-              <div className='projName'>
-                {proj.name}
+                <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
+              </a>
+              <div className='projUserSideBarText'>
+                Follow
               </div>
-              <Link className='projUsername' to={`/${proj.User.username}`}>
-                {proj.User.first_name} {proj.User.last_name}
-              </Link>
+              <button className='appreciateSideButton' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
+                <i className="fa-solid fa-thumbs-up fa-1x"></i>
+              </button>
+              <div className='projUserSideBarText'>
+                Apprreciate
+              </div>
+
+
+
             </div>
           </div>
-        </div>
-      }
-      <div className="modal" onClick={test}>
-
-        {
-          projImg.map((eachImg) => (
-
-            <img className='projImg' src={eachImg}>
-
-            </img>
-
-          ))
         }
-        <div className='appreciate-container'>
-          {sessionUser &&
-            <button className='appreciate-button' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
-              <i className="fa-solid fa-thumbs-up fa-3x"></i>
-            </button>
-          }
-          {!sessionUser &&
-            <button className='appreciate-button' onClick={() => history.push("/login")}>
-              <i className="fa-solid fa-thumbs-up fa-3x"></i>
-            </button>
-          }
-          <div className='project-name-appreciate'>
-            {proj.name}
-            <div className='below-like-button'>
-              &nbsp;
-              <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
-              &nbsp;
-              {appreciations}
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              {/* {console.log(proj.comments[0].comment)} */}
-              <i className="fa-solid fa-message fa-1x"></i>
-              &nbsp;
-              {Object.values(comments).length}
-              {/* {console.log(projComments)} */}
+
+        {!!proj.User &&
+          <div className='projUserInfo' onClick={test}>
+            <div className='projUserInfoCont'>
+              <img className='projUserIcon' src={avatar} alt="profile-avatar" height="40" width="40" />
+              <div className='projUserCont'>
+                <div className='projName'>
+                  {proj.name}
+                </div>
+                <Link className='projUsername' to={`/${proj.User.username}`}>
+                  {proj.User.first_name} {proj.User.last_name}
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-        {/* <strong>imgs</strong> {JSON.stringify(projImg)}
-         */}
-        {
-          !!proj.User && 
-          <MiniGallery user={proj.User} update={update} setUpdate={setUpdate}/>
         }
-        <div className='project-description-section'>
-          <div className='project-comment-section'>
-        <br />
-        <div className="comments-container">
-          <div className='information-div'>
-            <div className='owner-info-div'>
-              <div className='owner-text-div'>
-                Owner:
-              </div>
-              <br />
-              {proj.User &&
-                <>
-                  <div className='avatar-username-div'>
-                    <img src={avatar} width="40" height="40" />
-                    <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
-                      {proj.User.first_name} {proj.User.last_name}
-                    </Link>
-                  </div>
-                  {
-                    followButton
-                  }
-                </>
-              }
-            </div>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <div className='project-info-div'>
-              <div id='project-name'>
-                {proj.name}
-              </div>
-              <br />
-              <div id='project-description'>
-                {proj.description}
-              </div>
-              <div>
-                <br />
+        <div className="modal" onClick={test}>
+
+          {
+            projImg.map((eachImg) => (
+
+              <img className='projImg' src={eachImg}>
+
+              </img>
+
+            ))
+          }
+          <div className='appreciate-container'>
+            {sessionUser &&
+              <button className='appreciate-button' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
+                <i className="fa-solid fa-thumbs-up fa-3x"></i>
+              </button>
+            }
+            {!sessionUser &&
+              <button className='appreciate-button' onClick={() => history.push("/login")}>
+                <i className="fa-solid fa-thumbs-up fa-3x"></i>
+              </button>
+            }
+            <div className='project-name-appreciate'>
+              {proj.name}
+              <div className='below-like-button'>
                 &nbsp;
-                <i id="thumbs-icon-comment-section" className="fa-solid fa-thumbs-up fa-1x"></i>
+                <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
                 &nbsp;
                 {appreciations}
                 &nbsp;
@@ -286,58 +228,117 @@ function ProjectGallery() {
                 &nbsp;
                 &nbsp;
                 {/* {console.log(proj.comments[0].comment)} */}
-                <i id="thumbs-icon-comment-section" className="fa-solid fa-message fa-1x"></i>
+                <i className="fa-solid fa-message fa-1x"></i>
                 &nbsp;
                 {Object.values(comments).length}
                 {/* {console.log(projComments)} */}
               </div>
             </div>
           </div>
-          <div>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-          </div>
-          <div className='comments-section'>
-            <div className='create-comment'>
-              <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
-              <CreateComment projectId={projectId} proj={proj} />
-            </div>
-            <hr id='hr-comments' />
-            {!!Object.values(comments) &&
-              Object.values(comments).map((comments) => {
-                console.log('each comment', comments)
-                return (
-                  <div>
-                    <div className="each-comment" key={comments?.id}>
-                      <div style={{ listStyle: "none" }}>
-                        <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
-                        <div>
-                          <div style={{ paddingBottom: "10px" }}>{comments.User.first_name} {comments.User.last_name}</div>
-                          <div>{comments.comment}</div>
-                        </div>
-                      </div>
+          {/* <strong>imgs</strong> {JSON.stringify(projImg)}
+         */}
+          {
+            !!proj.User &&
+            <MiniGallery user={proj.User} update={update} setUpdate={setUpdate} />
+          }
+          <div className='project-description-section'>
+            <div className='project-comment-section'>
+              <br />
+              <div className="comments-container">
+                <div className='information-div'>
+                  <div className='owner-info-div'>
+                    <div className='owner-text-div'>
+                      Owner:
                     </div>
-                    <div style={{ marginBottom: "30px" }}>
-                      {sessionUser?.id === comments?.user?.id && (
-                        <>
-                          <div className='edit-comment'>
-                            <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
-                          </div>
-                          <div className='delete-comment'>
-                            <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
-                          </div>
-                        </>
-                      )}
+                    <br />
+                    {proj.User &&
+                      <>
+                        <div className='avatar-username-div'>
+                          <img src={avatar} width="40" height="40" />
+                          <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
+                            {proj.User.first_name} {proj.User.last_name}
+                          </Link>
+                        </div>
+                        {
+                          followButton
+                        }
+                      </>
+                    }
+                  </div>
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  <div className='project-info-div'>
+                    <div id='project-name'>
+                      {proj.name}
+                    </div>
+                    <br />
+                    <div id='project-description'>
+                      {proj.description}
+                    </div>
+                    <div>
                       <br />
+                      &nbsp;
+                      <i id="thumbs-icon-comment-section" className="fa-solid fa-thumbs-up fa-1x"></i>
+                      &nbsp;
+                      {appreciations}
+                      &nbsp;
+                      &nbsp;
+                      &nbsp;
+                      &nbsp;
+                      {/* {console.log(proj.comments[0].comment)} */}
+                      <i id="thumbs-icon-comment-section" className="fa-solid fa-message fa-1x"></i>
+                      &nbsp;
+                      {Object.values(comments).length}
+                      {/* {console.log(projComments)} */}
                     </div>
                   </div>
-                );
-              })}
-          </div>
-        </div>
+                </div>
+                <div>
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                </div>
+                <div className='comments-section'>
+                  <div className='create-comment'>
+                    <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+                    <CreateComment projectId={projectId} proj={proj} />
+                  </div>
+                  <hr id='hr-comments' />
+                  {!!Object.values(comments) &&
+                    Object.values(comments).map((comments) => {
+                      console.log('each comment', comments)
+                      return (
+                        <div>
+                          <div className="each-comment" key={comments?.id}>
+                            <div style={{ listStyle: "none" }}>
+                              <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+                              <div>
+                                <div style={{ paddingBottom: "10px" }}>{comments.User.first_name} {comments.User.last_name}</div>
+                                <div>{comments.comment}</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div style={{ marginBottom: "30px" }}>
+                            {sessionUser?.id === comments?.user?.id && (
+                              <>
+                                <div className='edit-comment'>
+                                  <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+                                </div>
+                                <div className='delete-comment'>
+                                  <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                                </div>
+                              </>
+                            )}
+                            <br />
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
 
-        {/* {sessionUser && (
+              {/* {sessionUser && (
           <div>
             <button className="reviewButton" onClick={handleCreateComment}>
               Create Review
@@ -347,7 +348,7 @@ function ProjectGallery() {
         )}
         <div>
           {/* <strong>comments</strong> {JSON.stringify(projectComments)} */}
-        {/* {
+              {/* {
                       !!projectComments && projectComments.map((com) => (
                           <div>
                               <div>
@@ -359,8 +360,8 @@ function ProjectGallery() {
                           </div>
                       ))
                   } */}
-      </div>
-      {/* <form onSubmit={handleSubmit}>
+            </div>
+            {/* <form onSubmit={handleSubmit}>
               <textarea
                   type="text"
                   placeholder="What do you think about this project?"
@@ -369,10 +370,10 @@ function ProjectGallery() {
                   onChange={(e) => setComment(e.target.value)} />
               <button type="submit">add comm</button>
             </form> */}
-      {/* </div> */}
+            {/* </div> */}
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 }
