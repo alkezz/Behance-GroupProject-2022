@@ -1,9 +1,10 @@
 # Enhance
 
-Welcome to Enhance, a web application for artists and afficionados to share and admire each other's work!  Enhnace is inspired by Behance, and built using Flask-SQLAlchemy with React.js
+Welcome to Enhance, a web application for artists and afficionados to share and admire each other's work!  Enhance is inspired by Behance, and built using Flask-SQLAlchemy with React.js
 
-## Tech Stacks used
+## Tech Stacks Used
 
+### Backend:
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![Amazon S3](https://img.shields.io/static/v1?style=for-the-badge&message=Amazon+S3&color=569A31&logo=Amazon+S3&logoColor=FFFFFF&label=)
