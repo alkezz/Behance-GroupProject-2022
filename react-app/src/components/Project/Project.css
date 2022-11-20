@@ -481,6 +481,8 @@
     margin-left: 100px
 }
 .login-comment {
+    border: none;
+    border-radius: 20px;
     background-color: #0046cc;
     color: white;
     height: 20px;
