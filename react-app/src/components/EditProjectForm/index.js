@@ -5,20 +5,19 @@ import * as projectActions from '../../store/projects';
 import "./EditProject.css"
 
 function EditProject() {
-    
+
     const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
-    
+
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [images, setImages] = useState("");
     const [errors, setErrors] = useState([]);
     const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
-<<<<<<< HEAD
     const { projectId } = useParams();
-    
+
     // This useEffect will fetch the data for the project and autopopulate the form fields with the current data
     useEffect(() => {
         (async () => {
@@ -29,20 +28,16 @@ function EditProject() {
             setDescription(`${res.description}`)
         })();
     }, [])
-    
-    // If there is no logged in user, return a blank page
-=======
-    const { projectId } = useParams()
 
->>>>>>> project-form-react
+    // If there is no logged in user, return a blank page
     if (!sessionUser) {
         return null
     }
-    
+
     // initialize boolean for triggering error message on image file validation
     let correctFile = true
-    
-    
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log("PROJECTID", projectId)
@@ -52,7 +47,6 @@ function EditProject() {
         if (name.length > 50 || name.length < 5) errorList.push("Name but be between 5 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 10 and 50 characters")
         setErrors(errorList)
-<<<<<<< HEAD
         if (errorList.length) {
             return
         } else {
@@ -63,68 +57,44 @@ function EditProject() {
             }
             for (let i = 0; i < imageInput.files.length; i++) {
                 let img = imageInput.files[i]
-                if (img.type !== "image/gif" && 
-                img.type !== "image/jpeg" && 
-                img.type !== "image/png") {
+                if (img.type !== "image/gif" &&
+                    img.type !== "image/jpeg" &&
+                    img.type !== "image/png") {
                     correctFile = false
                 }
                 formData.append('file', img)
             }
             if (correctFile === false) errorList.push("You may only upload .GIF, .JPEG/.JPG, and .PNG files!")
             if (errorList.length) return
-            
+
             setSubmitted(true)
-            
+
             const pictures = await fetch(`/api/projects/upload`, {
                 method: "POST",
                 body: formData
             }).then((res) => res.json())
-            
-            
+
+
             const new_project = {
                 name,
                 description,
                 images: pictures.images
             }
-            
 
-            
+
+
             dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
                 history.push(`/${sessionUser.username}`)
             })
         }
-=======
-        if (errorList.length) return
-        let imageInput = document.querySelector("#imageinput")
-        for (let i = 0; i < imageInput.files.length; i++) {
-            let img = imageInput.files[i]
-            console.log("IMG", img)
-            formData.append('file', img)
-        }
-        const pictures = await fetch(`/api/projects/upload`, {
-            method: "POST",
-            body: formData
-        }).then((res) => res.json())
-        const new_project = {
-            name,
-            description,
-            images: pictures.images
-        }
-        console.log(new_project)
-        dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
-            console.log("DATAID", data.id)
-            history.push(`/${sessionUser.username}`)
-            history.push(`/gallery/${data.id}`)
-        })
->>>>>>> project-form-react
     }
-    
-    
-    
+
+
+
     return (
-        
+
         <div className="edit-project-container">
-           <form className="edit-project-form" onSubmit={handleSubmit}>
+            <form className="edit-project-form" onSubmit={handleSubmit}>
                 <h1>Let's rebuild your project:</h1>
                 <label>Project Name</label>
                 <input
@@ -145,7 +115,6 @@ function EditProject() {
                     className="create-project-fields" />
                 <div>
                     {errors.map((error, idx) =>
-<<<<<<< HEAD
                         error === "Description must be between 10 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
                     )}
                 </div>
@@ -153,14 +122,6 @@ function EditProject() {
 
                     <div className="edit-project-image-prompt">
                         Attach 1-5 files. Supported filetypes: png, jpg/jpeg, gif
-=======
-                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
-                    )}
-                </div>
-                <div className="create-project-image-container">
-                    <div className="create-project-image-prompt">
-                        Attach image files
->>>>>>> project-form-react
                     </div>
                     <div className="edit-project-image-input">
                         <div>
@@ -168,22 +129,22 @@ function EditProject() {
                             <input type="file" name="file" id='imageinput' multiple encType="multipart/form-data" />
                         </div>
                         <div>
-                        {errors.map((error, idx) =>
-                            error === "Please select 1 to 5 images to upload" ? <li key={idx} id="error-list">{error}</li> : null
-                        )}
-                    </div>
-                    <div>
-                    {errors.map((error, idx) =>
-                        error === "You may only upload .GIF, .JPEG/.JPG, and .PNG files!" ? <li key={idx} id='error-list'>{error}</li> : null
-                    )}
-                </div>
+                            {errors.map((error, idx) =>
+                                error === "Please select 1 to 5 images to upload" ? <li key={idx} id="error-list">{error}</li> : null
+                            )}
+                        </div>
+                        <div>
+                            {errors.map((error, idx) =>
+                                error === "You may only upload .GIF, .JPEG/.JPG, and .PNG files!" ? <li key={idx} id='error-list'>{error}</li> : null
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="edit-project-submit-container">
-                <button type="submit" className="submit-button">Submit</button>
+                    <button type="submit" className="submit-button">Submit</button>
                 </div>
             </form>
-            { submitted === true && (
+            {submitted === true && (
                 <div className="loading-popup-container">
                     <div className="loading-popup-text">Thanks for submitting your changes! Please wait a few moments while we update your project, you will be redirected to your profile page shortly.</div>
                     <div className="loading-wheel-container"><i className="fa-solid fa-spinner"></i></div>

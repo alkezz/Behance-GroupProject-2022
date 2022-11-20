@@ -40,13 +40,12 @@ const deleteComment = (commentId) => {
 export const getProjectComments = (id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}/comments`)
     const data = await response.json()
-    if(!data.message)
-        {
-            dispatch(getComments(data))
-            return data;
-        }
+    if (!data.message) {
+        dispatch(getComments(data))
+        return data;
+    }
     else {
-        dispatch(getComments({"comments":[]}))
+        dispatch(getComments({ "comments": [] }))
     }
 };
 
@@ -107,7 +106,7 @@ export const deleteProjectComment = (id) => async (dispatch) => {
         method: "DELETE",
     });
     if (response.ok) {
-      dispatch(deleteComment(id))
+        dispatch(deleteComment(id))
     }
 }
 
@@ -215,7 +214,7 @@ const commentReducer = (state = initialState, action) => {
             newState[action.comment.id] = action.comment
             return newState
         }
-        case EDIT_COMMENT:{
+        case EDIT_COMMENT: {
             let newState = { ...state };
             newState[action.comment.id] = action.comment
             return newState

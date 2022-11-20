@@ -24,24 +24,11 @@ function rando() {
     }
 
     function shuffle(array) {
-<<<<<<< HEAD
-        let currentIndex = array.length,  randomIndex;
-=======
         let currentIndex = array.length, randomIndex;
->>>>>>> project-form-react
 
         // While there remain elements to shuffle.
         while (currentIndex != 0) {
 
-<<<<<<< HEAD
-          // Pick a remaining element.
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
-
-          // And swap it with the current element.
-          [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
-=======
             // Pick a remaining element.
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
@@ -49,7 +36,6 @@ function rando() {
             // And swap it with the current element.
             [array[currentIndex], array[randomIndex]] = [
                 array[randomIndex], array[currentIndex]];
->>>>>>> project-form-react
         }
 
         return array;
