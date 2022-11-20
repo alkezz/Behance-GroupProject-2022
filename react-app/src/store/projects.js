@@ -156,11 +156,7 @@ export const addProjectImages = (project, images) => async (dispatch) => {
 export const editProject = (project, id) => async (dispatch) => {
     console.log("PROJECT IN THUNK", project)
     console.log("PROJ ID in thunk", id)
-<<<<<<< HEAD
     const response = await fetch(`/api/projects/${id}`, {
-=======
-    const response = await fetch(`/api/projects/${id}/`, {
->>>>>>> project-form-react
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
