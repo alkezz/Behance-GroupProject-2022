@@ -1,4 +1,3 @@
-RENDER MIGRATION VERSION
 """empty message
 Revision ID: 7cd881015469
 Revises:
