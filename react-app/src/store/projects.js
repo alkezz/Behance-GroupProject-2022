@@ -156,7 +156,11 @@ export const addProjectImages = (project, images) => async (dispatch) => {
 export const editProject = (project, id) => async (dispatch) => {
     console.log("PROJECT IN THUNK", project)
     console.log("PROJ ID in thunk", id)
+<<<<<<< HEAD
     const response = await fetch(`/api/projects/${id}`, {
+=======
+    const response = await fetch(`/api/projects/${id}/`, {
+>>>>>>> project-form-react
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
@@ -180,7 +184,7 @@ export const deleteProjectId = (id) => async (dispatch) => {
         dispatch(deleteProject(id))
         return deletedProject
     }
-    
+
     return response
 }
 
@@ -222,7 +226,7 @@ const projectsReducer = (state = initialState, action) => {
         case DELETE_PROJECT: {
             const newState = { ...state };
             delete newState[action.projectId];
-            return { ...newState};
+            return { ...newState };
         }
         default:
             return state;

@@ -16,6 +16,7 @@ function EditProject() {
     const [errors, setErrors] = useState([]);
     const [submitted, setSubmitted] = useState(false)
     const formData = new FormData();
+<<<<<<< HEAD
     const { projectId } = useParams();
     
     // This useEffect will fetch the data for the project and autopopulate the form fields with the current data
@@ -30,6 +31,10 @@ function EditProject() {
     }, [])
     
     // If there is no logged in user, return a blank page
+=======
+    const { projectId } = useParams()
+
+>>>>>>> project-form-react
     if (!sessionUser) {
         return null
     }
@@ -40,12 +45,14 @@ function EditProject() {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log("PROJECTID", projectId)
         setErrors([])
         setImages("")
         const errorList = []
         if (name.length > 50 || name.length < 5) errorList.push("Name but be between 5 and 50 characters")
         if (description.length > 100 || description.length < 20) errorList.push("Description must be between 10 and 50 characters")
         setErrors(errorList)
+<<<<<<< HEAD
         if (errorList.length) {
             return
         } else {
@@ -86,6 +93,30 @@ function EditProject() {
                 history.push(`/${sessionUser.username}`)
             })
         }
+=======
+        if (errorList.length) return
+        let imageInput = document.querySelector("#imageinput")
+        for (let i = 0; i < imageInput.files.length; i++) {
+            let img = imageInput.files[i]
+            console.log("IMG", img)
+            formData.append('file', img)
+        }
+        const pictures = await fetch(`/api/projects/upload`, {
+            method: "POST",
+            body: formData
+        }).then((res) => res.json())
+        const new_project = {
+            name,
+            description,
+            images: pictures.images
+        }
+        console.log(new_project)
+        dispatch(projectActions.editProject(new_project, projectId)).then((data) => {
+            console.log("DATAID", data.id)
+            history.push(`/${sessionUser.username}`)
+            history.push(`/gallery/${data.id}`)
+        })
+>>>>>>> project-form-react
     }
     
     
@@ -114,6 +145,7 @@ function EditProject() {
                     className="create-project-fields" />
                 <div>
                     {errors.map((error, idx) =>
+<<<<<<< HEAD
                         error === "Description must be between 10 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
                     )}
                 </div>
@@ -121,6 +153,14 @@ function EditProject() {
 
                     <div className="edit-project-image-prompt">
                         Attach 1-5 files. Supported filetypes: png, jpg/jpeg, gif
+=======
+                        error === "Description must be between 20 and 50 characters" ? <li key={idx} id='error-list'>{error}</li> : null
+                    )}
+                </div>
+                <div className="create-project-image-container">
+                    <div className="create-project-image-prompt">
+                        Attach image files
+>>>>>>> project-form-react
                     </div>
                     <div className="edit-project-image-input">
                         <div>

@@ -21,6 +21,7 @@ function EditCommentForm({ projectId, onClick, commentId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setErrorsValidaitons = []
+<<<<<<< HEAD
     if (!editedComment) {
       setErrorsValidaitons(['Comment is required'])
       return;
@@ -29,6 +30,9 @@ function EditCommentForm({ projectId, onClick, commentId }) {
       setErrorsValidaitons(["Comment is required!!"])
       return;
     }
+=======
+
+>>>>>>> project-form-react
     const payload = {
       user_id: user.id,
       comment: editedComment,

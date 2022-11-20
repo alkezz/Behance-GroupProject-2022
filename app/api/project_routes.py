@@ -139,7 +139,7 @@ def delete_project(id):
             "message": f"No such project with id of {id}"
         }
 
-@project_routes.route("/<int:id>", methods=["PUT"])
+@project_routes.route("/<int:id>/", methods=["PUT"])
 @login_required
 def edit_project(id):
     project = Project.query.get(id)
@@ -249,10 +249,10 @@ def add_project_image_index():
 #                                 }
 #                             }}
 
-@project_routes.route("/upload", methods=["POST"])
+@project_routes.route("/upload", methods=["POST", "PUT"])
 def upload():
     image_list = []
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method == 'PUT':
         for i in request.files.getlist('file'):
                 filename = secure_filename(i.filename)
                 s3.upload_fileobj(

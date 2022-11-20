@@ -26,6 +26,10 @@ function ProfilePage() {
   const deleteProject = async (e, id) => {
 
     e.preventDefault();
+<<<<<<< HEAD
+=======
+    let projectId = document.getElementById("delete-project-button").value;
+>>>>>>> project-form-react
     const response = await fetch(`/api/projects/${id}/`, {
       method: "DELETE"
     })
@@ -43,6 +47,7 @@ function ProfilePage() {
   }
 
   const projList = prof.projects.map((project) => {
+    console.log("PROJECT in PROFILE", project.id)
     return (
       <div className='projPreview' key={project.id}>
         <Link className='projPreviewImgCont' to={{ pathname: `/gallery/${project.id}`, state: { background: location } }}><img className='projPreviewImg' src={project.images[0]} /></Link>
@@ -54,8 +59,13 @@ function ProfilePage() {
         </Link>
         {(!!sessionUser.user && sessionUser.user.id === prof.id) ? (
           <div className="project-features">
+<<<<<<< HEAD
             <button id="edit-project-button" value={project.id} onClick={(e) => {toEditPage(e, project.id)}}>Edit Project</button>
             <button id="delete-project-button" value={project.id} onClick={(e) => {deleteProject(e, project.id)}}>Delete Project</button>
+=======
+            <button id="edit-project-button" value={project.id} onClick={(e) => { toEditPage(e, project.id) }}>Edit Project</button>
+            <button id="delete-project-button" value={project.id} onClick={(e) => { deleteProject(e, project.id) }}>Delete Project</button>
+>>>>>>> project-form-react
           </div>
         ) : null}
         <div className='projectAppr'>

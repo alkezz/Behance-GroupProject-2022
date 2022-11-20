@@ -1,6 +1,10 @@
 #modal {
     position: fixed;
+<<<<<<< HEAD
     top: 150;
+=======
+    top: 0;
+>>>>>>> project-form-react
     right: 0;
     left: 0;
     bottom: 300px;

@@ -34,7 +34,7 @@ function ProjectGallery() {
   // console.log(comments, "comments")
   // console.log(proj, "proj");
   // console.log("SETPROJIDS", projIds)
-  useEffect(() => {
+  useEffect(async () => {
     // projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
       return;
@@ -80,6 +80,7 @@ function ProjectGallery() {
   console.log(inList)
   let back = (e) => {
     e.stopPropagation();
+    console.log("HISTORY", history.goBack)
     history.goBack();
   };
 
@@ -227,6 +228,7 @@ function ProjectGallery() {
         </div>
         {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
+<<<<<<< HEAD
         <div className='project-description-section'>
           <div className='project-comment-section'>
             <div className='create-comment'>
@@ -256,6 +258,95 @@ function ProjectGallery() {
                   );
                 })}
             </div>
+=======
+        <br />
+        <div className="comments-container">
+          <div className='information-div'>
+            <div className='owner-info-div'>
+              <div className='owner-text-div'>
+                Owner:
+              </div>
+              <br />
+              {proj.User &&
+                <div className='avatar-username-div'>
+                  <img src={avatar} width="40" height="40" />
+                  <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
+                    {proj.User.first_name} {proj.User.last_name}
+                  </Link>
+                </div>
+              }
+            </div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <div className='project-info-div'>
+              <div>
+                {proj.name}
+              </div>
+              <br />
+              <div>
+                {proj.description}
+                <div>
+                  <br />
+                  &nbsp;
+                  <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
+                  &nbsp;
+                  {appreciations}
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  {/* {console.log(proj.comments[0].comment)} */}
+                  <i className="fa-solid fa-message fa-1x"></i>
+                  &nbsp;
+                  {Object.values(comments).length}
+                  {/* {console.log(projComments)} */}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+          </div>
+          <div className='comments-section'>
+            <div className='create-comment'>
+              <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+              <CreateComment projectId={projectId} proj={proj} />
+            </div>
+            <hr id='hr-comments' />
+            {!!Object.values(comments) &&
+              Object.values(comments).map((comments) => {
+                console.log('each comment', comments)
+                return (
+                  <div>
+                    <div className="each-comment" key={comments?.id}>
+                      <div style={{ listStyle: "none" }}>
+                        <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+                        <div>
+                          <div style={{ paddingBottom: "10px" }}>{comments.User.first_name} {comments.User.last_name}</div>
+                          <div>{comments.comment}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ marginBottom: "30px" }}>
+                      {sessionUser?.id === comments?.user?.id && (
+                        <>
+                          <div className='edit-comment'>
+                            <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+                          </div>
+                          <div className='delete-comment'>
+                            <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                          </div>
+                        </>
+                      )}
+                      <br />
+                    </div>
+                  </div>
+                );
+              })}
+>>>>>>> project-form-react
           </div>
         </div>
 

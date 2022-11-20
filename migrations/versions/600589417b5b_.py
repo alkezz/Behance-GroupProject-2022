@@ -1,7 +1,9 @@
 """empty message
-Revision ID: 7cd881015469
-Revises:
-Create Date: 2022-11-17 14:16:28.423963
+
+Revision ID: 600589417b5b
+Revises: 
+Create Date: 2022-11-18 17:48:45.683414
+
 """
 from alembic import op
 import sqlalchemy as sa
@@ -12,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '7cd881015469'
+revision = '600589417b5b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -44,7 +46,11 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
+<<<<<<< HEAD:migrations/versions/7cd881015469_.py
     sa.Column('images', sa.Text(), nullable=True),
+=======
+    sa.Column('images', sa.String(length=5000), nullable=True),
+>>>>>>> project-form-react:migrations/versions/600589417b5b_.py
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
