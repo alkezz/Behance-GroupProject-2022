@@ -76,11 +76,11 @@ function App() {
         {/* <Route path='/gallery/:projectId'>
           <Project />
         </Route> */}
-        <Route path='/:username'>
+        <Route exact={true} path='/:username'>
           <Profile />
         </Route>
         <Route path="*">
-          <div style={{ fontSize: 404 }}>* 404: Page not found *</div>
+          <div style={{ fontSize: 200, marginTop: "150px",textAlign:"center" }}>* 404: Page not found *</div>
         </Route>
       </Switch>
       {<Route path="/gallery/:projectId"><Project /></Route>}

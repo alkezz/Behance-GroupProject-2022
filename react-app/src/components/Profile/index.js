@@ -207,13 +207,16 @@ function ProfilePage() {
         <div className='userProjects'>
           <MiniNav data={prof}></MiniNav>
           <Switch>
-            <Route exact path={`/${prof.username}` || `/${prof.username}/work`}>
+            <Route exact={true} path={[`/${prof.username}`, `/${prof.username}/`]}>
               <div className={(!!sessionUser.user && sessionUser.user.id === prof.id) ? 'userProjectsGrid': 'userProjectsGridU'}>
                 {!!prof && projList}
               </div>
             </Route>
-            <Route path={`/${prof.username}/appreciations`}>
+            <Route exact={true} path={`/${prof.username}/appreciations`}>
               <AppeciationsList appreciations={apprecInfo} />
+            </Route>
+            <Route path={`/${prof.username}/*`}>
+            <div style={{ fontSize: 200 }}>* 404: Page not found *</div>
             </Route>
           </Switch>
           {/* {!!prof && projList.length}
