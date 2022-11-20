@@ -4,7 +4,6 @@ import { Link, useLocation, useHistory } from "react-router-dom"
 import ProjectCard from './ProjectCard'
 import * as followActions from '../../store/follows'
 import './ProjectList.css'
-import { useDispatch, useSelector } from "react-redux"
 
 const ProjectList = () => {
 
