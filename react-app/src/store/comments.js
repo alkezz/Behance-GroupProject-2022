@@ -2,6 +2,7 @@ const ADD_COMMENT = 'comment/addComment';
 const GET_COMMENTS = 'comment/getComments';
 const EDIT_COMMENT = 'comment/editComment';
 const DELETE_COMMENT = 'comment/deleteComment';
+const CLEAR_COMMENT = 'comment/clearComment'
 
 //actions
 
@@ -32,6 +33,12 @@ const deleteComment = (commentId) => {
     return {
         type: DELETE_COMMENT,
         commentId
+    }
+}
+
+const clearComment = () => {
+    return {
+        type: CLEAR_COMMENT
     }
 }
 
@@ -109,6 +116,11 @@ export const deleteProjectComment = (id) => async (dispatch) => {
         dispatch(deleteComment(id))
     }
 }
+
+export const clearUserComm = () => async (dispatch) => {
+    dispatch(clearComment())
+    return {message: "User cleared"};
+};
 
 // export const delCommentFromProj = (id) => async (dispatch) => {
 //     const response = await fetch(`/api/comments/${id}/delete`, )
@@ -224,7 +236,8 @@ const commentReducer = (state = initialState, action) => {
             delete newState[action.commentId];
             return newState;
         }
-
+        case CLEAR_COMMENT: 
+            return { ...initialState }
         // case GET_USERTRACKS:
         //     let res = {}
         //     action.songs.Songs.forEach(e => {

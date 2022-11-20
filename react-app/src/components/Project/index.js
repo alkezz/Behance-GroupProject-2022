@@ -238,7 +238,7 @@ function ProjectGallery() {
          */}
         {
           !!proj.User && 
-          <MiniGallery user={proj.User} update={update} setUpdate={setUpdate}/>
+          <MiniGallery user={proj.User} sessionUser={sessionUser} update={update} setUpdate={setUpdate} projectOwner={projectOwner} handleFollow={handleFollow} handleUnFollow={handleUnFollow} followedList={followedList}/>
         }
         <div className='project-description-section'>
           <div className='project-comment-section'>

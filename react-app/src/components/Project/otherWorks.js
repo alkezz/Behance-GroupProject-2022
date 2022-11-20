@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
 
-function MiniGallery({ user, setUpdate, update }) {
+function MiniGallery({ user, setUpdate, update, projectOwner, handleFollow, handleUnFollow, followedList, sessionUser }) {
     const history = useHistory()
     const [prof, setProf] = useState({ username: null, projects: [] });
     const [index, setIndex] = useState(0)
@@ -46,6 +46,32 @@ function MiniGallery({ user, setUpdate, update }) {
         }
     },[])
 
+    console.log(user, projectOwner,'MINIGALLERY')
+    let miniFollowBut
+    if (sessionUser !== null) {
+        if (projectOwner) {
+          if (followedList.includes(projectOwner.id)) {
+            miniFollowBut = (
+              <button onClick={(e) => { handleUnFollow(e); setUpdate(!update) }} className='userOtherunFollowBut' hidden={sessionUser.id === projectOwner.id}>
+              </button>
+            )
+          } else {
+            miniFollowBut = (
+              <button onClick={(e) => { handleFollow(e); setUpdate(!update) }} className='userOtherFollowBut' hidden={sessionUser.id === projectOwner.id}>
+                Follow
+              </button>
+            )
+          }
+        }
+    } else {
+        miniFollowBut = (
+            <button onClick={() => history.push('/login')} className='userOtherFollowBut'>
+            Follow
+            </button>
+
+        )
+    }
+
 
     return (
 
@@ -68,9 +94,9 @@ function MiniGallery({ user, setUpdate, update }) {
                         <div className='userOtherText'>
                             {user.first_name} {user.last_name}
                         </div>
-                        <button className='userOtherFollowBut'>
-                            Follow
-                        </button>
+                        {
+                            miniFollowBut
+                        }
                     </div>
                 </div>
             </div>
