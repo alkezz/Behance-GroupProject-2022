@@ -166,9 +166,16 @@ function ProjectGallery() {
               <div className='projUserSideBarText'>
                 Follow
               </div>
+              {sessionUser &&
               <button className='appreciateSideButton' onClick={(e) => { handleAppreciate(e); setUpdate(!update) }}>
                 <i className="fa-solid fa-thumbs-up fa-1x"></i>
               </button>
+              }
+              {!sessionUser &&
+                <button className='appreciateSideButton' onClick={() => history.push("/login")}>
+                  <i className="fa-solid fa-thumbs-up fa-1x"></i>
+                </button>
+              }
               <div className='projUserSideBarText'>
                 Apprreciate
               </div>
