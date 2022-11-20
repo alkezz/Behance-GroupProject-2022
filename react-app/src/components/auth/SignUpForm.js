@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import followActions from "../../store/follows"
 import "./LoginForm.css"
 
 const SignUpForm = () => {
@@ -61,13 +62,13 @@ const SignUpForm = () => {
 
   return (
     <div className="login-page">
-    <form className="login-form" onSubmit={onSignUp}>
-      <h2>Sign up</h2>
-      <div>
-        {errors.map((error, ind) => (
-          <div className="form-error" key={ind}>{error}</div>
-        ))}
-      </div>
+      <form className="login-form" onSubmit={onSignUp}>
+        <h2>Sign up</h2>
+        <div>
+          {errors.map((error, ind) => (
+            <div className="form-error" key={ind}>{error}</div>
+          ))}
+        </div>
         <label>First Name</label>
         <input
           type='text'
@@ -110,10 +111,10 @@ const SignUpForm = () => {
           onChange={updateRepeatPassword}
           value={repeatPassword}
         ></input>
-      <div className="form-submit-container">
-      <button className="submit-button" type='submit'>Sign Up</button>
-      </div>
-    </form>
+        <div className="form-submit-container">
+          <button className="submit-button" type='submit'>Sign Up</button>
+        </div>
+      </form>
     </div>
   );
 };

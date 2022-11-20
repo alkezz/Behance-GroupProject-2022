@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import followActions from "../../store/follows"
 import { login } from '../../store/session';
 import logo from '../../assets/enlogo4.png'
 import './LoginForm.css'
@@ -17,6 +18,7 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
+    // await dispatch(followActions.userFollows(data.id))
     if (data) {
       setErrors(data);
     }
