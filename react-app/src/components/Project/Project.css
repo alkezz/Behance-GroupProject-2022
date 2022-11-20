@@ -35,9 +35,7 @@
     align-items: center;
     justify-content: center;
     background: #fff;
-    top: 25;
-    min-width: 800px;
-    max-width: 1400px;
+    width: 1400px;
     left: 10%;
     right: 10%;
     padding: 5px;
@@ -260,6 +258,8 @@
 
 .project-name-appreciate {
     /* margin-bottom: 7.5%; */
+    display: flex;
+    align-items: center;
     color: white;
     font-size: 24px;
     font-weight: bold;
@@ -468,20 +468,4 @@
 
 #thumbs-icon-comment-section{
     color: #979797;
-}
-
-.editedComment-errors {
-    height: 25px;
-
-}
-
-.button-login-comment {
-    margin-right: 10px;
-    margin-left: 100px
-}
-.login-comment {
-    background-color: #0046cc;
-    color: white;
-    height: 20px;
-    width: 75px;
 }
