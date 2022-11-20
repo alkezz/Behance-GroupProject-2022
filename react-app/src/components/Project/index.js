@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Redirect, NavLink, Link, useHistory } from 'react-router-dom';
+import { useParams, Redirect, NavLink, Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
 import * as appreciateActions from '../../store/appreciations.js'
@@ -9,10 +9,12 @@ import "./Project.css";
 import CreateComment from './createComment.js';
 import DeleteComment from './deleteComment.js';
 import EditCommentModal from './editModal.js';
+import MiniGallery from './otherWorks.js';
 
 function ProjectGallery() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const location = useLocation()
   const sessionUser = useSelector((state) => state.session.user);
   const appreciate = useSelector((state) => state)
   // const projectComments = useSelector((state) => state.comments);
@@ -26,14 +28,7 @@ function ProjectGallery() {
   const [projIds, setProjIds] = useState([])
   const [inList, setInList] = useState(false)
   const comments = useSelector((state) => state.comments);
-  // const [comment, setComment] = useState('')
-  // console.log(sessionUser, "user")
-  // console.log("PROJECTID", projectId)
-  // console.log("APPRECIATION LIST: ", appreciations)
-  // console.log("SELECTOR", appreciate)
-  // console.log(comments, "comments")
-  // console.log(proj, "proj");
-  // console.log("SETPROJIDS", projIds)
+
   useEffect(() => {
     // projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
@@ -111,6 +106,9 @@ function ProjectGallery() {
             <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
           </Link> */}
           <a href={`/${proj.User.username}`}>
+          {/* <Link className='projUsername' to={`/${proj.User.username}`}>
+            <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
+          </Link> */}
           <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
           </a>
           <div className='projUserSideBarText'>
@@ -187,6 +185,10 @@ function ProjectGallery() {
         </div>
         {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
+        {
+          !!proj.User && 
+          <MiniGallery user={proj.User} update={update} setUpdate={setUpdate}/>
+        }
         <div className='project-description-section'>
           <div className='project-comment-section'>
             <div className='create-comment'>

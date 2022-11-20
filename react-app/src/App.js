@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProjectList from './components/ProjectList/index'
 import LoginForm from './components/auth/LoginForm';
@@ -23,16 +23,10 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [prevPath, setPrevPath] = useState('')
   const dispatch = useDispatch();
+  const currLocation = useSelector((state) => state.location.prev)
   const location = useLocation()
+  const history = useHistory()
   const session = useSelector((store) => store.session)
-  console.log(location.pathname, 'PATH')
-
-  const currPath = () => {
-    if(!location.pathname.includes('gallery')){
-      return location
-    }
-  }
-
 
   useEffect(() => {
     (async () => {
@@ -44,7 +38,7 @@ function App() {
         });
       setLoaded(true);
     })();
-  }, [dispatch, location]);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;
@@ -54,7 +48,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Switch>
+      <Switch location={currLocation}>
         <Route path='/project/create' exact={true}>
           <CreateProject />
         </Route>

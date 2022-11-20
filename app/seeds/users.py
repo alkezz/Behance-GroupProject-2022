@@ -140,6 +140,69 @@ def seed_users():
         name="Backroads", description="vroom", user_id=15, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
     )
 
+    projRep = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep2 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep3 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep4 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep5 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep6 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep7 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep8 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep9 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    projRep10 = Project(
+        name="Backroads", description="vroom", user_id=1, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+
+    rprojRep = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep2 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep3 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep4 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep5 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep6 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep7 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep8 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep9 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+    rprojRep10 = Project(
+        name="Backroads", description="vroom", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+    )
+
+
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -192,6 +255,28 @@ def seed_users():
     db.session.add(eclipse)
     db.session.add(blackhole)
     db.session.add(scifi)
+    db.session.add(projRep)
+    db.session.add(projRep2)
+    db.session.add(projRep3)
+    db.session.add(projRep4)
+    db.session.add(projRep5)
+    db.session.add(projRep6)
+    db.session.add(projRep7)
+    db.session.add(projRep8)
+    db.session.add(projRep9)
+    db.session.add(projRep10)
+    db.session.add(rprojRep)
+    db.session.add(rprojRep2)
+    db.session.add(rprojRep3)
+    db.session.add(rprojRep4)
+    db.session.add(rprojRep5)
+    db.session.add(rprojRep6)
+    db.session.add(rprojRep7)
+    db.session.add(rprojRep8)
+    db.session.add(rprojRep9)
+    db.session.add(rprojRep10)
+    
+   
     db.session.commit()
 
 

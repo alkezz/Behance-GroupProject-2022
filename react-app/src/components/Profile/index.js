@@ -47,11 +47,11 @@ function ProfilePage() {
   const projList = prof.projects.map((project) => {
     return (
       <div className='projPreview' key={project.id}>
-        <Link className='projPreviewImgCont' style={{"borderRadius": "4px"}} to={{ pathname: `/gallery/${project.id}`, state: { background: location } }}><img className='projPreviewImg' style={{"borderRadius": "4px"}} src={project.images[0]} /></Link>
+        <Link className='projPreviewImgCont' style={{"borderRadius": "4px"}} to={{ pathname:`/gallery/${project.id}`, state: {prev: location.pathname} }}><img className='projPreviewImg' style={{"borderRadius": "4px"}} src={project.images[0]} /></Link>
         <div className='userText'>
           {prof.first_name} {prof.last_name}
         </div>
-        <Link className='projectText' to={`/gallery/${project.id}`}>
+        <Link className='projectText' to={{ pathname:`/gallery/${project.id}`, state: {prev: location.pathname} }}>
           {project.name}
         </Link>
         {!!sessionUser.user && sessionUser.user.id === prof.id && (
@@ -150,12 +150,14 @@ function ProfilePage() {
 
   if (!prof.username) {
     return <>
-      {console.log(location)}
+      {'test'}
     </>;
   }
 
   return (
     <div className='profilePage'>
+      <div className='userBanner'>
+      </div>
       <div className='profileContent'>
         <div className='userCard'>
           <img className='userIcon' src={avatar} alt="profile-avatar" height="110" width="110" />

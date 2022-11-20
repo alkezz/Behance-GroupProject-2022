@@ -5,13 +5,15 @@ import comments from './comments'
 import follows from './follows'
 import projects from './projects'
 import appreciate from './appreciations';
+import location from './location'
 
 const rootReducer = combineReducers({
   session,
   comments,
   follows,
   projects,
-  appreciate
+  appreciate,
+  location
 });
 
 

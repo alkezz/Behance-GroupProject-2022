@@ -1,11 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import * as locActions from '../../store/location.js'
 import './Navbar.css';
 
 const NavBar = () => {
+  const dispatch = useDispatch()
+  const location = useLocation()
 
+  dispatch(locActions.prevLocation(location))
+  if(location.pathname.includes('gallery')){
+    document.body.style.overflow = 'hidden'
+  }
+  else{
+    document.body.style.overflow ='auto'
+  }
+
+  const storeScroll = () => {
+    document.documentElement.dataset.scroll = window.scrollY;
+  }
+  
+  document.addEventListener('scroll', storeScroll, { passive: true });
+  
+  storeScroll();
+  
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;

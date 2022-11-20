@@ -1,3 +1,7 @@
+#top-navbar {
+    background-color: rgba(255, 255, 255, 0);
+}
+
 .projPreview {
     display: flex;
     flex-direction: column;
@@ -117,21 +121,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     width:100%;
 }
 
 .profileContent {
-    margin-top: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     height:90%;
     width:100%;
-    min-height: 1000px
+    min-height: 1000px;
+    z-index: 1;
+    margin-bottom: 100px;
 }
 
 .userCard {
+    position: relative;
+    bottom: 150px;
     margin-left: 100px;
     background-color: white;
     display: flex;
@@ -142,6 +149,7 @@
     min-width: 360px;
     height: 1000px;
     box-shadow: 0px 0px 2px #c9c9c9;
+    z-index: 2;
 }
 
 .userCard_name {
@@ -155,7 +163,7 @@
 }
 
 .userProjects {
-    margin-top: 100px;
+    margin-top: 30px;
     margin-left: 50px;
     margin-right: 100px;
     max-width: 1700px
@@ -167,7 +175,7 @@
 }
 
 .userCard_followBut:hover {
-    background-color: rgb(45, 118, 236);
+    background-color: rgb(0, 66, 172);
 }
 
 .userCard_followBut {
@@ -180,7 +188,8 @@
     color: white;
     outline: none;
     border: none;
-    margin: 10px 0px
+    margin: 10px 0px;
+    transition: background-color .5s;
 }
 
 .userCard_unfollowBut:hover {
@@ -353,3 +362,9 @@
     cursor: pointer
 }
 
+.userBanner {
+    background: linear-gradient(90deg, rgb(80, 187, 225) 2%, rgba(9,9,121,1) 98%);
+    height:260px;
+    width:100%;
+    z-index: 1;
+}
