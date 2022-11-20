@@ -219,65 +219,65 @@ function ProjectGallery() {
             <div className='project-name-appreciate'>
               {proj.name}
               <div className='below-like-button'>
-                &nbsp;
-                <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
-                &nbsp;
-                {appreciations}
-                &nbsp;
-                &nbsp;
-                &nbsp;
-                &nbsp;
-                {/* {console.log(proj.comments[0].comment)} */}
-                <i className="fa-solid fa-message fa-1x"></i>
-                &nbsp;
-                {Object.values(comments).length}
-                {/* {console.log(projComments)} */}
-              </div>
+              &nbsp;
+              <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
+              &nbsp;
+              {appreciations}
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              {/* {console.log(proj.comments[0].comment)} */}
+              <i className="fa-solid fa-message fa-1x"></i>
+              &nbsp;
+              {Object.values(comments).length}
+              {/* {console.log(projComments)} */}
             </div>
           </div>
-          {/* <strong>imgs</strong> {JSON.stringify(projImg)}
+        </div>
+        {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
-          {
-            !!proj.User &&
-            <MiniGallery user={proj.User} update={update} setUpdate={setUpdate} />
-          }
-          <div className='project-description-section'>
-            <div className='project-comment-section'>
+        {
+          !!proj.User && 
+          <MiniGallery user={proj.User} sessionUser={sessionUser} update={update} setUpdate={setUpdate} projectOwner={projectOwner} handleFollow={handleFollow} handleUnFollow={handleUnFollow} followedList={followedList}/>
+        }
+        <div className='project-description-section'>
+          <div className='project-comment-section'>
+        <br />
+        <div className="comments-container">
+          <div className='information-div'>
+            <div className='owner-info-div'>
+              <div className='owner-text-div'>
+                Owner:
+              </div>
               <br />
-              <div className="comments-container">
-                <div className='information-div'>
-                  <div className='owner-info-div'>
-                    <div className='owner-text-div'>
-                      Owner:
-                    </div>
-                    <br />
-                    {proj.User &&
-                      <>
-                        <div className='avatar-username-div'>
-                          <img src={avatar} width="40" height="40" />
-                          <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
-                            {proj.User.first_name} {proj.User.last_name}
-                          </Link>
-                        </div>
-                        {
-                          followButton
-                        }
-                      </>
-                    }
+              {proj.User &&
+                <>
+                  <div className='avatar-username-div'>
+                    <img src={avatar} width="40" height="40" />
+                    <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
+                      {proj.User.first_name} {proj.User.last_name}
+                    </Link>
                   </div>
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  <div className='project-info-div'>
-                    <div id='project-name'>
-                      {proj.name}
-                    </div>
-                    <br />
-                    <div id='project-description'>
-                      {proj.description}
-                    </div>
-                    <div>
-                      <br />
+                  {
+                    followButton
+                  }
+                </>
+              }
+            </div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <div className='project-info-div'>
+              <div id='project-name'>
+                {proj.name}
+              </div>
+              <br />
+              <div id='project-description'>
+                {proj.description}
+              </div>
+              <div>
+                <br />
                       &nbsp;
                       <i id="thumbs-icon-comment-section" className="fa-solid fa-thumbs-up fa-1x"></i>
                       &nbsp;

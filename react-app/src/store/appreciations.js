@@ -1,6 +1,7 @@
 const GET_APPRECIATIONS = 'appreciate/getAppreciations'
 const ADD_APPRECIATIONS = 'appreciate/addAppreciations'
 const REM_APPRECIATIONS = 'appreciations/remAppreciations'
+const CLEAR_APPRECIATIONS = 'appreciations/clearAppreciations'
 
 const getAppreciationsAction = (data) => {
     return {
@@ -20,6 +21,12 @@ const remAppreciationsAction = (data) => {
     return {
         type: REM_APPRECIATIONS,
         data
+    }
+}
+
+const clearAppreciationsAction = () => {
+    return {
+        type: CLEAR_APPRECIATIONS,
     }
 }
 
@@ -65,6 +72,11 @@ export const removeAppreciations = (postId, userId) => async (dispatch) => {
     return response
 }
 
+export const  clearUserAppr = () => async (dispatch) => {
+    dispatch(clearAppreciationsAction())
+    return {message: "User cleared"};
+};
+
 const initialState = { "current_project_appreciations": [] }
 
 const appreciateReducer = (state = initialState, action) => {
@@ -76,6 +88,8 @@ const appreciateReducer = (state = initialState, action) => {
             return { ...state, current_project_appreciations: [...state.current_project_appreciations, action.data] }
         case REM_APPRECIATIONS:
             return { ...state, current_project_appreciations: state.current_project_appreciations.filter((e) => e !== action.data) }
+        case CLEAR_APPRECIATIONS:
+            return {...initialState}
         default:
             return state
     }
