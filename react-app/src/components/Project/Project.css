@@ -470,3 +470,19 @@
 #thumbs-icon-comment-section{
     color: #979797;
 }
+
+.editedComment-errors {
+    height: 25px;
+
+}
+
+.button-login-comment {
+    margin-right: 10px;
+    margin-left: 100px
+}
+.login-comment {
+    background-color: #0046cc;
+    color: white;
+    height: 20px;
+    width: 75px;
+}
