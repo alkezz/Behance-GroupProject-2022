@@ -26,14 +26,16 @@
 
 .create-project-image-container {
   width: 330px;
-  height: 160px;
+  height: 185px;
   border: 1px solid black;
   border-radius: 3px;
   box-shadow: 0 1px 5px #c7c7c7;
+  background-color: #f9f9f9;
 }
 
 .create-project-image-prompt {
   padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   box-sizing: border-box;
   margin-left: 10px;
@@ -52,4 +54,28 @@
 .create-project-image-upload {
   display: flex;
   justify-content: center;
+}
+input[type=file] {
+  width: 250px;
+  max-width: 100%;
+  color: #444;
+  padding: 10px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #0057ff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0158ff;
 }

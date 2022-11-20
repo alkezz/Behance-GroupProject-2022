@@ -24,7 +24,7 @@ const remAppreciationsAction = (data) => {
 }
 
 export const getAppreciations = (projectId) => async (dispatch) => {
-    const response = await fetch(`/api/projects/${projectId}/`)
+    const response = await fetch(`/api/projects/${projectId}`)
     console.log(response)
     if (response.ok) {
         const data = await response.json()

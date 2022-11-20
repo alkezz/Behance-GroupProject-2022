@@ -39,7 +39,7 @@ const CreateComment = ({ projectId, proj }) => {
       setErrors(['Comment is required'])
       return;
     }
-    if(commentMessage && commentMessage.trim().length === 0) {
+    if (commentMessage && commentMessage.trim().length === 0) {
       setErrors(["Comment is required!!"])
       return;
     }

@@ -3,6 +3,7 @@ import { useParams, Redirect, NavLink, Link, useHistory, useLocation } from 'rea
 import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
 import * as appreciateActions from '../../store/appreciations.js'
+import * as followActions from '../../store/follows'
 // import * as appreciateActions from '../../store/appreciations'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
@@ -17,10 +18,12 @@ function ProjectGallery() {
   const location = useLocation()
   const sessionUser = useSelector((state) => state.session.user);
   const appreciate = useSelector((state) => state)
+  const followedList = useSelector((state) => state.follows.current_followed_user_ids)
   // const projectComments = useSelector((state) => state.comments);
   const { projectId } = useParams();
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
+  const [followerInfo, setFollowerInfo] = useState({})
   // const [projComments, setProjComments] = useState({ comments: [] });
   const [appreciations, setAppreciations] = useState(0)
   const [appreciateCount, setAppreciateCount] = useState("")
@@ -28,11 +31,23 @@ function ProjectGallery() {
   const [projIds, setProjIds] = useState([])
   const [inList, setInList] = useState(false)
   const comments = useSelector((state) => state.comments);
-
-  useEffect(() => {
+  const [projectOwner, setProjectOwner] = useState({ User: null })
+  // console.log(followerInfo)
+  // const [comment, setComment] = useState('')
+  console.log(sessionUser, "user")
+  // console.log("PROJECTID", projectId)
+  // console.log("APPRECIATION LIST: ", appreciations)
+  // console.log("SELECTOR", appreciate)
+  // console.log(comments, "comments")
+  // console.log(proj, "proj");
+  // console.log("SETPROJIDS", projIds)
+  useEffect(async () => {
     // projIds.forEach((id) => id === projectId ? setInList(true) : null)
     if (!projectId) {
       return;
+    }
+    if (!proj) {
+      return
     }
     (async () => {
       dispatch(commentActions.getProjectComments(projectId))
@@ -52,13 +67,14 @@ function ProjectGallery() {
       const response = await fetch(`/api/projects/${projectId}`);
       const data = await response.json();
       setProj(data);
+      setProjectOwner(data.User)
     })();
     (async () => {
       const response = await fetch(`/api/projects/${projectId}/images`);
       const data = await response.json();
       setProjImg(data);
     })();
-  }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projIds)]);
+  }, [JSON.stringify(proj), dispatch, setAppreciations, setProj, update, JSON.stringify(projIds)]);
 
   if (!projectId) {
     return null;
@@ -67,8 +83,43 @@ function ProjectGallery() {
   console.log(inList)
   let back = (e) => {
     e.stopPropagation();
+    console.log("HISTORY", history.goBack)
     history.goBack();
   };
+  let followButton
+  if (sessionUser !== null) {
+    if (projectOwner) {
+      if (followedList.includes(projectOwner.id)) {
+        followButton = (
+          <button onClick={(e) => { handleUnFollow(e); setUpdate(!update) }} className='userCard_unfollowBut' hidden={sessionUser.id === projectOwner.id}>
+          </button>
+        )
+      } else {
+        followButton = (
+          <button onClick={(e) => { handleFollow(e); setUpdate(!update) }} className='userCard_followBut' hidden={sessionUser.id === projectOwner.id}>
+            <i className="followIcon fa-solid fa-circle-plus" /> Follow
+          </button>
+        )
+      }
+    }
+  } else {
+    followButton = (
+      <button onClick={() => history.push('/login')} className='userCard_followBut'>
+        Follow
+      </button>
+
+    )
+  }
+
+  const handleFollow = (e) => {
+    e.preventDefault();
+    dispatch(followActions.followUser(Number(sessionUser.id), Number(projectOwner.id)))
+  }
+
+  const handleUnFollow = (e) => {
+    e.preventDefault();
+    dispatch(followActions.unfollowUser(Number(sessionUser.id), Number(projectOwner.id)))
+  }
 
   console.log("INLIST", inList)
 
@@ -191,33 +242,98 @@ function ProjectGallery() {
         }
         <div className='project-description-section'>
           <div className='project-comment-section'>
+        <br />
+        <div className="comments-container">
+          <div className='information-div'>
+            <div className='owner-info-div'>
+              <div className='owner-text-div'>
+                Owner:
+              </div>
+              <br />
+              {proj.User &&
+                <>
+                  <div className='avatar-username-div'>
+                    <img src={avatar} width="40" height="40" />
+                    <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
+                      {proj.User.first_name} {proj.User.last_name}
+                    </Link>
+                  </div>
+                  {
+                    followButton
+                  }
+                </>
+              }
+            </div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <div className='project-info-div'>
+              <div id='project-name'>
+                {proj.name}
+              </div>
+              <br />
+              <div id='project-description'>
+                {proj.description}
+              </div>
+              <div>
+                <br />
+                &nbsp;
+                <i id="thumbs-icon-comment-section" className="fa-solid fa-thumbs-up fa-1x"></i>
+                &nbsp;
+                {appreciations}
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                {/* {console.log(proj.comments[0].comment)} */}
+                <i id="thumbs-icon-comment-section" className="fa-solid fa-message fa-1x"></i>
+                &nbsp;
+                {Object.values(comments).length}
+                {/* {console.log(projComments)} */}
+              </div>
+            </div>
+          </div>
+          <div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+          </div>
+          <div className='comments-section'>
             <div className='create-comment'>
+              <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
               <CreateComment projectId={projectId} proj={proj} />
             </div>
-            <div className="comments-section">
-              {!!Object.values(comments) &&
-                Object.values(comments).map((comments) => {
-                  return (
-                    <div>
-                      <div className="each-comment" key={comments?.id}>
-                        <div>{comments.comment}</div>
-                      </div>
-                      <div>
-                        {sessionUser?.id === comments?.user?.id && (
-                          <>
-                            <div className='edit-comment'>
-                              <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
-                            </div>
-                            <div className='delete-comment'>
-                              <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
-                            </div>
-                          </>
-                        )}
+            <hr id='hr-comments' />
+            {!!Object.values(comments) &&
+              Object.values(comments).map((comments) => {
+                console.log('each comment', comments)
+                return (
+                  <div>
+                    <div className="each-comment" key={comments?.id}>
+                      <div style={{ listStyle: "none" }}>
+                        <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+                        <div>
+                          <div style={{ paddingBottom: "10px" }}>{comments.User.first_name} {comments.User.last_name}</div>
+                          <div>{comments.comment}</div>
+                        </div>
                       </div>
                     </div>
-                  );
-                })}
-            </div>
+                    <div style={{ marginBottom: "30px" }}>
+                      {sessionUser?.id === comments?.user?.id && (
+                        <>
+                          <div className='edit-comment'>
+                            <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+                          </div>
+                          <div className='delete-comment'>
+                            <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                          </div>
+                        </>
+                      )}
+                      <br />
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
 
@@ -255,6 +371,8 @@ function ProjectGallery() {
             </form> */}
       {/* </div> */}
       </div>
+    </div>
+    </div>
     </div>
   );
 }

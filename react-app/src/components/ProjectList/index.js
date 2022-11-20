@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useHistory } from "react-router-dom"
 import ProjectCard from './ProjectCard'
 import './ProjectList.css'
 
@@ -7,7 +7,7 @@ const ProjectList = () => {
   const location = useLocation()
 
   const [projects, setProjects] = useState([])
-
+  const history = useHistory()
   useEffect(() => {
     (async () => {
       await fetch('/api/projects/').then(response => {

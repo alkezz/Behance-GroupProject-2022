@@ -79,6 +79,7 @@ export const getAllProjects = () => async (dispatch) => {
     }
     return {};
 };
+
 //get current project
 export const getProjectId = (id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}`)
@@ -179,7 +180,7 @@ export const deleteProjectId = (id) => async (dispatch) => {
         dispatch(deleteProject(id))
         return deletedProject
     }
-    
+
     return response
 }
 
@@ -221,7 +222,7 @@ const projectsReducer = (state = initialState, action) => {
         case DELETE_PROJECT: {
             const newState = { ...state };
             delete newState[action.projectId];
-            return { ...newState};
+            return { ...newState };
         }
         default:
             return state;

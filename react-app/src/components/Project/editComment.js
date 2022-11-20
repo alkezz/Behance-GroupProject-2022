@@ -25,7 +25,7 @@ function EditCommentForm({ projectId, onClick, commentId }) {
       setErrorsValidaitons(['Comment is required'])
       return;
     }
-    if(editedComment && editedComment.trim().length === 0) {
+    if (editedComment && editedComment.trim().length === 0) {
       setErrorsValidaitons(["Comment is required!!"])
       return;
     }
