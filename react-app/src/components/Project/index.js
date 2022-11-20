@@ -101,7 +101,7 @@ function ProjectGallery() {
     history.goBack();
   };
   let followButton
-  if (sessionUser.user !== null) {
+  if (sessionUser !== null) {
     if (projectOwner) {
       if (followedList.includes(projectOwner.id)) {
         followButton = (
