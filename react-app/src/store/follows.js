@@ -31,7 +31,7 @@ export const userFollows = (userId) => async (dispatch) => {
 };
 
 export const followUser = (curr, userId) => async (dispatch) => {
-    const response = await fetch(`api/users/${curr}/follow_/${userId}`, {
+    const response = await fetch(`/api/users/${curr}/follow_/${userId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -44,10 +44,13 @@ export const followUser = (curr, userId) => async (dispatch) => {
 };
 
 export const unfollowUser = (curr, userId) => async (dispatch) => {
-    const response = await fetch(`api/users/${curr}/follow_/${userId}`, {
+    console.log("IN UNFOLLOW THUNK")
+    const response = await fetch(`/api/users/${curr}/follow_/${userId}`, {
         method: 'DELETE'
     })
+    console.log("UNFOLLOW THUNK RESPONSE", response)
     const data = await response.json()
+    console.log("UNFOLLOW THUNK data", data)
     dispatch(remFollows(userId))
     return data;
 };

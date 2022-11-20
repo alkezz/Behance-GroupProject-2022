@@ -3,6 +3,7 @@ import { useParams, Redirect, NavLink, Link, useHistory } from 'react-router-dom
 import { useDispatch, useSelector } from 'react-redux'
 import * as commentActions from '../../store/comments.js'
 import * as appreciateActions from '../../store/appreciations.js'
+import * as followActions from '../../store/follows'
 // import * as appreciateActions from '../../store/appreciations'
 import avatar from '../../assets/behance-profile-image.png'
 import "./Project.css";
@@ -15,10 +16,12 @@ function ProjectGallery() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const appreciate = useSelector((state) => state)
+  const followedList = useSelector((state) => state.follows.current_followed_user_ids)
   // const projectComments = useSelector((state) => state.comments);
   const { projectId } = useParams();
   const [proj, setProj] = useState({});
   const [projImg, setProjImg] = useState([]);
+  const [followerInfo, setFollowerInfo] = useState({})
   // const [projComments, setProjComments] = useState({ comments: [] });
   const [appreciations, setAppreciations] = useState(0)
   const [appreciateCount, setAppreciateCount] = useState("")
@@ -26,8 +29,10 @@ function ProjectGallery() {
   const [projIds, setProjIds] = useState([])
   const [inList, setInList] = useState(false)
   const comments = useSelector((state) => state.comments);
+  const [projectOwner, setProjectOwner] = useState({ User: null })
+  // console.log(followerInfo)
   // const [comment, setComment] = useState('')
-  // console.log(sessionUser, "user")
+  console.log(sessionUser, "user")
   // console.log("PROJECTID", projectId)
   // console.log("APPRECIATION LIST: ", appreciations)
   // console.log("SELECTOR", appreciate)
@@ -39,10 +44,12 @@ function ProjectGallery() {
     if (!projectId) {
       return;
     }
+    if (!proj) {
+      return
+    }
     (async () => {
       dispatch(commentActions.getProjectComments(projectId))
       const likes = await dispatch(appreciateActions.getAppreciations(projectId))
-      console.log(likes)
       setAppreciations(likes)
     })();
     (async () => {
@@ -58,13 +65,14 @@ function ProjectGallery() {
       const response = await fetch(`/api/projects/${projectId}`);
       const data = await response.json();
       setProj(data);
+      setProjectOwner(data.User)
     })();
     (async () => {
       const response = await fetch(`/api/projects/${projectId}/images`);
       const data = await response.json();
       setProjImg(data);
     })();
-  }, [JSON.stringify(proj), dispatch, setAppreciations, update, JSON.stringify(projIds)]);
+  }, [JSON.stringify(proj), dispatch, setAppreciations, setProj, update, JSON.stringify(projIds)]);
 
   // useEffect(() => {
   //   (async () => {
@@ -73,6 +81,14 @@ function ProjectGallery() {
   //     setProjComments(data);
   //   })();
   // }, [dispatch, comments]);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const response3 = await fetch(`/api/users/${proj.User.id}/follows`);
+  //     const data3 = await response3.json();
+  //     setFollowerInfo(data3)
+  //   })();
+  // }, [])
 
   if (!projectId) {
     return null;
@@ -84,6 +100,40 @@ function ProjectGallery() {
     console.log("HISTORY", history.goBack)
     history.goBack();
   };
+  let followButton
+  if (sessionUser.user !== null) {
+    if (projectOwner) {
+      if (followedList.includes(projectOwner.id)) {
+        followButton = (
+          <button onClick={(e) => { handleUnFollow(e); setUpdate(!update) }} className='userCard_unfollowBut' hidden={sessionUser.id === projectOwner.id}>
+          </button>
+        )
+      } else {
+        followButton = (
+          <button onClick={(e) => { handleFollow(e); setUpdate(!update) }} className='userCard_followBut' hidden={sessionUser.id === projectOwner.id}>
+            <i className="followIcon fa-solid fa-circle-plus" /> Follow
+          </button>
+        )
+      }
+    }
+  } else {
+    followButton = (
+      <button onClick={() => history.push('/login')} className='userCard_followBut'>
+        Follow
+      </button>
+
+    )
+  }
+
+  const handleFollow = (e) => {
+    e.preventDefault();
+    dispatch(followActions.followUser(Number(sessionUser.id), Number(projectOwner.id)))
+  }
+
+  const handleUnFollow = (e) => {
+    e.preventDefault();
+    dispatch(followActions.unfollowUser(Number(sessionUser.id), Number(projectOwner.id)))
+  }
 
   // const handleSubmit = async (e) => {
   //   // console.log("hit");
@@ -238,40 +288,45 @@ function ProjectGallery() {
               </div>
               <br />
               {proj.User &&
-                <div className='avatar-username-div'>
-                  <img src={avatar} width="40" height="40" />
-                  <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
-                    {proj.User.first_name} {proj.User.last_name}
-                  </Link>
-                </div>
+                <>
+                  <div className='avatar-username-div'>
+                    <img src={avatar} width="40" height="40" />
+                    <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
+                      {proj.User.first_name} {proj.User.last_name}
+                    </Link>
+                  </div>
+                  {
+                    followButton
+                  }
+                </>
               }
             </div>
             &nbsp;
             &nbsp;
             &nbsp;
             <div className='project-info-div'>
-              <div>
+              <div id='project-name'>
                 {proj.name}
               </div>
               <br />
-              <div>
+              <div id='project-description'>
                 {proj.description}
-                <div>
-                  <br />
-                  &nbsp;
-                  <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
-                  &nbsp;
-                  {appreciations}
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  {/* {console.log(proj.comments[0].comment)} */}
-                  <i className="fa-solid fa-message fa-1x"></i>
-                  &nbsp;
-                  {Object.values(comments).length}
-                  {/* {console.log(projComments)} */}
-                </div>
+              </div>
+              <div>
+                <br />
+                &nbsp;
+                <i id="thumbs-icon-comment-section" className="fa-solid fa-thumbs-up fa-1x"></i>
+                &nbsp;
+                {appreciations}
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                {/* {console.log(proj.comments[0].comment)} */}
+                <i id="thumbs-icon-comment-section" className="fa-solid fa-message fa-1x"></i>
+                &nbsp;
+                {Object.values(comments).length}
+                {/* {console.log(projComments)} */}
               </div>
             </div>
           </div>

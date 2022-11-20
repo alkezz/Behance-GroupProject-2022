@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { deleteProjectComment } from '../../store/comments'
+import "./Project.css"
 
 function DeleteComment({ projectId, commentId, proj }) {
     let dispatch = useDispatch();
@@ -22,7 +23,7 @@ function DeleteComment({ projectId, commentId, proj }) {
 
             <div className='delete-comment'>
                 <div className='delete-click'>
-                    <button className='deleteComment' onClick={handleDeleteClick}>Delete</button>
+                    <button style={{ borderRadius: "5em", color: "white", backgroundColor: "#0057ff" }} className='deleteComment' onClick={handleDeleteClick}>Delete</button>
                 </div>
             </div>
 
