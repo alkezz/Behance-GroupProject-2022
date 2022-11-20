@@ -169,7 +169,7 @@ function ProjectGallery() {
                 <i className="fa-solid fa-thumbs-up fa-1x"></i>
               </button>
               <div className='projUserSideBarText'>
-                Apprreciate
+                Appreciate
               </div>
 
 
