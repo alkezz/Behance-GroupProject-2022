@@ -14,7 +14,7 @@ ReactDOM.render(
     <Provider store={store}>
       <ModalProvider>
         <BrowserRouter>
-        <App />
+          <App />
         </BrowserRouter>
       </ModalProvider>
     </Provider>

@@ -101,7 +101,7 @@ def delete_appreciations(id, id2):
     return newObj
 
 
-@project_routes.route("/<int:id>/")
+@project_routes.route("/<int:id>")
 def project_by_id(id):
     """
     Query for project by its id returns it as a json dictionary
@@ -139,7 +139,7 @@ def delete_project(id):
             "message": f"No such project with id of {id}"
         }
 
-@project_routes.route("/<int:id>/", methods=["PUT"])
+@project_routes.route("/<int:id>", methods=["PUT"])
 @login_required
 def edit_project(id):
     project = Project.query.get(id)

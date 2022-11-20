@@ -42,6 +42,7 @@ function ProjectGallery() {
     (async () => {
       dispatch(commentActions.getProjectComments(projectId))
       const likes = await dispatch(appreciateActions.getAppreciations(projectId))
+      console.log(likes)
       setAppreciations(likes)
     })();
     (async () => {
@@ -228,37 +229,6 @@ function ProjectGallery() {
         </div>
         {/* <strong>imgs</strong> {JSON.stringify(projImg)}
          */}
-<<<<<<< HEAD
-        <div className='project-description-section'>
-          <div className='project-comment-section'>
-            <div className='create-comment'>
-              <CreateComment projectId={projectId} proj={proj} />
-            </div>
-            <div className="comments-section">
-              {!!Object.values(comments) &&
-                Object.values(comments).map((comments) => {
-                  return (
-                    <div>
-                      <div className="each-comment" key={comments?.id}>
-                        <div>{comments.comment}</div>
-                      </div>
-                      <div>
-                        {sessionUser?.id === comments?.user?.id && (
-                          <>
-                            <div className='edit-comment'>
-                              <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
-                            </div>
-                            <div className='delete-comment'>
-                              <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-=======
         <br />
         <div className="comments-container">
           <div className='information-div'>
@@ -346,7 +316,6 @@ function ProjectGallery() {
                   </div>
                 );
               })}
->>>>>>> project-form-react
           </div>
         </div>
 
