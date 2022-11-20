@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useHistory } from "react-router-dom"
 import ProjectCard from './ProjectCard'
+import * as followActions from '../../store/follows'
 import './ProjectList.css'
 
 const ProjectList = () => {
+  
+  const dispatch = useDispatch()
+  const sessionUser = useSelector(state => state.session.user)
   const location = useLocation()
 
   const [projects, setProjects] = useState([])
@@ -18,7 +23,11 @@ const ProjectList = () => {
     })();
   }, [])
 
-
+  if (sessionUser) {
+    console.log("Yo I'm a user")
+    dispatch(followActions.userFollows(sessionUser.id))
+  }
+  
   const allProjects = projects
   if (!allProjects) return null;
 
