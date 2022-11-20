@@ -249,10 +249,10 @@ def add_project_image_index():
 #                                 }
 #                             }}
 
-@project_routes.route("/upload", methods=["POST", "PUT"])
+@project_routes.route("/upload", methods=["POST"])
 def upload():
     image_list = []
-    if request.method == 'POST' or request.method == 'PUT':
+    if request.method == 'POST':
         for i in request.files.getlist('file'):
                 filename = secure_filename(i.filename)
                 s3.upload_fileobj(

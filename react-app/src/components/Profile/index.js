@@ -149,9 +149,7 @@ function ProfilePage() {
   }, [username, dispatch, update]);
 
   if (!prof.username) {
-    return <>
-      {'test'}
-    </>;
+    return null
   }
 
   return (
