@@ -61,7 +61,6 @@ function ProjectGallery() {
         const data2 = await res.json()
         data2.project_ids.forEach((id) => lst.push(id))
         lst.forEach((id) => id === Number(projectId) ? setInList(true) : null)
-        await dispatch(followActions.userFollows(sessionUser.id))
       }
     })();
     (async () => {
