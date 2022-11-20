@@ -76,7 +76,7 @@ function App() {
         {/* <Route path='/gallery/:projectId'>
           <Project />
         </Route> */}
-        <Route exact={true} path='/:username'>
+        <Route path='/:username'>
           <Profile />
         </Route>
         <Route path="*">
