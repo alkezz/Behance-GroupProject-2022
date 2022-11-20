@@ -230,5 +230,23 @@
     margin-left: 5%; */
     background-color: white;
     height: 175px;
-    width: 75%;
+    width: 305px;
+    padding-top: 30px;
+    padding-left: 10%;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+#project-name{
+    font-weight: bold;
+
+}
+
+#project-description{
+    color: #979797;
+}
+
+#thumbs-icon-comment-section{
+    color: #979797;
 }

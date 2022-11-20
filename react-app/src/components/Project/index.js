@@ -250,28 +250,28 @@ function ProjectGallery() {
             &nbsp;
             &nbsp;
             <div className='project-info-div'>
-              <div>
+              <div id='project-name'>
                 {proj.name}
               </div>
               <br />
-              <div>
+              <div id='project-description'>
                 {proj.description}
-                <div>
-                  <br />
-                  &nbsp;
-                  <i id="thumbs-icon" className="fa-solid fa-thumbs-up fa-1x"></i>
-                  &nbsp;
-                  {appreciations}
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  {/* {console.log(proj.comments[0].comment)} */}
-                  <i className="fa-solid fa-message fa-1x"></i>
-                  &nbsp;
-                  {Object.values(comments).length}
-                  {/* {console.log(projComments)} */}
-                </div>
+              </div>
+              <div>
+                <br />
+                &nbsp;
+                <i id="thumbs-icon-comment-section" className="fa-solid fa-thumbs-up fa-1x"></i>
+                &nbsp;
+                {appreciations}
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                {/* {console.log(proj.comments[0].comment)} */}
+                <i id="thumbs-icon-comment-section" className="fa-solid fa-message fa-1x"></i>
+                &nbsp;
+                {Object.values(comments).length}
+                {/* {console.log(projComments)} */}
               </div>
             </div>
           </div>
