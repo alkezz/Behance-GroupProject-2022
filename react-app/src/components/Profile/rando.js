@@ -19,16 +19,21 @@ function rando() {
         "4": {
             name: "Philip Troung",
             github: "https://github.com/Ptruongg",
-            linked: null
+            linked: "https://www.linkedin.com/in/truongphilip408/"
         },
     }
 
     function shuffle(array) {
+<<<<<<< HEAD
         let currentIndex = array.length, randomIndex;
+=======
+        let currentIndex = array.length,  randomIndex;
+>>>>>>> f91e88936e5f7ae57cd95682807a2f398b82abe5
 
         // While there remain elements to shuffle.
         while (currentIndex != 0) {
 
+<<<<<<< HEAD
             // Pick a remaining element.
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
@@ -36,6 +41,15 @@ function rando() {
             // And swap it with the current element.
             [array[currentIndex], array[randomIndex]] = [
                 array[randomIndex], array[currentIndex]];
+=======
+          // Pick a remaining element.
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+>>>>>>> f91e88936e5f7ae57cd95682807a2f398b82abe5
         }
 
         return array;

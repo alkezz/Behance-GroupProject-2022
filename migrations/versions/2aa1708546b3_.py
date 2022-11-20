@@ -1,20 +1,16 @@
 """empty message
 
-Revision ID: 600589417b5b
+Revision ID: 2aa1708546b3
 Revises: 
-Create Date: 2022-11-18 17:48:45.683414
+Create Date: 2022-11-18 12:35:24.081758
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
-
 
 # revision identifiers, used by Alembic.
-revision = '600589417b5b'
+revision = '2aa1708546b3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -46,11 +42,7 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-<<<<<<< HEAD:migrations/versions/600589417b5b_.py
-    sa.Column('images', sa.String(length=5000), nullable=True),
-=======
-    sa.Column('images', sa.Text(), nullable=True),
->>>>>>> f91e88936e5f7ae57cd95682807a2f398b82abe5:migrations/versions/7cd881015469_.py
+    sa.Column('images', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -69,8 +61,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

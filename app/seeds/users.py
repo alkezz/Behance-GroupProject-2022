@@ -122,22 +122,22 @@ def seed_users():
         name="Falls Fall", description="Fall weather is up. Just vibe.", user_id=9, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.adobe.com/content/dam/cc/us/en/creative-cloud/photography/discover/landscape-photography/CODERED_B1_landscape_hero-img_900x420.jpg.img.jpg]"
     )
     project_10 = Project(
-        name="Utopia", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis], images="[https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dG9reW98ZW58MHx8MHx8&w=1000&q=80]"
+        name="Tokyo", description="chill and relax", user_id=10, project_appreciations=[marnie, bobbie, demo, francis], images="[https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dG9reW98ZW58MHx8MHx8&w=1000&q=80]"
     )
     project_11 = Project(
-        name="Tokyo", description="Teriyaki Boyz", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://thesmartcanine.com/wp-content/uploads/2021/02/things-to-know-before-getting-corgi.jpg]"
+        name="Corgi", description="doggos!!!", user_id=11, project_appreciations=[marnie, bobbie, demo, francis], images="[https://thesmartcanine.com/wp-content/uploads/2021/02/things-to-know-before-getting-corgi.jpg]"
     )
     project_12 = Project(
-        name="Corgis", description="doggos!!!", user_id=12, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.dinneratthezoo.com/wp-content/uploads/2018/12/korean-fried-chicken-5.jpg]"
+        name="Korean Fried Chicken", description="I love fried chicken ", user_id=12, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.dinneratthezoo.com/wp-content/uploads/2018/12/korean-fried-chicken-5.jpg]"
     )
     project_13 = Project(
-        name="Food Heaven", description="I love fried chicken", user_id=13, project_appreciations=[marnie, bobbie, demo, francis], images="[https://i.pinimg.com/originals/93/dd/6c/93dd6c51a3cf9e60106ede7fed50c035.jpg]"
+        name="Demon Slayer", description="BEST ANIME EVER", user_id=13, project_appreciations=[marnie, bobbie, demo, francis], images="[https://i.pinimg.com/originals/93/dd/6c/93dd6c51a3cf9e60106ede7fed50c035.jpg]"
     )
     project_14 = Project(
-        name="Demon Slayer", description="BEST ANIME EVER", user_id=14, project_appreciations=[marnie, bobbie, demo, francis], images="[https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx5ifKifvNWbg2fwCBV3QtfyHLztF8mPQMfg&usqp=CAU]"
+        name="Scifi", description="I just love scifi here some of my personal artwork", user_id=14, project_appreciations=[marnie, bobbie, demo, francis], images="[https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx5ifKifvNWbg2fwCBV3QtfyHLztF8mPQMfg&usqp=CAU]"
     )
     project_15 = Project(
-        name="Scifi", description="beep beep", user_id=15, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
+        name="Backroads", description="vroom", user_id=15, project_appreciations=[marnie, bobbie, demo, francis], images="[https://www.thedailymeal.com/img/gallery/why-fall-is-the-only-worthwhile-season/iStock-841380450.jpg]"
     )
 
 

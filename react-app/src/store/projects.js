@@ -79,6 +79,7 @@ export const getAllProjects = () => async (dispatch) => {
     }
     return {};
 };
+
 //get current project
 export const getProjectId = (id) => async (dispatch) => {
     const response = await fetch(`/api/projects/${id}`)
@@ -155,7 +156,11 @@ export const addProjectImages = (project, images) => async (dispatch) => {
 export const editProject = (project, id) => async (dispatch) => {
     console.log("PROJECT IN THUNK", project)
     console.log("PROJ ID in thunk", id)
+<<<<<<< HEAD
     const response = await fetch(`/api/projects/${id}/`, {
+=======
+    const response = await fetch(`/api/projects/${id}`, {
+>>>>>>> f91e88936e5f7ae57cd95682807a2f398b82abe5
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
