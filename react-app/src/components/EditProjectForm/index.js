@@ -23,7 +23,7 @@ function EditProject() {
         (async () => {
             const data = await fetch(`/api/projects/${projectId}`)
             const res = await data.json()
-            console.log(res)
+            // console.log(res)
             setName(`${res.name}`)
             setDescription(`${res.description}`)
         })();
@@ -40,7 +40,7 @@ function EditProject() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("PROJECTID", projectId)
+        // console.log("PROJECTID", projectId)
         setErrors([])
         setImages("")
         const errorList = []

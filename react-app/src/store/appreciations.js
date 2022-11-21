@@ -32,10 +32,10 @@ const clearAppreciationsAction = () => {
 
 export const getAppreciations = (projectId) => async (dispatch) => {
     const response = await fetch(`/api/projects/${projectId}`)
-    console.log(response)
+    // console.log(response)
     if (response.ok) {
         const data = await response.json()
-        console.log("RES OK2")
+        // console.log("RES OK2")
         dispatch(getAppreciationsAction(data))
         return data.appreciations
     }
@@ -52,7 +52,7 @@ export const addAppreciations = (postId, userId) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log("DATA IN ADDAPPRECITE THUNK", data)
+        // console.log("DATA IN ADDAPPRECITE THUNK", data)
         dispatch(addAppreciationsAction(data))
         return data
     }
@@ -65,7 +65,7 @@ export const removeAppreciations = (postId, userId) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log("DATA IN REMOVE APP THUNj", data)
+        // console.log("DATA IN REMOVE APP THUNj", data)
         dispatch(remAppreciationsAction(data))
         return data
     }

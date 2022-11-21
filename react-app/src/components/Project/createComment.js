@@ -33,7 +33,7 @@ const CreateComment = ({ projectId, proj }) => {
   // };
 
   const handleSubmit = async (e) => {
-    console.log('handle submit')
+    // console.log('handle submit')
     e.preventDefault();
     if (!commentMessage) {
       setErrors(['Comment is required'])

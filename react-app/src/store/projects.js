@@ -112,7 +112,7 @@ export const getAllProjectComments = (id) => async (dispatch) => {
 }
 //create a project
 export const createProject = (project) => async (dispatch) => {
-    console.log("THUNK PROJ", project)
+    // console.log("THUNK PROJ", project)
     const response = await fetch("/api/projects/", {
         method: "POST",
         headers: {
@@ -122,7 +122,7 @@ export const createProject = (project) => async (dispatch) => {
     });
     if (response.ok) {
         const newProject = await response.json();
-        console.log("NEWPROJECT", newProject)
+        // console.log("NEWPROJECT", newProject)
         await dispatch(addProject(newProject))
         return newProject
     } else {
@@ -154,14 +154,14 @@ export const addProjectImages = (project, images) => async (dispatch) => {
 
 //edit project
 export const editProject = (project, id) => async (dispatch) => {
-    console.log("PROJECT IN THUNK", project)
-    console.log("PROJ ID in thunk", id)
+    // console.log("PROJECT IN THUNK", project)
+    // console.log("PROJ ID in thunk", id)
     const response = await fetch(`/api/projects/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
     });
-    console.log("RESPONSE FROM BACKEND", response)
+    // console.log("RESPONSE FROM BACKEND", response)
     if (response.ok) {
         const editedProject = await response.json();
         return editedProject;

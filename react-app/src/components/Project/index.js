@@ -34,7 +34,7 @@ function ProjectGallery() {
   const [projectOwner, setProjectOwner] = useState({ User: null })
   // console.log(followerInfo)
   // const [comment, setComment] = useState('')
-  console.log(sessionUser, "user")
+  // console.log(sessionUser, "user")
   // console.log("PROJECTID", projectId)
   // console.log("APPRECIATION LIST: ", appreciations)
   // console.log("SELECTOR", appreciate)
@@ -80,10 +80,10 @@ function ProjectGallery() {
     return null;
   }
 
-  console.log(inList)
+  // console.log(inList)
   let back = (e) => {
     e.stopPropagation();
-    console.log("HISTORY", history.goBack)
+    // console.log("HISTORY", history.goBack)
     history.goBack();
   };
   let followButton
@@ -121,7 +121,7 @@ function ProjectGallery() {
     dispatch(followActions.unfollowUser(Number(sessionUser.id), Number(projectOwner.id)))
   }
 
-  console.log("INLIST", inList)
+  // console.log("INLIST", inList)
 
   const test = async (e) => {
     e.preventDefault();

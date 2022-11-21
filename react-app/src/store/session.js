@@ -29,7 +29,7 @@ export const authenticate = () => async (dispatch) => {
     }
 
     dispatch(setUser(data));
-    console.log(data, "thunk")
+    // console.log(data, "thunk")
     return data
   }
 }
