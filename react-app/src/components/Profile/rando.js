@@ -4,7 +4,7 @@ function rando() {
         "1": {
             name: "Christo Grabowski",
             github: "https://github.com/ChristoGrab",
-            linked: null
+            linked: "https://www.linkedin.com/in/christo-grabowski-894a82a6/"
         },
         "2": {
             name: "Ali Ezzeddine",
