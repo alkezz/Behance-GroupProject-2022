@@ -18,6 +18,9 @@ Welcome to Enhance, a web application for artists and afficionados to share and 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 
+## Live Link
+https://enhance-group-project-2022.onrender.com/
+
 ## Landing Page
 
 ![Enhance Landing Page](https://user-images.githubusercontent.com/108154848/202875993-7f6589ce-6d4f-4f12-935e-ab4ec66a05eb.png)
