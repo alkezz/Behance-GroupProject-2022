@@ -52,6 +52,7 @@ function EditCommentForm({ projectId, onClick, commentId }) {
       </div>
       <div className="comment-textarea">
         <textarea
+          style={{width: "100%"}}
           type="textarea"
           maxLength="281"
           className="comment-input"
