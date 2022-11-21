@@ -42,8 +42,9 @@ function ProfilePage() {
     console.log("Project id in profile page", id)
     history.push(`/project/${id}/edit`)
   }
-
-  const projList = prof.projects.map((project) => {
+let projList
+if (prof.username){
+  projList = prof.projects.map((project) => {
     console.log("PROJECT in PROFILE", project.id)
     return (
       <div className='projPreview' key={project.id}>
@@ -67,6 +68,7 @@ function ProfilePage() {
       </div>
     );
   });
+}
   let followButton
   if (sessionUser.user !== null && !!username) {
     if (followedList.includes(prof.id)) {
@@ -124,14 +126,18 @@ function ProfilePage() {
         let data
         if (response) {
           data = await response.json();
-          setProf(data);
-          // console.log("test", data)
-          const response2 = await fetch(`/api/users/${data.id}/appreciations`);
-          const response3 = await fetch(`/api/users/${data.id}/follows`);
-          const data2 = await response2.json();
-          const data3 = await response3.json();
-          setApprecInfo(data2);
-          setFollowerInfo(data3)
+          if(data.message){
+            history.push('/4error0page4')
+          } else {
+            setProf(data);
+            console.log("test", data)
+            const response2 = await fetch(`/api/users/${data.id}/appreciations`);
+            const response3 = await fetch(`/api/users/${data.id}/follows`);
+            const data2 = await response2.json();
+            const data3 = await response3.json();
+            setApprecInfo(data2);
+            setFollowerInfo(data3)
+          }
         }
       })();
     }
@@ -218,6 +224,9 @@ function ProfilePage() {
             <Route path={`/${prof.username}/*`}>
             <div style={{ fontSize: 200 }}>* 404: Page not found *</div>
             </Route>
+            {
+              
+            }
           </Switch>
           {/* {!!prof && projList.length}
           {!!prof && JSON.stringify(prof)}
