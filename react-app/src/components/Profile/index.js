@@ -39,13 +39,13 @@ function ProfilePage() {
 
   const toEditPage = (e, id) => {
     e.preventDefault();
-    console.log("Project id in profile page", id)
+    // console.log("Project id in profile page", id)
     history.push(`/project/${id}/edit`)
   }
 let projList
 if (prof.username){
   projList = prof.projects.map((project) => {
-    console.log("PROJECT in PROFILE", project.id)
+    // console.log("PROJECT in PROFILE", project.id)
     return (
       <div className='projPreview' key={project.id}>
         <Link className='projPreviewImgCont' style={{"borderRadius": "4px"}} to={{ pathname:`/gallery/${project.id}`, state: {prev: location.pathname} }}><img className='projPreviewImg' style={{"borderRadius": "4px"}} src={project.images[0]} /></Link>
@@ -130,7 +130,7 @@ if (prof.username){
             history.push('/4error0page4')
           } else {
             setProf(data);
-            console.log("test", data)
+            // console.log("test", data)
             const response2 = await fetch(`/api/users/${data.id}/appreciations`);
             const response3 = await fetch(`/api/users/${data.id}/follows`);
             const data2 = await response2.json();

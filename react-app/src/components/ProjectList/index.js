@@ -24,7 +24,7 @@ const ProjectList = () => {
   }, [])
 
   if (sessionUser) {
-    console.log("Yo I'm a user")
+    // console.log("Yo I'm a user")
     dispatch(followActions.userFollows(sessionUser.id))
   }
 

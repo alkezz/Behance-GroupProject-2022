@@ -51,13 +51,13 @@ export const followUser = (curr, userId) => async (dispatch) => {
 };
 
 export const unfollowUser = (curr, userId) => async (dispatch) => {
-    console.log("IN UNFOLLOW THUNK")
+    // console.log("IN UNFOLLOW THUNK")
     const response = await fetch(`/api/users/${curr}/follow_/${userId}`, {
         method: 'DELETE'
     })
-    console.log("UNFOLLOW THUNK RESPONSE", response)
+    // console.log("UNFOLLOW THUNK RESPONSE", response)
     const data = await response.json()
-    console.log("UNFOLLOW THUNK data", data)
+    // console.log("UNFOLLOW THUNK data", data)
     dispatch(remFollows(userId))
     return data;
 };
