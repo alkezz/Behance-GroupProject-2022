@@ -224,9 +224,6 @@ if (prof.username){
             <Route path={`/${prof.username}/*`}>
             <div style={{ fontSize: 200 }}>* 404: Page not found *</div>
             </Route>
-            {
-              
-            }
           </Switch>
           {/* {!!prof && projList.length}
           {!!prof && JSON.stringify(prof)}
