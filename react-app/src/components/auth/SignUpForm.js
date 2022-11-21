@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import followActions from "../../store/follows"
+import logo from '../../assets/enlogo4.png'
 import "./LoginForm.css"
 
 const SignUpForm = () => {
@@ -62,6 +63,12 @@ const SignUpForm = () => {
 
   return (
     <div className="login-page">
+      <div className='enLogo'>
+        <img className='enLogoimg' src={logo} />
+        <div className='enLogoText'>
+          Enhance
+        </div>
+      </div>
       <form className="login-form" onSubmit={onSignUp}>
         <h2>Sign up</h2>
         <div>
