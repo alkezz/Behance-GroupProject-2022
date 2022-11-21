@@ -46,7 +46,7 @@ function MiniGallery({ user, setUpdate, update, projectOwner, handleFollow, hand
         }
     },[])
 
-    console.log(user, projectOwner,'MINIGALLERY')
+    // console.log(user, projectOwner,'MINIGALLERY')
     let miniFollowBut
     if (sessionUser !== null) {
         if (projectOwner) {

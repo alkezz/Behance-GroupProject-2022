@@ -76,6 +76,9 @@ function App() {
         {/* <Route path='/gallery/:projectId'>
           <Project />
         </Route> */}
+        <Route exact={true} path="/4error0page4">
+          <div style={{ fontSize: 200, marginTop: "150px",textAlign:"center" }}>* 404: Page not found *</div>
+        </Route>
         <Route path='/:username'>
           <Profile />
         </Route>
