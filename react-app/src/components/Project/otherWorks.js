@@ -85,10 +85,10 @@ function MiniGallery({ user, setUpdate, update, projectOwner, handleFollow, hand
                             }`
                     }>
                         <img className='projUserIcon'
-                            src={avatar}
+                            src={user.user_image ? user.user_image : avatar}
+                            onError={e => e.target.src = avatar}
                             alt="profile-avatar"
-                            height="50"
-                            width="50"/>
+                            style={{width:"50px", height:"50px", borderRadius:"50% "}}/>
                     </Link>
                     <div className='userOtherTextCont'>
                         <div className='userOtherText'>

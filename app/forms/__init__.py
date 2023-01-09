@@ -3,3 +3,4 @@ from .signup_form import SignUpForm
 from .comment_form import CommentForm
 from .project_form import ProjectForm
 from .project_image_form import PortfolioImageForm
+from .user_image_form import UserImageForm

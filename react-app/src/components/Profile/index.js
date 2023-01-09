@@ -9,7 +9,7 @@ import "./Profile.css"
 import MiniNav from '../MiniNav';
 import Rando from './rando';
 import ProjectList from '../ProjectList';
-// import * as profileActions from '../../store/songs'
+import * as userActions from '../../store/session'
 
 function ProfilePage() {
   const dispatch = useDispatch()
@@ -41,6 +41,35 @@ function ProfilePage() {
     e.preventDefault();
     // console.log("Project id in profile page", id)
     history.push(`/project/${id}/edit`)
+  }
+
+  const handleEditProfImage = async (e) => {
+    e.preventDefault();
+    let image = e.target.files
+    let formData
+    if (!!image.length) {
+        formData = new FormData();
+        
+        for (const img of image) {
+            let imgFile = image[0]
+            let fileSuff = imgFile.name.split('.')[1]
+            formData.append("file", img, `${sessionUser.user.username}profileimg.${fileSuff}`);
+        }
+        const profPicture = await fetch('/api/projects/upload', {
+          method: "POST",
+          body: formData
+      }).then((res) => res.json())
+      console.log(profPicture)
+      const new_image = {
+          user_image: profPicture["images"].replace(/[\[\]']+/g,'')
+      }
+      console.log(new_image)
+      dispatch(userActions.update(new_image, sessionUser.user.id)).then((data) => {
+          console.log(data)
+      })
+
+    }
+    setUpdate(!update)
   }
 let projList
 if (prof.username){
@@ -91,6 +120,15 @@ if (prof.username){
 
     )
   }
+  if(sessionUser.user && sessionUser.user.username === username) {
+    followButton = (
+    <label className='userCard_followBut' style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+
+          <div style={{display:"flex", justifyContent:"center", alignItems:"center", margin:"auto"}}>Edit your profile image</div>
+      <input id='profImage' type='file' name='file' style={{display:"none"}} accept='image/*' onChange={(e) => handleEditProfImage(e)} />
+    </label>
+    )
+  }
 
   const followcount = () => {
     let count = 0
@@ -112,6 +150,10 @@ if (prof.username){
     setUpdate(true)
     e.preventDefault();
     dispatch(followActions.unfollowUser(sessionUser.user.id, prof.id))
+  }
+
+  const handleUserIcon = () => {
+    
   }
 
   useEffect(() => {
@@ -158,13 +200,34 @@ if (prof.username){
     return null
   }
 
+  let userIcon
+  if(sessionUser.user && sessionUser.user.username === username) {
+    userIcon = (
+
+      <img className='userIcon' src={sessionUser.user.user_image} onError={e => e.target.src = avatar}/>
+
+)
+  }
+    else if(prof.user_image) {
+        userIcon = (
+
+                <img className='userIcon' src={prof.user_image} onError={e => e.target.src = avatar}/>
+
+        )
+    }
+    else{
+        userIcon = (
+          <img className='userIcon' src={avatar} alt="profile-avatar" height="110" width="110" />
+        )
+    }
+
   return (
     <div className='profilePage'>
       <div className='userBanner'>
       </div>
       <div className='profileContent'>
         <div className='userCard'>
-          <img className='userIcon' src={avatar} alt="profile-avatar" height="110" width="110" />
+          {userIcon}
           <div className='userCard_name'>
             {prof.first_name} {prof.last_name}
           </div>

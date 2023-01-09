@@ -16,7 +16,7 @@ const ProjectCard = ({ project }) => {
       <div className='project-list-name'>{project.name}</div>
       <div className='project-list-info'>
         <Link to={{pathname:`/${project.User.username}`, state: {prev: location.pathname}}} className='project-list-user'>
-          <img className='project-list-user-avatar' src={avatar} alt="user avatar" width="20" height="20" />
+          <img className='project-list-user-avatar' src={project.User.user_image ? project.User.user_image : avatar} onError={e => e.target.src = avatar} alt="user avatar" style={{borderRadius:"50%", width:"20px", height:"20px"}}/>
           <span>{project.User.first_name} {project.User.last_name}</span>
         </Link>
         <div className="project-list-likes"><i className="fa-solid fa-thumbs-up"></i> {project.appreciations}</div>

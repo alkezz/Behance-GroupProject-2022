@@ -405,6 +405,7 @@
     color: black;
     font-weight: bold;
     padding: 5px;
+    margin: 5px
 }
 
 .reply-btn:hover{
@@ -488,4 +489,14 @@
     color: white;
     height: 20px;
     width: 75px;
+}
+
+.comment-options {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0px;
+}
+
+.comment-edit-box {
+    height: 140px;
 }
