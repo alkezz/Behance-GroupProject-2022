@@ -261,7 +261,7 @@ function ProjectGallery() {
                     {proj.User &&
                       <>
                         <div className='avatar-username-div'>
-                          <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} style={{width:"40px", height:"40px", borderRadius:"50%"}} />
+                          {!!sessionUser && <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} style={{width:"40px", height:"40px", borderRadius:"50%"}} />}
                           <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
                             {proj.User.first_name} {proj.User.last_name}
                           </Link>
@@ -307,10 +307,10 @@ function ProjectGallery() {
                   &nbsp;
                 </div>
                 <div className='comments-section'>
-                  <div className='create-comment'>
+                  {!!sessionUser && <div className='create-comment'>
                     <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} width="40" height="40" style={{ float: "left", marginRight: "20px", borderRadius:"50%" }} />
                     <CreateComment projectId={projectId} proj={proj} />
-                  </div>
+                  </div>}
                   {!sessionUser &&
                     <div className='button-login-comment'>
                       <button className='login-comment' onClick={() => history.push("/login")}>
