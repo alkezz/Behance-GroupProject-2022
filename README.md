@@ -69,5 +69,4 @@ Christo Grabowski: [Github](https://github.com/ChristoGrab) [LinkedIn](https://w
 <br>
 Philip Truong: [Github](https://github.com/Ptruongg) [LinkedIn](https://www.linkedin.com/in/truongphilip408/)
 <br>
-Ali Ezzeddine: [Github](https://github.com/alkezz) [LinkedIn](https://www.linkedin.com/in/ali-ezzeddine-17b2b6248/)
-
+Ali Ezzeddine: [Github](https://github.com/alkezz) [LinkedIn](http://linkedin.com/in/ali-k-ezzeddine)

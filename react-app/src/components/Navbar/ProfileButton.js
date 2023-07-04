@@ -27,11 +27,11 @@ function ProfileButton({ user }) {
 
   return (
     <div className="profile-button-container">
-      <img id="profile-button" src={avatar} onClick={openMenu} />
+      <img id="profile-button" src={user.user_image ? user.user_image : avatar} onError={e => e.target.src = avatar} onClick={openMenu} />
       {showMenu && (
         <div className="profile-dropdown">
           <div className="dropdown-user-info">
-          <img src={avatar} alt="profile-avatar" height="70" width="70"></img>
+          <img src={user.user_image ? user.user_image : avatar} alt="profile-avatar" height="70" width="70" style={{borderRadius:"50%"}}></img>
           <div className="dropdown-profile-name">{user.first_name} {user.last_name}</div>
           <div className='dropdown-profile-email'>{user.email}</div>
           </div>

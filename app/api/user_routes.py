@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.models import User, Project, db
 from app.models.user import follows
 from app.models.project import appreciations
+from app.forms import UserImageForm
 
 user_routes = Blueprint('users', __name__)
 
@@ -132,6 +133,28 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@user_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_user_info(id):
+    """
+    Query for existing user by id, then edit by logged in User, returning newest user information entry as a dictionary
+    """
+    user = User.query.get(id)
+    if user:
+        if user.id == current_user.id:
+            form = UserImageForm(obj=user)
+            form['csrf_token'].data = request.cookies['csrf_token']
+            if form.validate_on_submit():
+                form.populate_obj(user)
+                db.session.commit()
+                return user.to_dict()
+            else:
+                return 401
+        else:
+            return {"message": "Current user is not the owner of this profile"}
+    else:
+        return {"message": f"The User does not exist "}
 
 @user_routes.route('/username/<string:un>')
 def username(un):

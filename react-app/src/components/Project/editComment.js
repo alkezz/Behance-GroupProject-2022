@@ -44,29 +44,29 @@ function EditCommentForm({ projectId, onClick, commentId }) {
 
   }
   return (
-    <form className="edit-comment-form" onSubmit={handleSubmit}>
+    <form className="edit-comment-form" onSubmit={handleSubmit} style={{display:"flex",width: "300px", resize: "none"}}>
       <div className="editedComment-errors">
         {errors.map((error, index) => (
           <div key={index}>{error}</div>
         ))}
       </div>
-      <div className="comment-textarea">
+
         <textarea
-          style={{width: "100%"}}
+          style={{resize: "none"}}
           type="textarea"
           maxLength="281"
-          className="comment-input"
+          className="comment-edit-box"
           value={editedComment}
           onChange={(e) => setEditedComment(e.target.value)}
           placeholder="What do you think about this project?"
           required
         />
+
         <div className="reply-btn-div">
           <button className="reply-btn" type="submit" onClick={handleSubmit}>
             Edit Comment
           </button>
         </div>
-      </div>
     </form>
   );
 }
