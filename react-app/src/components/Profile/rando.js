@@ -9,7 +9,7 @@ function rando() {
         "2": {
             name: "Ali Ezzeddine",
             github: "https://github.com/alkezz",
-            linked: "https://www.linkedin.com/in/ali-ezzeddine-17b2b6248/"
+            linked: "http://linkedin.com/in/ali-k-ezzeddine"
         },
         "3": {
             name: "Jon Park",
