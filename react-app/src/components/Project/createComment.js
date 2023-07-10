@@ -31,6 +31,7 @@ const CreateComment = ({ projectId, proj }) => {
   //         errors.push("Please enter in a comment");
   //     return errors;
   // };
+  // console.log(history.location, history.length, "HISTORY STUFF")
 
   const handleSubmit = async (e) => {
     // console.log('handle submit')
@@ -53,7 +54,7 @@ const CreateComment = ({ projectId, proj }) => {
     if (newComment) {
       dispatch(commentActions.getProjectComments(projectId))
       setCommentMessage("")
-      history.push(`/gallery/${projectId}`)
+      // history.push(`/gallery/${projectId}`)
     }
 
     // if (newComment) {
@@ -110,6 +111,7 @@ const CreateComment = ({ projectId, proj }) => {
       </div>
       <div className="comment-textarea">
         <textarea
+          style={{width: "100%"}}
           type="textarea"
           maxLength="100"
           className="comment-input"

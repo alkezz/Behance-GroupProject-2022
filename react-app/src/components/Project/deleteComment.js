@@ -14,7 +14,7 @@ function DeleteComment({ projectId, commentId, proj }) {
     const handleDeleteClick = () => {
 
         dispatch(deleteProjectComment(commentId));
-        history.push(`/gallery/${projectId}`);
+        // history.push(`/gallery/${projectId}`);
 
     };
 

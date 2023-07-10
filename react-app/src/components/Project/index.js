@@ -328,7 +328,7 @@ function ProjectGallery() {
                               <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
                               <div>
                                 <div style={{ paddingBottom: "10px" }}>{comments.User.first_name} {comments.User.last_name}</div>
-                                <div>{comments.comment}</div>
+                                <div style={{ paddingLeft: "60px" }}>{comments.comment}</div>
                               </div>
                             </div>
                           </div>
