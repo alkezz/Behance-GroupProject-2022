@@ -346,11 +346,13 @@ function ProjectGallery() {
                           <div style={{ marginBottom: "30px" }}>
                             {sessionUser?.id === comments?.user?.id && (
                               <>
-                                <div className='edit-comment'>
-                                  <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
-                                </div>
-                                <div className='delete-comment'>
-                                  <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                                <div className='edit-and-delete'>
+                                  <div className='edit-comment'>
+                                    <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+                                  </div>
+                                  <div className='delete-comment'>
+                                    <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                                  </div>
                                 </div>
                               </>
                             )}
