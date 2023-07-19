@@ -22,8 +22,36 @@ Welcome to Enhance, a web application for artists and afficionados to share and 
 
 ![Enhance Landing Page](https://user-images.githubusercontent.com/108154848/202875993-7f6589ce-6d4f-4f12-935e-ab4ec66a05eb.png)
 
+## Login/Signup Pages
+
+![Enhance Login Page](https://i.imgur.com/KOLRFF7.png)
+![Enhance Signup Page](https://i.imgur.com/avfUQBR.png)
+
+## Project Page
+
+![Enhance Project Page1](https://i.imgur.com/0PeWemw.png)
+![Enhance Project Page2](https://i.imgur.com/wViAbZO.png)
+
+## Create Project Form
+
+![Enhance Create Project](https://i.imgur.com/9f8tfxr.png)
+
+## Edit Project Form
+
+![Enhance Edit project](https://i.imgur.com/MsQIe10.png)
+
+## Profile Page Showing User Work
+
+![Enhance Profile Page](https://i.imgur.com/ZQNhaeR.png)
+
+## Profile Page Showing User Likes
+
+![Enhance Profile Page](https://i.imgur.com/Hv7E1kQ.png)
+
 ## Wiki Links
 
+[Direct Link To Wiki](https://github.com/alkezz/Behance-GroupProject-2022/wiki)
+<br>
 [Current Feature List](https://github.com/alkezz/Spotify-GroupProject-2022/wiki/Feature-List)
 <br>
 [DB Schema](https://github.com/alkezz/Spotify-GroupProject-2022/wiki/DB-Schema)
@@ -34,3 +62,11 @@ A demo user login has been provided for ease of access to all of the site's feat
 <br>
 <br>
 Enhance was a collaborative project built by Jon Park, Ali Ezzeddine, Philip Truong and Christo Grabowski
+<br>
+Jon Park: [Github](https://github.com/jonpark13) [LinkedIn](https://www.linkedin.com/in/jon-park-9b23b6142/)
+<br>
+Christo Grabowski: [Github](https://github.com/ChristoGrab) [LinkedIn](https://www.linkedin.com/in/christo-grabowski-894a82a6/)
+<br>
+Philip Truong: [Github](https://github.com/Ptruongg) [LinkedIn](https://www.linkedin.com/in/truongphilip408/)
+<br>
+Ali Ezzeddine: [Github](https://github.com/alkezz) [LinkedIn](http://linkedin.com/in/ali-k-ezzeddine)

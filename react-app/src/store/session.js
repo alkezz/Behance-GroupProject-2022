@@ -4,6 +4,7 @@ import { clearUserAppr } from "./appreciations";
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const EDIT_PROF_IMAGE = 'profile/editImg';
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -13,6 +14,13 @@ const setUser = (user) => ({
 const removeUser = () => ({
   type: REMOVE_USER,
 })
+
+const editProfileImage = (user) => {
+  return {
+      type: EDIT_PROF_IMAGE,
+      user
+  }
+}
 
 const initialState = { user: null };
 
@@ -77,7 +85,33 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-
+export const update = (data, id) => async (dispatch) => {
+  const {
+          user_image
+        } = data
+  const response = await fetch(`/api/users/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(
+      {user_image: user_image}
+    ),
+  });
+  if (response.ok) {
+    console.log(response, "RES")
+    const data2 = await response.json();
+    console.log(data2, "DATA")
+    dispatch(editProfileImage(data2))
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data) {
+      return data;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
 
 export const signUp = (username, email, password, firstName, lastName) => async (dispatch) => {
   const response = await fetch('/api/auth/signup', {
@@ -113,6 +147,8 @@ export default function reducer(state = initialState, action) {
       return { user: action.payload }
     case REMOVE_USER:
       return { user: null }
+    case EDIT_PROF_IMAGE:
+      return { user: action.user }
     default:
       return state;
   }

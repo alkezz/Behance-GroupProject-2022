@@ -3,7 +3,7 @@
 
 const GET_PROFILE = 'profile/getProfile'
 const GET_USER_PROJECTS = 'profile/projects'
-// const GET_SONG = 'songs/getSong'
+const EDIT_PROF_IMAGE = 'profile/editImg'
 // const ADD_SONG = 'songs/addSong'
 // const DELETE_SONG = 'songs/deleteSong'
 // const EDIT_SONG = 'songs/editSong'
@@ -23,12 +23,12 @@ const userProjects = (user) => {
         user
     }
 }
-// const getSong = (single_song) => {
-//     return {
-//         type: GET_SONG,
-//         single_song
-//     }
-// }
+const editProfileImage = (user) => {
+    return {
+        type: EDIT_PROF_IMAGE,
+        user
+    }
+}
 
 // const addSong = (song, user) => {
 //     return {
@@ -73,13 +73,34 @@ export const getUserProjects = (id) => async (dispatch) => {
     dispatch(userProjects(data))
     return data
 }
-// export const userSongsGrab = () => async (dispatch) => {
-//     const response = await csrfFetch('/api/songs/current')
-//     const data = await response.json()
-//     // console.log(data)
-//     dispatch(userTracks(data))
-//     return data;
-// };
+
+export const update = (data, id) => async (dispatch) => {
+    const {
+            profile_image
+          } = data
+    const response = await fetch(`/api/users/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        profile_image
+      ),
+    });
+    if (response.ok) {
+      console.log(response, "RES")
+      const data = await response.json();
+      console.log(data, "DATA")
+      dispatch(editProfileImage(data))
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data) {
+        return data;
+      }
+    } else {
+      return ['An error occurred. Please try again.']
+    }
+  }
 
 // export const songSingleGrab = (id) => async (dispatch) => {
 //     const response = await csrfFetch(`/api/songs/${id}`)
@@ -176,13 +197,13 @@ const profileReducer = (state = initialState, action) => {
             action.userforEach((project) => (getUserProjects[user.id] = project))
             return newState;
         }
-        // case GET_SONG:
-        //     return {
-        //         ...state,
-        //         singleSong: {
-        //             [action.single_song.id]: action.single_song
-        //         }
-        //     }
+        case GET_SONG:
+            return {
+                ...state,
+                singleSong: {
+                    [action.single_song.id]: action.single_song
+                }
+            }
         // case GET_USERTRACKS:
         //     let res = {}
         //     action.songs.Songs.forEach(e => {

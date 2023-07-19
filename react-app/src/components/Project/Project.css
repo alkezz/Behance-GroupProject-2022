@@ -408,6 +408,9 @@
     margin-bottom: 20px;
     margin-left: 10px;
 
+
+    margin: 5px
+
 }
 
 .reply-btn:hover{
@@ -494,6 +497,7 @@
     width: 75px;
 }
 
+
 .login-to-comment {
     /* display: flex; */
     margin-top: 20px;
@@ -553,3 +557,14 @@
     margin-top: 10px;
     margin-left: 10px;
 }
+=======
+.comment-options {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0px;
+}
+
+.comment-edit-box {
+    height: 140px;
+}
+

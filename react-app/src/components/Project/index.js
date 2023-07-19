@@ -11,6 +11,7 @@ import CreateComment from './createComment.js';
 import DeleteComment from './deleteComment.js';
 import EditCommentModal from './editModal.js';
 import MiniGallery from './otherWorks.js';
+import DeleteCommentModal from './deleteModal.js';
 
 function ProjectGallery() {
   const history = useHistory();
@@ -160,7 +161,7 @@ function ProjectGallery() {
                 {/* <Link className='projUsername' to={`/${proj.User.username}`}>
             <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
           </Link> */}
-                <img className='projUserIcon' src={avatar} alt="profile-avatar" height="45" width="45" />
+                <img className='projUserIcon' src={proj.User.user_image ? proj.User.user_image : avatar} onError={e => e.target.src = avatar} alt="profile-avatar" style={{width:"45px", height:"45px", borderRadius:"50%"}}/>
               </a>
               <div className='projUserSideBarText'>
                 Follow
@@ -188,7 +189,7 @@ function ProjectGallery() {
         {!!proj.User &&
           <div className='projUserInfo' onClick={test}>
             <div className='projUserInfoCont'>
-              <img className='projUserIcon' src={avatar} alt="profile-avatar" height="40" width="40" />
+              <img className='projUserIcon' src={proj.User.user_image ? proj.User.user_image : avatar} onError={e => e.target.src = avatar} alt="profile-avatar" style={{width:"40px", height:"40px", borderRadius:"50%"}} />
               <div className='projUserCont'>
                 <div className='projName'>
                   {proj.name}
@@ -260,7 +261,7 @@ function ProjectGallery() {
                     {proj.User &&
                       <>
                         <div className='avatar-username-div'>
-                          <img src={avatar} width="40" height="40" />
+                          <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} style={{width:"40px", height:"40px", borderRadius:"50%"}} />
                           <Link style={{ textDecoration: "none", fontSize: "18px", paddingLeft: "15px" }} to={`/${proj.User.username}`}>
                             {proj.User.first_name} {proj.User.last_name}
                           </Link>
@@ -306,6 +307,7 @@ function ProjectGallery() {
                   &nbsp;
                 </div>
                 <div className='comments-section'>
+
                   {sessionUser &&
                     <div className='create-comment'>
                       <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
@@ -313,6 +315,12 @@ function ProjectGallery() {
                       <CreateComment projectId={projectId} proj={proj} />
                     </div>
                   }
+
+                  <div className='create-comment'>
+                    <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} width="40" height="40" style={{ float: "left", marginRight: "20px", borderRadius:"50%" }} />
+                    <CreateComment projectId={projectId} proj={proj} />
+                  </div>
+
                   {!sessionUser &&
                     <div className='login-to-comment'>
                       <div className='login-title'>
@@ -331,12 +339,12 @@ function ProjectGallery() {
                   <hr id='hr-comments' />
                   {!!Object.values(comments) &&
                     Object.values(comments).map((comments) => {
-                      console.log('each comment', comments)
+                      // console.log('each comment', comments)
                       return (
                         <div>
                           <div className="each-comment" key={comments?.id}>
                             <div style={{ listStyle: "none" }}>
-                              <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+                              <img src={comments.User.user_image ? comments.User.user_image : avatar} width="40" height="40" style={{ float: "left", marginRight: "20px", borderRadius: "50%" }} />
                               <div>
                                 <div style={{ paddingBottom: "10px" }}>{comments.User.first_name} {comments.User.last_name}</div>
                                 <div style={{ paddingLeft: "60px" }}>{comments.comment}</div>
@@ -345,6 +353,7 @@ function ProjectGallery() {
                           </div>
                           <div style={{ marginBottom: "30px" }}>
                             {sessionUser?.id === comments?.user?.id && (
+
                               <>
                                 <div className='edit-and-delete'>
                                   <div className='edit-comment'>
@@ -353,8 +362,15 @@ function ProjectGallery() {
                                   <div className='delete-comment'>
                                     <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
                                   </div>
+
+                              <div className='comment-options'>
+                                <div className='edit-comment' style={{marginRight:"5px"}}>
+                                  <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
                                 </div>
-                              </>
+                                <div className='delete-comment' style={{marginLeft:"5px"}}>
+
+                                </div>
+                              </div>
                             )}
                             <br />
                           </div>
