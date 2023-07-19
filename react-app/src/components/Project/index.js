@@ -306,15 +306,26 @@ function ProjectGallery() {
                   &nbsp;
                 </div>
                 <div className='comments-section'>
-                  <div className='create-comment'>
-                    <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
-                    <CreateComment projectId={projectId} proj={proj} />
-                  </div>
+                  {sessionUser &&
+                    <div className='create-comment'>
+                      <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+                      {/* <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} width="40" height="40" style={{ float: "left", marginRight: "20px", borderRadius:"50%" }} /> */}
+                      <CreateComment projectId={projectId} proj={proj} />
+                    </div>
+                  }
                   {!sessionUser &&
-                    <div className='button-login-comment'>
-                      <button className='login-comment' onClick={() => history.push("/login")}>
-                        Log In
-                      </button>
+                    <div className='login-to-comment'>
+                      <div className='login-title'>
+                        Log In to join the conversation
+                      </div>
+                      <div className='login-description'>
+                        Add your feedback for {projectOwner.first_name} {projectOwner.last_name}'s project by logging in.
+                      </div>
+                      <div className='button-login-comment'>
+                        <button className='login-comment' onClick={() => history.push("/login")}>
+                          Log In
+                        </button>
+                      </div>
                     </div>
                   }
                   <hr id='hr-comments' />

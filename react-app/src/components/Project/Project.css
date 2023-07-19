@@ -478,14 +478,32 @@
 }
 
 .button-login-comment {
-    margin-right: 10px;
-    margin-left: 100px
+    margin-bottom: 20px;
+    margin-top: 20px;
+    bottom: 10;
 }
 .login-comment {
     border: none;
     border-radius: 20px;
     background-color: #0046cc;
     color: white;
-    height: 20px;
+    height: 30px;
     width: 75px;
+}
+
+.login-to-comment {
+    /* display: flex; */
+    margin-top: 20px;
+
+}
+.login-title {
+    display: flex;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+.login-description {
+    display: flex;
+    margin-top: 10px;
+    font-size: 15px;
 }
