@@ -29,6 +29,10 @@ function EditCommentForm({ projectId, onClick, commentId }) {
       setErrorsValidaitons(["Comment is required!!"])
       return;
     }
+    if (editedComment.length >= 75) {
+      setErrorsValidaitons(["Your comment is too long."])
+      return;
+    }
     const payload = {
       user_id: user.id,
       comment: editedComment,
@@ -44,6 +48,17 @@ function EditCommentForm({ projectId, onClick, commentId }) {
 
   }
   return (
+    <form className="edit-comment-form" onSubmit={handleSubmit}>
+      <div className="comment-textarea">
+        <div className='edit-comment-title'>Edit Your Comment</div>
+        <div className="editedComment-errors">
+          {errors.map((error, index) => (
+            <div key={index}>{error}</div>
+          ))}
+        </div>
+        <textarea
+          style={{ width: "100%", borderRadius: "10px", width: "493px", borderColor: "lightgray", marginBottom: "10px" }}
+
     <form className="edit-comment-form" onSubmit={handleSubmit} style={{display:"flex",width: "300px", resize: "none"}}>
       <div className="editedComment-errors">
         {errors.map((error, index) => (
@@ -53,6 +68,7 @@ function EditCommentForm({ projectId, onClick, commentId }) {
 
         <textarea
           style={{resize: "none"}}
+
           type="textarea"
           maxLength="281"
           className="comment-edit-box"
@@ -62,11 +78,18 @@ function EditCommentForm({ projectId, onClick, commentId }) {
           required
         />
 
+        <button className="reply-btn" type="submit" onClick={handleSubmit}>
+            Edit Comment
+        </button>
+      </div>
+
+
         <div className="reply-btn-div">
           <button className="reply-btn" type="submit" onClick={handleSubmit}>
             Edit Comment
           </button>
         </div>
+
     </form>
   );
 }

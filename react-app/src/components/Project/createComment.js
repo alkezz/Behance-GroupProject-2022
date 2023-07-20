@@ -111,6 +111,7 @@ const CreateComment = ({ projectId, proj }) => {
       </div>
       <div className="comment-textarea">
         <textarea
+          style={{width: "100%"}}
           style={{width: "100%", resize:"none"}}
           type="textarea"
           maxLength="100"

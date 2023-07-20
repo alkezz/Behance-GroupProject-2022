@@ -402,10 +402,15 @@
     font-size: 14px;
     width: 130px;
     height: 30px;
-    color: black;
+    color: rgb(0, 84, 220);
     font-weight: bold;
     padding: 5px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+
+
     margin: 5px
+
 }
 
 .reply-btn:hover{
@@ -479,18 +484,80 @@
 }
 
 .button-login-comment {
-    margin-right: 10px;
-    margin-left: 100px
+    margin-bottom: 20px;
+    margin-top: 20px;
+    bottom: 10;
 }
 .login-comment {
     border: none;
     border-radius: 20px;
     background-color: #0046cc;
     color: white;
-    height: 20px;
+    height: 30px;
     width: 75px;
 }
 
+
+.login-to-comment {
+    /* display: flex; */
+    margin-top: 20px;
+
+}
+.login-title {
+    display: flex;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+.login-description {
+    display: flex;
+    margin-top: 10px;
+    font-size: 15px;
+}
+.edit-and-delete {
+    display: flex;
+    margin-left: 60px;
+    margin-top: 10px;
+    height: 20px;
+}
+.edit-comment {
+    margin-right: 10px;
+    height: 10px;
+}
+.edit-comment-form {
+    border: none;
+    border-radius: 20px;
+    color: white;
+
+}
+.editedComment-errors {
+    margin-top: 10px;
+    color: red;
+}
+.comment-textarea {
+    display: block;
+    width: 500px;
+    height: 250px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    color: white;
+
+
+}
+.comment-input {
+    margin-top: 10px;
+
+}
+.edit-comment-title {
+    display: flex;
+    color: black;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+=======
 .comment-options {
     display: flex;
     flex-direction: row;
@@ -500,3 +567,4 @@
 .comment-edit-box {
     height: 140px;
 }
+

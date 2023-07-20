@@ -307,15 +307,33 @@ function ProjectGallery() {
                   &nbsp;
                 </div>
                 <div className='comments-section'>
+
+                  {sessionUser &&
+                    <div className='create-comment'>
+                      <img src={avatar} width="40" height="40" style={{ float: "left", marginRight: "20px" }} />
+                      {/* <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} width="40" height="40" style={{ float: "left", marginRight: "20px", borderRadius:"50%" }} /> */}
+                      <CreateComment projectId={projectId} proj={proj} />
+                    </div>
+                  }
+
                   <div className='create-comment'>
                     <img src={sessionUser.user_image ? sessionUser.user_image : avatar} onError={e => e.target.src = avatar} width="40" height="40" style={{ float: "left", marginRight: "20px", borderRadius:"50%" }} />
                     <CreateComment projectId={projectId} proj={proj} />
                   </div>
+
                   {!sessionUser &&
-                    <div className='button-login-comment'>
-                      <button className='login-comment' onClick={() => history.push("/login")}>
-                        Log In
-                      </button>
+                    <div className='login-to-comment'>
+                      <div className='login-title'>
+                        Log In to join the conversation
+                      </div>
+                      <div className='login-description'>
+                        Add your feedback for {projectOwner.first_name} {projectOwner.last_name}'s project by logging in.
+                      </div>
+                      <div className='button-login-comment'>
+                        <button className='login-comment' onClick={() => history.push("/login")}>
+                          Log In
+                        </button>
+                      </div>
                     </div>
                   }
                   <hr id='hr-comments' />
@@ -335,12 +353,22 @@ function ProjectGallery() {
                           </div>
                           <div style={{ marginBottom: "30px" }}>
                             {sessionUser?.id === comments?.user?.id && (
+
+                              <>
+                                <div className='edit-and-delete'>
+                                  <div className='edit-comment'>
+                                    <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+                                  </div>
+                                  <div className='delete-comment'>
+                                    <DeleteComment projectId={projectId} commentId={comments.id} proj={proj} />
+                                  </div>
+
                               <div className='comment-options'>
                                 <div className='edit-comment' style={{marginRight:"5px"}}>
                                   <EditCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
                                 </div>
                                 <div className='delete-comment' style={{marginLeft:"5px"}}>
-                                  <DeleteCommentModal projectId={projectId} commentId={comments.id} proj={proj} />
+
                                 </div>
                               </div>
                             )}
