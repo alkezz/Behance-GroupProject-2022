@@ -48,7 +48,7 @@ function EditCommentForm({ projectId, onClick, commentId }) {
 
   }
   return (
-    <form className="edit-comment-form" onSubmit={handleSubmit}>
+    <form className="edit-comment-form" onSubmit={handleSubmit} style={{ display: "flex", width: "300px", resize: "none" }}>
       <div className="comment-textarea">
         <div className='edit-comment-title'>Edit Your Comment</div>
         <div className="editedComment-errors">
@@ -56,18 +56,14 @@ function EditCommentForm({ projectId, onClick, commentId }) {
             <div key={index}>{error}</div>
           ))}
         </div>
+        <div className="editedComment-errors">
+          {errors.map((error, index) => (
+            <div key={index}>{error}</div>
+          ))}
+        </div>
+
         <textarea
           style={{ width: "100%", borderRadius: "10px", width: "493px", borderColor: "lightgray", marginBottom: "10px" }}
-
-    <form className="edit-comment-form" onSubmit={handleSubmit} style={{display:"flex",width: "300px", resize: "none"}}>
-      <div className="editedComment-errors">
-        {errors.map((error, index) => (
-          <div key={index}>{error}</div>
-        ))}
-      </div>
-
-        <textarea
-          style={{resize: "none"}}
 
           type="textarea"
           maxLength="281"
@@ -79,16 +75,16 @@ function EditCommentForm({ projectId, onClick, commentId }) {
         />
 
         <button className="reply-btn" type="submit" onClick={handleSubmit}>
-            Edit Comment
+          Edit Comment
         </button>
       </div>
 
 
-        <div className="reply-btn-div">
-          <button className="reply-btn" type="submit" onClick={handleSubmit}>
-            Edit Comment
-          </button>
-        </div>
+      <div className="reply-btn-div">
+        <button className="reply-btn" type="submit" onClick={handleSubmit}>
+          Edit Comment
+        </button>
+      </div>
 
     </form>
   );
