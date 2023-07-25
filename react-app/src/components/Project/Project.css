@@ -523,6 +523,11 @@
 .edit-comment {
     margin-right: 10px;
     height: 10px;
+
+}
+
+.edit-comment:hover {
+    color: #0046cc
 }
 .edit-comment-form {
     border: none;
@@ -556,15 +561,16 @@
     font-weight: bold;
     margin-top: 10px;
     margin-left: 10px;
+
 }
-=======
+
 .comment-options {
     display: flex;
     flex-direction: row;
     margin: 5px 0px;
+
 }
 
 .comment-edit-box {
     height: 140px;
 }
-
